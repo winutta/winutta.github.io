@@ -1,5 +1,5 @@
 var cols, rows;
-var scl = 20;
+var scl = 5;
 var w = 1200;
 var h = 1000;
 var heights = [];
