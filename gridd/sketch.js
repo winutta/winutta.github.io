@@ -52,16 +52,17 @@ function draw() {
    }
     yoff += 0.1;  
   }
-  for (var y = 0; y< cols-1; y++) {
+  for (var y = 0; y< cols-2; y++) {
     //let col = map(y/(cols-1),0,1,0,255);
     
     beginShape(TRIANGLE_STRIP);
-    for (var x = 0; x<rows-1; x++){
+    for (var x = 0; x<rows-1; x= x+2){
       fill(0,map(heights[x][y],-150,150,0,255),map(heights[x][y],-150,150,0,255));
       //console.log(heights[x][y+1]);
       //console.log(x,y)
       vertex(x*scl,y*scl-300,heights[x][y]);
       vertex(x*scl,(y+1)*scl-300,heights[x][y+1]);
+      vertex(x*scl,(y+2)*scl-300,heights[x][y+2]);
    }
     endShape();
   }
