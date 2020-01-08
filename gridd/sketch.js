@@ -25,8 +25,8 @@ function setup() {
 
 function draw() {
   background(0);
-  stroke(255);
-  //noStroke();
+  //stroke(255);
+  noStroke();
   noFill();
   rotateX(PI/3);
   translate(-h/2, -w/2)
