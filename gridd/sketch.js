@@ -53,11 +53,11 @@ function draw() {
     yoff += 0.1;  
   }
   for (var y = 0; y< cols-1; y++) {
-    let col = map(y/(cols-1),0,1,0,255);
-    fill(0,100,col);
+    //let col = map(y/(cols-1),0,1,0,255);
+    
     beginShape(TRIANGLE_STRIP);
     for (var x = 0; x<rows-1; x++){
-      
+      fill(0,100,map(heights[x][y],-150,150,0,255);
       //console.log(heights[x][y+1]);
       //console.log(x,y)
       vertex(x*scl,y*scl-300,heights[x][y]);
