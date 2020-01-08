@@ -1,7 +1,7 @@
 var cols, rows;
 var scl = 5;
-var w = 1200;
-var h = 1000;
+var w = 500;
+var h = 500;
 var heights = [];
 var flyingX = 0;
 var flyingY = 0;
