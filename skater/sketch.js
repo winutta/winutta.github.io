@@ -43,9 +43,9 @@ function draw() {
   fill(215,247,220);
   translate(0,0,1);
   if (keyIsDown(RIGHT_ARROW)){
-   xvel += 1; 
+   xvel += 2; 
   } else if (keyIsDown(LEFT_ARROW)){
-   xvel += -1; 
+   xvel += -2; 
   } else {
    xvel = xvel *0.8 
   }
