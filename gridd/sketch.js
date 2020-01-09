@@ -1,7 +1,7 @@
 var cols, rows;
-var scl = 10;
-var w = 1200;
-var h = 1000;
+var scl = 4;
+var w = 800;
+var h = 800;
 var heights = [];
 var flyingX = 0;
 var flyingY = 0;
@@ -14,10 +14,6 @@ function setup() {
   //console.log("Starting");
   for (let i = 0; i< rows;i++){
     heights.push([]);
-    for (let j = 0; j < cols; j++) {
-     heights[i].push(0); 
-    }
-    
   }
   
   
@@ -48,20 +44,21 @@ function draw() {
     //console.log(heights[x])
     //ightsx.push(random(-10,10))
     //console.log(heights[x][y]);
-    xoff += 0.1;
+    xoff += scl/300;
    }
-    yoff += 0.1;  
+    yoff += scl/300;  
   }
   for (var y = 0; y< cols-1; y++) {
     //let col = map(y/(cols-1),0,1,0,255);
     
     beginShape(TRIANGLE_STRIP);
     for (var x = 0; x<rows-1; x++){
-      fill(0,map(heights[x][y],-150,150,0,255),map(heights[x][y],-150,150,0,255));
+      let hval = map(heights[x][y],-150,150,0,255)
+      fill(0,hval,255-hval);
       //console.log(heights[x][y+1]);
       //console.log(x,y)
-      vertex(x*scl,y*scl-300,heights[x][y]);
-      vertex(x*scl,(y+1)*scl-300,heights[x][y+1]);
+      vertex(x*scl,y*scl-300,heights[x][y]-100);
+      vertex(x*scl,(y+1)*scl-300,heights[x][y+1]-100);
    }
     endShape();
   }
