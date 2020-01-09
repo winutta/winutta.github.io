@@ -1,5 +1,5 @@
 var cols, rows;
-var scl = 5;
+var scl = 1;
 var w = 500;
 var h = 500;
 var heights = [];
@@ -31,8 +31,8 @@ function draw() {
   rotateX(PI/3);
   translate(-h/2, -w/2)
   orbitControl();
-  let horiz = norms(map(mouseX, 0, width,0.1,-0.1),1);
-  let up = norms(map(mouseY, 0, height,0.1,-0.1),0.5);
+  let horiz = norms(map(mouseX, 0, width,0.1,-0.1),0.1);
+  let up = norms(map(mouseY, 0, height,0.1,-0.1),0.1);
   flyingX -= horiz;
   flyingY -= up;
   //console.log(mouseX,mouseY);
@@ -48,11 +48,11 @@ function draw() {
     //console.log(heights[x])
     //ightsx.push(random(-10,10))
     //console.log(heights[x][y]);
-    xoff += 0.1;
+    xoff += 0.01;
    }
-    yoff += 0.1;  
+    yoff += 0.01;  
   }
-  for (var y = 0; y< cols-2; y=y+2) {
+  for (var y = 0; y< cols-1; y++) {
     //let col = map(y/(cols-1),0,1,0,255);
     
     beginShape(TRIANGLE_STRIP);
@@ -62,7 +62,6 @@ function draw() {
       //console.log(x,y)
       vertex(x*scl,y*scl-300,heights[x][y]);
       vertex(x*scl,(y+1)*scl-300,heights[x][y+1]);
-      vertex(x*scl,(y+2)*scl-300,heights[x][y+2]);
    }
     endShape();
   }
