@@ -72,7 +72,7 @@ function draw() {
   fill(255);
   translate(0,90,10);
   //console.log(yacc);
-  if (paths.length < 100){
+  if (paths.length < 20){
     paths[paths.length] = new Path(0,0);
     paths[paths.length] = new Path(10,0);
     //paths.splice(paths.length-1,1,new Path());
