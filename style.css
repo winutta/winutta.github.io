@@ -5,3 +5,6 @@ html, body {
 canvas {
   display: block;
 }
+p {
+ padding-left: 50px; 
+}
