@@ -1,7 +1,7 @@
 var cols, rows;
-var scl = 15;
-var w = 500;
-var h = 500;
+var scl = 10;
+var w = 1200;
+var h = 1000;
 var heights = [];
 var flyingX = 0;
 var flyingY = 0;
@@ -48,9 +48,9 @@ function draw() {
     //console.log(heights[x])
     //ightsx.push(random(-10,10))
     //console.log(heights[x][y]);
-    xoff += 0.01;
+    xoff += 0.1;
    }
-    yoff += 0.01;  
+    yoff += 0.1;  
   }
   for (var y = 0; y< cols-1; y++) {
     //let col = map(y/(cols-1),0,1,0,255);
