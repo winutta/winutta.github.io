@@ -1,11 +1,11 @@
 var cols, rows;
-var scl = 10;
+var scl = 15;
 var w = 800;
 var h = 800;
 var heights = [];
 var flyingX = 0;
 var flyingY = 0;
-let flying = false;
+let flying = true;
 let horiz, up;
 
 function setup() {
