@@ -5,6 +5,8 @@ var h = 800;
 var heights = [];
 var flyingX = 0;
 var flyingY = 0;
+let flying = false;
+let horiz, up;
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight,WEBGL);
@@ -27,10 +29,12 @@ function draw() {
   rotateX(PI/3);
   translate(-h/2, -w/2)
   orbitControl();
-  let horiz = norms(map(mouseX, 0, width,0.1,-0.1),0.1);
-  let up = norms(map(mouseY, 0, height,0.1,-0.1),0.1);
-  flyingX -= horiz;
-  flyingY -= up;
+  if (flying){
+    horiz = norms(map(mouseX, 0, width,0.1,-0.1),0.1);
+    up = norms(map(mouseY, 0, height,0.1,-0.1),0.1);
+    flyingX -= horiz;
+    flyingY -= up;
+  }
   //console.log(mouseX,mouseY);
   //console.log(horiz,up);
 
@@ -64,6 +68,10 @@ function draw() {
    }
     endShape();
   }
+}
+
+function mouseClicked() {
+ flying = !flying; 
 }
 
 function norms(x,s) {
