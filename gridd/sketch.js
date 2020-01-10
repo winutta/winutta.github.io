@@ -28,7 +28,7 @@ function draw() {
   noFill();
   rotateX(PI/3);
   translate(-h/2, -w/2)
-  orbitControl();
+  //orbitControl();
   if (flying){
     horiz = norms(map(mouseX, 0, width,0.1,-0.1),0.1);
     up = norms(map(mouseY, 0, height,0.1,-0.1),0.1);
