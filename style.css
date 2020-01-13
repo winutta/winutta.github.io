@@ -92,11 +92,27 @@ h2 {
   width: 240px;
   height:110px;
 }
+#blanker {
+  border-radius: 10%;
+  background: url('stocky.png');
+  background-size: 240px 110px;
+  display: flex;
+  margin-left:530px;
+  margin-top:-155px;
+  width: 240px;
+  height:110px;
+}
 
 #ss {
   font-family: 'Caveat', cursive;
   position: relative;
-  left:265px;
+  left:260px;
+}
+
+#sts {
+  font-family: 'Caveat', cursive;
+  position: relative;
+  left:520px;
 }
 
 #ww {
