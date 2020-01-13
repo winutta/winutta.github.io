@@ -20,6 +20,8 @@ function preload() {
   //my table is comma separated value "csv"
   //and has a header specifying the columns labels
   table = loadTable('FB_2015_today.csv', 'csv', 'header');
+  soundFormats('mp3', 'ogg');
+  mySound = loadSound('bensound-jazzyfrenchy.mp3');
   //the file can be remote
   //table = loadTable("http://p5js.org/reference/assets/mammals.csv",
   //                  "csv", "header");
@@ -27,7 +29,8 @@ function preload() {
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
-
+  mySound.setVolume(0.27);
+  
   print(table.getRowCount() + ' total rows in table');
   print(table.getColumnCount() + ' total columns in table');
   for (let i = 0; i < table.getRowCount(); i++) {
@@ -65,7 +68,9 @@ function setup() {
 }
 
 function draw() {
-
+  if (!mySound.isPlaying()){
+    mySound.play();
+  }
 
   background(255);
   //square(width-10,height-100,10,10)
