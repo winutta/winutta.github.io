@@ -12,7 +12,7 @@ let ystep,xstep;
 let ypos = 0;
 let num_horiz = 60;
 let num_vert;
-let num_spaces = 12;
+let num_spaces = 52;
 let xoff = 0;
 let ypos2 = 0;
 
