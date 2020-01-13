@@ -6,6 +6,8 @@ var yvel = 10;
 var xvel = 0;
 var paths = [];
 var yacc = 0;
+let px,py;
+let x,y;
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight,WEBGL);
   
@@ -72,7 +74,7 @@ function draw() {
   fill(255);
   translate(0,90,10);
   //console.log(yacc);
-  if (paths.length < 20){
+  if (paths.length < 200){
     paths[paths.length] = new Path(0,0);
     paths[paths.length] = new Path(10,0);
     //paths.splice(paths.length-1,1,new Path());
@@ -84,8 +86,16 @@ function draw() {
   
   //console.log(paths);
   for (var i = 0; i< paths.length;i++){
+    px = paths[i].pos.x;
+    py = paths[i].pos.y;
     paths[i].update(-xvel,yvel);
-    paths[i].show(); 
+    x = paths[i].pos.x;
+    y = paths[i].pos.y;
+    strokeWeight(2);
+    //print(px,py,0,x,y,0);
+    stroke(0);
+    line(px,py,0,x,y,0);
+    //paths[i].show(); 
     //console.log(paths[i].pos.y);
   }
   
@@ -102,7 +112,7 @@ function draw() {
 
 
 function Path(xcurr,ycurr){
- this.pos = createVector(xcurr,ycurr);
+  this.pos = createVector(xcurr,ycurr);
   this.r = 10;
   
   this.update = function(xoffset,yoffset) {
