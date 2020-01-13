@@ -115,6 +115,12 @@ h2 {
   left:520px;
 }
 
+#music {
+  font-family: 'Caveat', cursive;
+  position: relative;
+  left:520px;
+  font-size:20%;
+}
 #ww {
   font-family: 'Pacifico', cursive;
   font-size: 75%;
