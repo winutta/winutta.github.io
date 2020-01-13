@@ -1,7 +1,7 @@
 let canvas;
 
 function setup() {
-  print(window.innerWidth,window.innerHeight);
+  //print(window.innerWidth,window.innerHeight);
   canvas = createCanvas(window.innerWidth, window.innerHeight-120);
   canvas.position(0,120);
   canvas.style("z-index","-1");
