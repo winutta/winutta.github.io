@@ -12,7 +12,7 @@ let ystep,xstep;
 let ypos = 0;
 let num_horiz = 60;
 let num_vert;
-let num_spaces = 52;
+let num_spaces = 12;
 let xoff = 0;
 let ypos2 = 0;
 
@@ -44,7 +44,7 @@ function setup() {
   m1 = max(rows);
   m0 = min(rows);
   
-  scaler = height*0.6;
+  scaler = height*1;
   
   midpoint = (m1 + m0)/2;
   multi = scaler/(m1-m0);
