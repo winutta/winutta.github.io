@@ -88,7 +88,7 @@ function draw() {
   for (var i = 0; i< paths.length;i++){
     px = paths[i].pos.x;
     py = paths[i].pos.y;
-    paths[i].update(-xvel,yvel);
+    paths[i].update(-xvel,yvel/10);
     x = paths[i].pos.x;
     y = paths[i].pos.y;
     strokeWeight(2);
