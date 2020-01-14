@@ -1,5 +1,10 @@
 let canvas;
-
+let ppmouseX = 0;
+let ppmouseY = 0;
+let pppmouseX = 0;
+let pppmouseY = 0;
+let d0 = 0;
+let d1 = 0;
 function setup() {
   //print(window.innerWidth,window.innerHeight);
   canvas = createCanvas(window.innerWidth, window.innerHeight-120);
@@ -7,16 +12,19 @@ function setup() {
   canvas.style("z-index","-1");
   
   background(255,255,255);
-  strokeWeight(4);
+  //strokeWeight(4);
+  stroke(0);
+  strokeWeight(2);
 }
 
 function draw() {
   
   noFill();
-  strokeWeight(2);
+  
   beginShape();
   
   if (mouseIsPressed) {
+    point(mouseX,mouseY);
     vertex(ppmouseX, ppmouseY); // first point
     d0 = pow(pow(ppmouseX-pppmouseX,2)+pow(ppmouseY-pppmouseY,2),0.5)/100;
     d1 =  pow(pow(pmouseX-mouseX,2)+pow(pmouseY-mouseY,2),0.5)/100;
