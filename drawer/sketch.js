@@ -15,7 +15,7 @@ window.addEventListener('touchmove', function (e) {
 
         firstMove = false;
     }
-});
+},{passive: false});
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
