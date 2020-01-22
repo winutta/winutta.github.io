@@ -33,7 +33,7 @@ function main() {
   loader.load("bounceBox.gltf",function(gltf){
 
     scene.add(gltf);
-    console.log("added asset");
+    console.log("added Full gltf");
     // gltf.animations; // Array<THREE.AnimationClip>
     // gltf.scene; // THREE.Scene
     // gltf.scenes; // Array<THREE.Scene>
