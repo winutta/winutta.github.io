@@ -31,7 +31,7 @@ function main() {
   
   var loader = new THREE.GLTFLoader();
 
-  loader.load("bounceBox.gltf",function(gltf){
+  loader.load("bounceBox.glb",function(gltf){
 	  
 	boxe = gltf.scene.children[0];
 	//boxe.name = “body”;
