@@ -34,7 +34,7 @@ function main() {
   loader.load("bounceBox.gltf",function(gltf){
 	  
 	boxe = gltf.scene.children[1];
-	boxe.name = “body”;
+	//boxe.name = “body”;
 	boxe.rotation.set ( 0, -1.5708, 0 );
 	boxe.scale.set (5,5,5);
 	boxe.position.set ( 0, 3.6, 0 );
