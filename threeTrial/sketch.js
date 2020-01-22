@@ -2,6 +2,7 @@
 
  
 function main() {
+  let boxe;
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
   renderer.setClearColor("#e5e5e5");
@@ -32,10 +33,16 @@ function main() {
 
   loader.load("bounceBox.gltf",function(gltf){
 	  
-	gltf.scene.traverse(function (child) {
-		if (child instanceof THREE.Mesh) {
-			scene.add(child);	
-		}
+	boxe = gltf.scene.children[1];
+	boxe.name = “body”;
+	boxe.rotation.set ( 0, -1.5708, 0 );
+	boxe.scale.set (5,5,5);
+	boxe.position.set ( 0, 3.6, 0 );
+	boxe.castShadow = true;
+	scene.add(boxe);
+	console.log("trying children 1");
+      //bus.frame.add(bus.body);
+	//gltf.scene.traverse(function (child) {
 	});
 //     gltf.scene.scale.set( 2, 2, 2 );			   
 // 	   gltf.scene.position.x = 0;				    //Position (x = right+ left-) 
