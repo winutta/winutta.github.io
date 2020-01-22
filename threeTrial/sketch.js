@@ -104,6 +104,7 @@ function main() {
   requestAnimationFrame(render);
   
  function mouseClicked(){
+	 console.log("mouseClicked");
 	 idle.enabled = !idle.enabled;
 // 	idle.setLoop(THREE.LoopOnce);
 //   	idle.reset();
