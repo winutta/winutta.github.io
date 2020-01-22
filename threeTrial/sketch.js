@@ -60,7 +60,7 @@ function main() {
 	idle = mixer.clipAction(idleAnim);
 	idle.play();
 	  
-	console.log("on off!");
+	console.log("rotation?");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
 	
@@ -94,13 +94,14 @@ function main() {
   
   
   function render(time) {
+	boxe.rotation.y = time;
     if (mixer) {
 	mixer.update(clock.getDelta());    
     }
     time *= 0.001;
 
     //cube.rotation.x = time;
-    cube.rotation.y = time;
+    
     
     renderer.render(scene,camera);
 
