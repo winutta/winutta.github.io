@@ -40,7 +40,7 @@ function main() {
 	boxe.position.set ( 0, 3.6, 0 );
 	boxe.castShadow = true;
 	scene.add(boxe);
-	console.log("trying children 1");
+	console.log("trying glb");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
 	
