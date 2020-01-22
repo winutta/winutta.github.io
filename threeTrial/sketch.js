@@ -95,7 +95,7 @@ function main() {
   
   
   function render(time) {
-	boxe.rotation.y = time;
+	//boxe.rotation.y = time;
     if (mixer) {
 	mixer.update(clock.getDelta());    
     }
