@@ -1,8 +1,8 @@
 
 
- 
+ let play_try;
 function main() {
-  let boxe,mixer,fileAnimations;
+  let boxe,mixer,fileAnimations,idle;
   let clock = new THREE.Clock()
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
@@ -51,7 +51,7 @@ function main() {
 	  
 	mixer = new THREE.AnimationMixer(boxe);
 	let idleAnim = THREE.AnimationClip.findByName(fileAnimations,'Bounce');
-	let idle = mixer.clipAction(idleAnim);
+	idle = mixer.clipAction(idleAnim);
 	idle.play();
 	  
 	console.log("trying glb at z = 20 along with the mixer");
@@ -103,7 +103,14 @@ function main() {
   }
   requestAnimationFrame(render);
   
-  
+ function mouseClicked(){
+	 idle.enabled = !idle.enabled;
+// 	idle.setLoop(THREE.LoopOnce);
+//   	idle.reset();
+//   	idle.play();	 
+ }
+	
+	
 }
 
 
