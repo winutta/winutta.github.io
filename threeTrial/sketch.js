@@ -6,10 +6,11 @@ function draw(){
 	
 }
 
- let play_try,idle;
-function main() {
-  let boxe,mixer,fileAnimations;
+ let play_try,idle,boxe,mixer;
+let fileAnimations;
   let clock = new THREE.Clock()
+function main() {
+  
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
   renderer.setClearColor("#e5e5e5");
