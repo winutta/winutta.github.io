@@ -25,15 +25,15 @@ function main() {
   
   const cube = new THREE.Mesh(geometry, material);
   
-  scene.add(cube);
+  //scene.add(cube);
 
   
   var loader = new THREE.GLTFLoader();
 
   loader.load("bounceBox.gltf",function(gltf){
 
-    scene.add(gltf.Object);
-
+    scene.add(gltf.Scene);
+    console.log("added scene");
     // gltf.animations; // Array<THREE.AnimationClip>
     // gltf.scene; // THREE.Scene
     // gltf.scenes; // Array<THREE.Scene>
