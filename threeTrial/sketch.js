@@ -2,7 +2,8 @@
 
  
 function main() {
-  let boxe;
+  let boxe,mixer,fileAnimations;
+  let clock = new THREE.Clock()
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
   renderer.setClearColor("#e5e5e5");
@@ -22,7 +23,6 @@ function main() {
   const boxHeight = 1;
   const boxDepth = 1;
   const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-  
   const material = new THREE.MeshBasicMaterial({color: 0x44aa88});
   
   
@@ -38,13 +38,23 @@ function main() {
   loader.load("bounceBox.glb",function(gltf){
 	  
 	boxe = gltf.scene.children[0];
+	fileAnimations = gltf.animations;
+	  
+	
 	//boxe.name = “body”;
 	boxe.rotation.set ( 0, -1.5708, 0 );
 	boxe.scale.set (5,5,5);
 	boxe.position.set ( 0, 3.6, 0 );
 	boxe.castShadow = true;
+	
 	scene.add(boxe);
-	console.log("trying glb at z = 20");
+	  
+	mixer = new THREE.AnimationMixer(boxe);
+	let idleAnim = THREE.AnimationClip.findByName(fileAnimations,'Bounce');
+	let idle = mixer.clipAction(idleAnim);
+	idle.play();
+	  
+	console.log("trying glb at z = 20 along with the mixer");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
 	
@@ -78,6 +88,9 @@ function main() {
   
   
   function render(time) {
+    if (mixer) {
+	mixer.update(clock.getDelta());    
+    }
     time *= 0.001;
 
     //cube.rotation.x = time;
