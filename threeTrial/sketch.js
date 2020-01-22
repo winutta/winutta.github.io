@@ -61,7 +61,7 @@ function main() {
 	idle = mixer.clipAction(idleAnim);
 	idle.play();
 	  
-	console.log("rotation?");
+	console.log("rotation?2");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
 	
