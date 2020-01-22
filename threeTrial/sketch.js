@@ -1,8 +1,14 @@
+function setup(){
+	
+}
 
+function draw(){
+	
+}
 
- let play_try;
+ let play_try,idle;
 function main() {
-  let boxe,mixer,fileAnimations,idle;
+  let boxe,mixer,fileAnimations;
   let clock = new THREE.Clock()
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
