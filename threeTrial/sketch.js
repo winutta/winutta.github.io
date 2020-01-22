@@ -32,8 +32,9 @@ function main() {
 
   loader.load("bounceBox.gltf",function(gltf){
 
-    //scene.add(gltf);
-    console.log(gltf.scene,gltf.scenes,gltf.animations,gltf.asset,gltf.cameras);
+    scene.add(gltf.scene);
+   console.log("loadingScene");
+    //console.log(gltf.scene,gltf.scenes,gltf.animations,gltf.asset,gltf.cameras);
     // gltf.animations; // Array<THREE.AnimationClip>
     // gltf.scene; // THREE.Scene
     // gltf.scenes; // Array<THREE.Scene>
