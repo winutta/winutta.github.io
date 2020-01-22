@@ -1,5 +1,5 @@
 function setup(){
-	
+main();
 }
 
 function draw(){
@@ -122,4 +122,4 @@ function main() {
 
 
 
-main();
+//main();
