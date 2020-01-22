@@ -12,7 +12,7 @@ function main() {
   const near = 0.1;
   const far = 20000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.z = 10;
+  camera.position.z = 20;
   
 
 	
@@ -44,7 +44,7 @@ function main() {
 	boxe.position.set ( 0, 3.6, 0 );
 	boxe.castShadow = true;
 	scene.add(boxe);
-	console.log("trying glb");
+	console.log("trying glb at z = 20");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
 	
