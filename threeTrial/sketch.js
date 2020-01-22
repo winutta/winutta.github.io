@@ -32,7 +32,10 @@ function main() {
 
   loader.load("bounceBox.gltf",function(gltf){
 	  
-	gltf.scene.traverse(function (child) {console.log(child)});
+	gltf.scene.traverse(function (child) {
+		if (child instanceof THREE.Mesh) {
+			scene.add(child);	
+		});
 //     gltf.scene.scale.set( 2, 2, 2 );			   
 // 	   gltf.scene.position.x = 0;				    //Position (x = right+ left-) 
 //     gltf.scene.position.y = 0;				    //Position (y = up+, down-)
