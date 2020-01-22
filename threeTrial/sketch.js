@@ -31,9 +31,12 @@ function main() {
   var loader = new THREE.GLTFLoader();
 
   loader.load("bounceBox.gltf",function(gltf){
-
+    gltf.scene.scale.set( 2, 2, 2 );			   
+	   gltf.scene.position.x = 0;				    //Position (x = right+ left-) 
+    gltf.scene.position.y = 0;				    //Position (y = up+, down-)
+	   gltf.scene.position.z = 0;
     scene.add(gltf.scene);
-   console.log("loadingScene");
+   console.log("Resizing and repositioning scene!");
     //console.log(gltf.scene,gltf.scenes,gltf.animations,gltf.asset,gltf.cameras);
     // gltf.animations; // Array<THREE.AnimationClip>
     // gltf.scene; // THREE.Scene
