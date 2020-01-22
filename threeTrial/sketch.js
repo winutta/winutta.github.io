@@ -12,8 +12,10 @@ function main() {
   const near = 0.1;
   const far = 20000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.z = 3;
+  camera.position.z = 10;
   
+
+	
   const scene = new THREE.Scene();
   
   const boxWidth = 1;
@@ -28,7 +30,9 @@ function main() {
   
   //scene.add(cube);
 
-  
+  hlight = new THREE.AmbientLight(0x404040,100);
+  scene.add(hlight);
+	
   var loader = new THREE.GLTFLoader();
 
   loader.load("bounceBox.glb",function(gltf){
