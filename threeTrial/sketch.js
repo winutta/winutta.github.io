@@ -54,7 +54,7 @@ function main() {
 	idle = mixer.clipAction(idleAnim);
 	idle.play();
 	  
-	console.log("trying glb at z = 20 along with the mixer");
+	console.log("on off!");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
 	
