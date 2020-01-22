@@ -43,7 +43,7 @@ function main() {
 	console.log("trying children 1");
       //bus.frame.add(bus.body);
 	//gltf.scene.traverse(function (child) {
-	});
+	
 //     gltf.scene.scale.set( 2, 2, 2 );			   
 // 	   gltf.scene.position.x = 0;				    //Position (x = right+ left-) 
 //     gltf.scene.position.y = 0;				    //Position (y = up+, down-)
