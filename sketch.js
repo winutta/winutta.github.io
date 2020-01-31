@@ -5,7 +5,7 @@ let pppmouseX = 0;
 let pppmouseY = 0;
 let d0 = 0;
 let d1 = 0;
-
+console.log("smooth lines and added eventlisteners");
 var firstMove;
 
 window.addEventListener('touchstart', function (e) {
