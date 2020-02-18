@@ -17,6 +17,10 @@ h1 {
   background-color: black;
 }
 
+.textLink{
+ text-decoration:none; 
+}
+
 .header{
  width:100%; 
   height: auto;
@@ -115,7 +119,7 @@ h1 {
   margin-bottom: 0;
   padding-top:0px;
   padding-left:0px;
-  font-size:125%;
+  font-size:375%;
   font-weight:100;
   font-family: 'Caveat', cursive;
   color: orange;
@@ -128,7 +132,7 @@ h1 {
   margin-bottom: 0;
   padding-top:0px;
   padding-left:0px;
-  font-size:100%;
+  font-size:300%;
   font-weight:100;
   font-family: 'Pacifico', cursive;
   color: white;
