@@ -49,6 +49,10 @@ h1 {
   background-color:none;
 }
 
+.textLink{
+ text-decoration:none; 
+}
+
 .small {
   font-family: 'Caveat', cursive;
   font-size:125%;
