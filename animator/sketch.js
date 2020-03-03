@@ -19,8 +19,9 @@ function setup() {
   
   saveButton = createButton("Save");
   playButton = createButton("Play");
-  clearButton = createButton("Clear Saved Drawings");
+  resetButton = createButton("Reset Saved Drawings");
   swirlyButton = createButton("Toggle Swirly");
+  clearButton = createButton("Clear Screen");
   // cyan = createButton("");
   // cyan.size(20,20);
   // cyan.position(200,200);
@@ -37,13 +38,15 @@ function setup() {
     colorButtons.push(createCButton(colors[i],280+i*20,15)); 
   }
   
-  rSlider = createSlider(2, 30, 10);
+  rSlider = createSlider(2, 50, 10);
   rSlider.position(20, 20);
 }
 
 function setColor(ind){
   stroke(colors[ind]);
 }
+
+
   
 
 function createCButton(rgb,x,y){
@@ -128,8 +131,9 @@ function setSwirly(){
       
       saveButton.mousePressed(saveDrawing);
       playButton.mousePressed(startAnim);
-      clearButton.mousePressed(clearDrawings);
+      resetButton.mousePressed(clearDrawings);
       swirlyButton.mousePressed(setSwirly);
+      clearButton.mousePressed(function() {clear();});
       for(let i = 0;i<colorButtons.length;i++){
          colorButtons[i].mousePressed(function() {setColor(i);});
       }
@@ -140,10 +144,8 @@ function setSwirly(){
     ppmouseY = pmouseY;
   }
 
-// function keyPressed() {
-//   if (keyCode === 32) {
-//     drawing = true;
-//   } else {
-//     drawing = false;
-//   }
-// }
+function keyPressed() {
+  if (keyCode === 86) {
+    saveDrawing();
+  }
+}
