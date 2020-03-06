@@ -29,13 +29,14 @@ function setup() {
   colors = [color(148,0,211,255),
             color(75,0,130,255),
            color(0,0,255,255),
+           color(0,0,108,255),
            color(0,255,0,255),
            color(255,255,0,255),
            color(255,127,0,255),
            color(255,0,0,255),
            color(255,255,255,255)];
   
-  for(let i = 0;i<8;i++){
+  for(let i = 0;i<colors.length;i++){
     colorButtons.push(createCButton(colors[i],280+i*20,15)); 
   }
   
