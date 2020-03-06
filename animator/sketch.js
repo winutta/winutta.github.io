@@ -20,6 +20,7 @@ function setup() {
   saveButton = createButton("Save");
   playButton = createButton("Play");
   resetButton = createButton("Reset Saved Drawings");
+  resetButton.position(window.innerWidth-resetButton.width-100,window.innerHeight-100,'sticky');
   swirlyButton = createButton("Toggle Swirly");
   clearButton = createButton("Clear Screen");
   // cyan = createButton("");
