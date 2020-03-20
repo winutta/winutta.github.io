@@ -68,7 +68,7 @@ function main(){
 		} else{
 			updateTime = true;
 		}
-		console.log(counter,updateTime);
+		//console.log(counter,updateTime);
 		counter = 0;
 
 	},1000);
