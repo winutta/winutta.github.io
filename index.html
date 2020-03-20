@@ -1,43 +1,26 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156686069-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-156686069-1');
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js">
-  </script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-  <link href="https://fonts.googleapis.com/css?family=Caveat|Pacifico&display=swap" rel="stylesheet">
-  <meta charset="utf-8" />
-  <title>Lablr Visualizations Homepage</title>
-  <script src="sketch.js"></script>
+	<link rel = "stylesheet" type = "text/css" href = "style2.css">
+	<meta charset = "utf-8"/>
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Caveat|Pacifico&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
-  <div class="header">
+	<canvas id = "c"></canvas>
+	<div class="header">
       <h1>
           <img class="imagestyle1" src="gridd.png" height="100" width="220">
-          <a class = "textLink" href = "https://lablr.org"><span id="big">L</span><span id="b2">ablr</span></a>
+        <a class = "textLink" href = "https://lablr.org"><span id="big">L</span><span id="b2">ablr</span></a>
           <div class = "menu">
             <ul>
               <li><a href = "#"><span class = "small">Info</span></a>
                 <ul>
-                  <li><a href = "https://lablr.org/about">About</a></li>
+                  <li><a href = "#">About</a></li>
                   <li><a href = "#">FAQ</a></li>
                   <li><a href = "#">Contact</a></li>
-                  <li><a href = "https://lablr.org/privacypolicy">Privacy Policy</a></li>
+                  <li><a href = "#">Privacy Policy</a></li>
                   <li><a href = "#">Terms and Conditions</a></li>
                 </ul>
               </li>
@@ -69,7 +52,55 @@
           </div>
       </div>
   </div>
-
 </body>
+<script type = "x-shader/x-vertex" id = "vertShader">
+	varying vec2 vUv;
+    uniform float iTime;
 
+      void main()
+      {
+      	vUv = uv;
+ 		//apply the transformation to the position! in the space of the threejs scene
+ 	
+ 		vec4 modelViewPosition = modelViewMatrix * vec4(position,1.0);
+        gl_Position = projectionMatrix * modelViewPosition;
+      
+      }
+
+</script>
+
+<script type = "x-shader/x-shader" id = "fragShader">
+	varying vec2 vUv;
+	uniform float iTime;
+
+    uniform vec2 res;                   //The width and height of our screen
+    
+
+   void main() {   
+		float speed = 0.0001;
+		float scale = 0.002;
+		vec2 p = (gl_FragCoord.xy/res.xy - vec2(0.5))*2.0;
+    	p.x *= res.x/res.y;
+    	p *= 0.5;
+		//p.x += iTime/2.;
+
+		for(int i=1; i<10; i++){
+		    p.x+=0.3/float(i)*sin(float(i)*3.*p.y+iTime*speed*1.)+iTime*speed*0.2;
+		    p.y+=0.3/float(i)*cos(float(i)*3.*p.x+iTime*speed*1.);
+		}
+		//p.xy += iTime*10.;
+		    
+		float t = iTime*1.0;
+		float gbOff = p.x;
+		float gOff = 0.0+p.y;
+		float rOff = -0.0;
+		float r=cos(p.x+p.y+1.+rOff)*.5+.5;
+		float g=sin(p.x+p.y+1.+gbOff+gOff)*.5+.5;
+		float b=(sin(p.x+p.y+gbOff)+cos(p.x+p.y+gbOff))*.3+.5;
+		vec3 color = (vec3(r/2.,g,b)+1.0)/2.0;
+		//vec3 color = vec3(p.x,p.y,0.0);
+		gl_FragColor = vec4(color,1);
+	}
+</script>
+	<script src = "threeSketch.js"></script>
 </html>
