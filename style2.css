@@ -36,7 +36,7 @@ h1 {
 .header{
  width:100%; 
   height: auto;
-  position: absolute;
+  position: relative;
 }
 
 .header .menu{
@@ -105,7 +105,8 @@ h1 {
 
 .Viz-table{
   display: table;         
-  width: 100%;         
+  width: 100%;   
+  position: relative;
 /*   background-color: #eee;  */
   background: None;
 /*   border: 1px solid #666666;         
