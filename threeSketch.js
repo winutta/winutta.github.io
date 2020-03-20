@@ -54,11 +54,23 @@ function main(){
 	//Create objects/lights and add them to the scene here!
 
 	function render(time){
-		planeM.uniforms.iTime.value = time;
+		if(updateTime){
+			planeM.uniforms.iTime.value = time;
+		}
 		renderer.render(scene,camera);
-
+		counter++;
 		requestAnimationFrame(render);
 	}
+	setInterval(function(){
+		if(counter <30){
+			updateTime = false;
+		} else{
+			updateTime = true;
+		}
+		console.log(counter,updateTime);
+		counter = 0;
+
+	},1000);
 
 	requestAnimationFrame(render);
 
