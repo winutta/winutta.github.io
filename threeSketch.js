@@ -1,7 +1,8 @@
 //Takes care of necessities: Canvas, Renderer, Scene, Camera
 //Establishes the simplest renderering loop
 //Copy and add to this file
-
+let counter = 0;
+let updateTime = true;
 function main(){
 	const canvas = document.getElementById("c");
 	const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
