@@ -50,18 +50,18 @@ function main(){
 
 
 
-	// canvas.addEventListener('click', function (event) {
-	// 	//console.log("hi");
-	//   if (canvas.requestFullscreen) {
-	// 	    canvas.requestFullscreen();
-	// 	  } else if (canvas.mozRequestFullScreen) { /* Firefox */
-	// 	    canvas.mozRequestFullScreen();
-	// 	  } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-	// 	    canvas.webkitRequestFullscreen();
-	// 	  } else if (canvas.msRequestFullscreen) { /* IE/Edge */
-	// 	    canvas.msRequestFullscreen();
-	// 	  }
-	// });
+	canvas.addEventListener('click', function (event) {
+		//console.log("hi");
+	  if (canvas.requestFullscreen) {
+		    canvas.requestFullscreen();
+		  } else if (canvas.mozRequestFullScreen) { /* Firefox */
+		    canvas.mozRequestFullScreen();
+		  } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+		    canvas.webkitRequestFullscreen();
+		  } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+		    canvas.msRequestFullscreen();
+		  }
+	});
 
 	
 	const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
@@ -185,8 +185,8 @@ earthC.flipY = false;
 				if (o.isMesh){
 				o.material = newMat;
 				var me = o.clone();
-				me.position.set(0,-500,0);
-				me.scale.set(1500,1500,1500)	
+				me.position.set(0,-200,0);
+				me.scale.set(400,400,400)	
 				//me.rotation.x = Math.PI;			
 				scene.add(me);
 				collidableMeshs.push(me);
