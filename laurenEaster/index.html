@@ -102,12 +102,12 @@ vec3 hsv2rgb( in vec3 c )
       //for tall images
 
       //crop and center along y axis 
-      //st.y += 0.5;
-      //st.y *= R.y/R.x;
+      st.y += 0.5;
+      st.y *= R.y/R.x;
 
       //center on x axis without cropping
       //st.x -= 0.25;
-      st.x *= 1.*(R.x/R.y);
+      //st.x *= 1.*(R.x/R.y);
       
 
 
