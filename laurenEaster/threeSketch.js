@@ -64,7 +64,7 @@ function main(){
 		14:"JPG",
 		15:"JPG",
 		16:"JPG",
-		17:"png",
+		17:"PNG",
 		18:"JPG",
 		19:"JPG",
 		20:"jpeg",
