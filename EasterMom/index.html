@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Domine&display=swap" rel="stylesheet">
+	<meta charset = "utf-8"/>
+  <meta name="viewport" content="height=device-height, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+</head>
+<body>
+  <!-- <input type="range" min="0" max="360" value="180" class="slider" id="myRange"> -->
+  <div id = container>
+	<canvas id = "c"></canvas>
+
+  <div class = "text">
+
+  <div class = "title" id = "hed">Happy Easter!</div>
+  <div class = "text_body" id = "bod"> On this day we did this! and the pastor said all shall be well and then we went to get ice cream and had sprinkles on it with fudge as well</div>
+  </div>
+</div>
+  <!-- <video id = "video" loop crossOrigin="anonymous" playinline style = "display:none" muted = "muted" > -->
+  <!-- <source src="images/Lauren/waves.mov"> -->
+  <!-- <source src="movie.ogg" type="video/ogg"> -->
+  <!-- Your browser does not support the video tag. -->
+<!-- </video> -->
+
+</body>
+<script type = "x-shader/x-vertex" id = "vertShader">
+	varying vec2 vUv;
+    uniform float iTime;
+
+      void main()
+      {
+      	vUv = uv;
+ 		//apply the transformation to the position! in the space of the threejs scene
+ 	
+ 		vec4 modelViewPosition = modelViewMatrix * vec4(position,1.0);
+        gl_Position = projectionMatrix * modelViewPosition;
+      
+      }
+
+</script>
+
+<script type = "x-shader/x-shader" id = "fragShader">
+	varying vec2 vUv;
+	uniform float iTime;
+  uniform float dT;
+    uniform vec2 res;                   //The width and height of our screen
+    uniform sampler2D tex;
+    uniform vec2 tD; 
+    uniform float hue;
+    uniform float rot;
+
+#define PI 3.1415926538
+
+vec2 rotate(vec2 v, float a) {
+  float s = sin(a);
+  float c = cos(a);
+  mat2 m = mat2(c, -s, s, c);
+  return m * v;
+}
+
+vec3 sfloor( vec3 v, int n){
+    vec3 o = v - vec3(0.5);
+    for(int i = 0; i<100; i++){
+      if(i>=n){break;}
+      o = o - sin(2.*PI*o)/(2.*PI);
+    }
+    return o;
+}
+
+float sfloor( float v, int n){
+    float  o = v - 0.5;
+    for(int i = 0; i<100; i++){
+      if(i>=n){break;}
+      o = o - sin(2.*PI*o)/(2.*PI);
+    }
+    return o;
+}
+
+vec3 hsl2rgb( vec3 c )
+{
+    vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
+
+    return c.z + c.y * (rgb-0.5)*(1.0-abs(2.0*c.z-1.0));
+}
+
+vec3 hsv2rgb( in vec3 c )
+{
+    vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
+    rgb = rgb*rgb*(3.0-2.0*rgb);
+    return c.z * mix( vec3(1.0), rgb, c.y);
+}
+
+   void main() {
+      vec2 R = res.xy;
+    	vec2 st = (gl_FragCoord.xy/res.xy);
+      
+      //st.x *= tD.x/tD.y;
+
+
+      //for tall images
+
+      //crop and center along y axis 
+      st.y += 0.5;
+      st.y *= R.y/R.x;
+
+      //center on x axis without cropping
+      //st.x -= 0.25;
+    	//st.x *= 1.*(R.x/R.y);
+      
+
+
+      //st.x += R.x/2. - (R.x/R.y)/2.;
+      //st.y += 0.21;
+      
+      //st.x += 0.125;
+      st = fract(st);
+      //st = rotate(st,-PI/2.);
+      vec2 st2 = vec2(st.y*-1. + 1.,st.x);
+      //st = st2*(1.-rot) + st*rot;
+
+
+
+      float linterp = abs(fract(iTime/10.)*2. - 1.);
+    
+      //float m =sfloor(vec3(linterp*10.),3).x;
+      float m = 4.;
+
+      const int r = 4;
+      float n = 0.;
+      float f = 0.;
+      vec3 fV = vec3(0.);
+      
+      for(int i = -r;i<r+1;i++){
+          for(int j = -r;j<r+1;j++){
+
+
+          if(pow(pow(float(i),2.)+pow(float(j),2.),0.5) < float(r)) {
+      
+      vec3 val = texture2D(tex, st.xy+vec2(float(i)/R.x,float(j)/R.y)).xyz;
+          
+      float fVal = (val.x+val.y+val.z)/3.;
+      //val = val/fVal;
+      val = vec3(fVal);
+
+      val = clamp(sfloor(val*m,3),0.001,m-1.)/m;
+              
+      fV += val;
+      n += 1.;
+      }
+          }}
+          
+
+      fV /= n;
+
+      fV = sfloor(fV*m,3)/m;
+      
+      fV = pow(fV,vec3(1.));
+
+      float tim = 5.;
+
+      float v = mod(iTime,2.*tim);
+
+      v = step(tim,v);
+
+      float sL = sfloor(linterp*m,1)/m;
+
+      //float v = 0.;
+      
+      //float switchcolor = fV.x*0.16+0.65*v;
+      float oh = step(0.5,hue);
+
+      float sines = (0.6 - (cos((hue)*PI * 6.)/4.)*(1.-hue))-(hue/4.);
+
+      fV = hsl2rgb(vec3(hue,sines,0.4 +fV.x*0.6));
+      //fV = hsv2rgb(vec3(hue,0.9,0.4 +fV.x*0.6));
+
+      //float switchcolor = fV.x*(-v + (1.-v)*1.3)*0.16+0.65*v;
+      //fV = hsl2rgb(vec3(switchcolor,0.4,0.4 - (0.2*v) +fV.x*0.6));
+      //fV = hsl2rgb(vec3(sL,0.45,0.2 +fV.x*0.6));
+     //fV = hsl2rgb(vec3(fV.x*-0.1+ 0.3,0.5,fV.x));
+
+     //fV = pow(fV,vec3(1./2.2));
+
+      vec3 col = fV;
+
+    
+
+      //vec3 col = texture2D( tex, st ).xyz;
+
+      gl_FragColor = vec4(col,1.0);
+     }
+</script>
+	<script src = "threeSketch.js"></script>
+</html>
