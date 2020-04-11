@@ -175,7 +175,7 @@ function main(){
 	var listMess = {0:"I want to tell you why I feel so lucky you are my Sister!",
 					1: "You have come running in when I needed you ",
 					2: "You embrace me whether I am happy or sad",
-					3: "You celebrate with me when I succeed",
+					3: "You celebrate with me when I succeed     ",
 					4: "We make the most beautiful food and explore culinary deliciousness",
 					5: "We are silly and explore amazing things in the world",
 					6: "You express your care and energy to those you love",
