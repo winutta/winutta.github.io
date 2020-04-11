@@ -153,7 +153,7 @@ function main(){
 	for(let i = 0; i<numPhotos;i){
 	
 		//var t0 = new THREE.TextureLoader().load( 'Lauren/'+i.toString()+'.' + photoTypes[i] ,function(){});
-		var t0 = new THREE.TextureLoader().load( 'dadFull/'+i.toString()+'.jpg' ,function(){});
+		var t0 = new THREE.TextureLoader().load( 'dadHalfR/'+i.toString()+'.jpg' ,function(){});
 
 		t0.minFilter = THREE.LinearFilter;
 		t0.magFilter = THREE.LinearFilter;
