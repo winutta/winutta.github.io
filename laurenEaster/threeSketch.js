@@ -25,13 +25,16 @@ function main(){
 	// });
 
 	const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	//renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setSize( window.innerHeight*0.75, window.innerHeight );
 	renderer.setClearColor(0xE88D27,1);// a nice burnt orange color
-	const width = window.innerWidth;
+	const width = window.innerHeight*0.75;
+	//const width = window.innerWidth;
 	const scene = new THREE.Scene();
 
 	const fov = 75;
-	const aspect =  window.innerWidth/window.innerHeight;
+	// const aspect =  window.innerWidth/window.innerHeight;
+	const aspect =  (window.innerHeight*0.75)/window.innerHeight;
 
 	const near = 0.1;
 	const far = 2000;
@@ -300,11 +303,15 @@ function main(){
 
 	function onWindowResize(){
 
-	planeM.uniforms.res.value = new THREE.Vector2(window.innerWidth,window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
+	// planeM.uniforms.res.value = new THREE.Vector2(window.innerWidth,window.innerHeight);
+ //    camera.aspect = window.innerWidth / window.innerHeight;
+ 	planeM.uniforms.res.value = new THREE.Vector2(window.innerHeight*0.75,window.innerHeight);
+    camera.aspect = (window.innerHeight*0.75) / window.innerHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize( window.innerWidth, window.innerHeight );
+     renderer.setSize( window.innerHeight*0.75, window.innerHeight );
+
+    // renderer.setSize( window.innerWidth, window.innerHeight );
 
 	}
 
