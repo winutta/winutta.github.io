@@ -154,19 +154,20 @@ function main(){
 	// texture.format = THREE.RGBFormat;
 
 	const planeG = new THREE.PlaneGeometry(w,h,32);
-	const planeM = new THREE.ShaderMaterial({
-		uniforms: {
-			tD : {value: new THREE.Vector2(0.,1.)},
-			dT : {type : 'f', value: dur},
-			tex: { type: "t", value: texture },
-			iTime: {type: 'f', value: 0.0},
-			hue: {type: 'f', value: 0.0},
-			rot: {type: 'f', value: 0.0},
-			res: {value: new THREE.Vector2(window.innerWidth,window.innerHeight)}	
-		},
-		vertexShader: document.getElementById("vertShader").textContent,
-		fragmentShader: document.getElementById("fragShader").textContent,
-	});
+	const planeM = new THREE.MeshBasicMaterial({map:texture});
+// 	const planeM = new THREE.ShaderMaterial({
+// 		uniforms: {
+// 			tD : {value: new THREE.Vector2(0.,1.)},
+// 			dT : {type : 'f', value: dur},
+// 			tex: { type: "t", value: texture },
+// 			iTime: {type: 'f', value: 0.0},
+// 			hue: {type: 'f', value: 0.0},
+// 			rot: {type: 'f', value: 0.0},
+// 			res: {value: new THREE.Vector2(window.innerWidth,window.innerHeight)}	
+// 		},
+// 		vertexShader: document.getElementById("vertShader").textContent,
+// 		fragmentShader: document.getElementById("fragShader").textContent,
+// 	});
 
 	const plane = new THREE.Mesh(planeG,planeM);
 	scene.add(plane);
@@ -315,12 +316,13 @@ function main(){
 
 	function render(time){
 		time *= 0.001;
-		planeM.uniforms.iTime.value = time;
-		planeM.uniforms.dT.value = dur;
-		//console.log(texture);
-		planeM.uniforms.tex.value = texture;
-		planeM.uniforms.hue.value = hVal;
-		planeM.uniforms.rot.value = rVal;
+// 		planeM.uniforms.iTime.value = time;
+// 		planeM.uniforms.dT.value = dur;
+// 		//console.log(texture);
+// 		planeM.uniforms.tex.value = texture;
+// 		planeM.uniforms.hue.value = hVal;
+// 		planeM.uniforms.rot.value = rVal;
+		planeM.map = texture;
 		// if(tRes){
 		// 	planeM.uniforms.tD.value = new THREE.Vector2(tRes.x,tRes.y);
 		// }
