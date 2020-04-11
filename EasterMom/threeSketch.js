@@ -181,7 +181,7 @@ function main(){
 					4: "We have eaten cookies, muffins, and feasts Gallore",
 					5: "We find ourselves by cherishing nature and the elements along the path",
 					6: "And don’t forget the stories told over coffee and breakfast",
-					7: "Even through we may face difficulty, and fear and just want to curl up on the couch",
+					7: "Even though we may face difficulty, and fear and just want to curl up on the couch",
 					8: "We can always come together to bring good cheer and deliciousness too!"};
 
 	var listCounts = {0:1,
