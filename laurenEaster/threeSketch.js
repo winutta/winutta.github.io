@@ -214,19 +214,19 @@ function main(){
 	var currP = 0;
 	var inter;
 
-	var slider = document.getElementById("myRange");
+// 	var slider = document.getElementById("myRange");
 
-	slider.oninput = function(){
-		hVals[number] = slider.value/360;
-		hVal = slider.value/360;
-		console.log(hVals);
-		text_head.innerHTML = (slider.value/360).toFixed(3);
-	}
+// 	slider.oninput = function(){
+// 		hVals[number] = slider.value/360;
+// 		hVal = slider.value/360;
+// 		console.log(hVals);
+// 		text_head.innerHTML = (slider.value/360).toFixed(3);
+// 	}
 	texture = textures[currP+numOffset];
 	text_body.innerHTML = listMess[number];
 	hVal = hVals[number];
 	// text_head.innerHTML = (hVal).toFixed(3);
-	slider.value = Number(hVal)*360;
+// 	slider.value = Number(hVal)*360;
 
 	var cont = document.getElementById("container");
 
@@ -243,7 +243,7 @@ function main(){
 		inter = setInterval(function(){
 			numOffset++;
 			if(numOffset>=listCounts[number]) numOffset = 0;
-			console.log(numOffset,currP);
+// 			console.log(numOffset,currP);
 			texture = textures[currP+numOffset];
 			rVal = photoRot[currP + numOffset];
 		},1500);
@@ -251,7 +251,7 @@ function main(){
 		
 		hVal = hVals[number];
 		// text_head.innerHTML = (hVal).toFixed(3);
-		slider.value = Number(hVal)*360;
+// 		slider.value = Number(hVal)*360;
 		
 		
 	});
@@ -273,7 +273,7 @@ function main(){
 	inter = setInterval(function(){
 			numOffset++;
 			if(numOffset>=listCounts[number]) numOffset = 0;
-			console.log(numOffset,currP);
+// 			console.log(numOffset,currP);
 			texture = textures[currP+numOffset];
 			rVal = photoRot[currP + numOffset];
 	},1500);
@@ -282,7 +282,7 @@ function main(){
 
 	hVal = hVals[number];
 	// text_head.innerHTML = (hVal).toFixed(3);
-	slider.value = Number(hVal)*360;
+// 	slider.value = Number(hVal)*360;
 
 
     return false;
