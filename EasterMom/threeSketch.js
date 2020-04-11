@@ -220,7 +220,7 @@ function main(){
 	// 	text_head.innerHTML = (slider.value/360).toFixed(3);
 	// }
 	texture = textures[currP+numOffset];
-	text_body.innerHTML = listMess[number];
+	text_body.innerText = listMess[number];
 	hVal = hVals[number];
 	// text_head.innerHTML = (hVal).toFixed(3);
 	// slider.value = Number(hVal)*360;
@@ -249,7 +249,7 @@ function main(){
 
 			makeRightSize();
 		},1500);
-		text_body.innerHTML = listMess[number];
+		text_body.innerText = listMess[number];
 	});
 
 	cont.addEventListener('contextmenu', function(ev) {
@@ -276,7 +276,7 @@ function main(){
 			makeRightSize();
 	},1500);
 
-	text_body.innerHTML = listMess[number];
+	text_body.innerText = listMess[number];
 	hVal = hVals[number];
     return false;
 	}, false);
