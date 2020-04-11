@@ -58,7 +58,7 @@ canvas{
 
 .text .title {
 	position: absolute;
-	font-size:2.85em;
+	font-size:7em;
 	/*border: 5px solid green;*/
 	font-family: 'Dancing Script', cursive;
 	/*height: 25%;*/
@@ -76,7 +76,7 @@ canvas{
 	position: absolute;
 	/*border: 5px solid green;*/
 	background-color: rgba(200,200,200,.8);
-	font-size: 1.8em;
+	font-size: 4em;
 	font-family: 'Domine', serif;
 	width: 62%;
 	height: 25%;
