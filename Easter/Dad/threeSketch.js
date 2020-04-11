@@ -172,6 +172,7 @@ function main(){
 
 	var text_body =  document.getElementById("bod");
 	var text_head = document.getElementById("hed");
+	var text_count = document.getElementById("count");
 	var listMess = {0:"I want to tell you some of why I feel lucky that you are my Dad!",
 					1: "You have always shown me the wonderful adventures that are out there in life",
 					2: "You have helped me to feel safe and strong in times of big change",
@@ -218,6 +219,7 @@ function main(){
 	// }
 	texture = textures[currP+numOffset];
 	text_body.innerText = listMess[number];
+	text_count.innerText = (numOffset + 1).toString() + "/" + listCounts[number].toString();
 	hVal = hVals[number];
 	// text_head.innerHTML = (hVal).toFixed(3);
 	// slider.value = Number(hVal)*360;
@@ -234,6 +236,7 @@ function main(){
 		if(number>= numSections) number = 0;
 		texture = textures[currP+numOffset];
 		rVal = photoRot[currP + numOffset];
+		text_count.innerText = (numOffset + 1).toString() + "/" + listCounts[number].toString();
 
 		makeRightSize();
 
@@ -243,6 +246,7 @@ function main(){
 			//console.log(numOffset,currP);
 			texture = textures[currP+numOffset];
 			rVal = photoRot[currP + numOffset];
+			text_count.innerText = (numOffset + 1).toString() + "/" + listCounts[number].toString();
 
 			makeRightSize();
 		},1500);
@@ -261,6 +265,7 @@ function main(){
 
 	texture = textures[currP + numOffset];
 	rVal = photoRot[currP + numOffset];
+	text_count.innerText = (numOffset + 1).toString() + "/" + listCounts[number].toString();
 
 	makeRightSize();
 
@@ -270,6 +275,7 @@ function main(){
 			console.log(numOffset,currP);
 			texture = textures[currP+numOffset];
 			rVal = photoRot[currP + numOffset];
+			text_count.innerText = (numOffset + 1).toString() + "/" + listCounts[number].toString();
 			makeRightSize();
 	},1500);
 
