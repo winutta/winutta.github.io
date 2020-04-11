@@ -90,3 +90,13 @@ canvas{
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%)
 }
+
+.text .counter {
+	position: absolute;
+	font-family: 'Dancing Script', cursive;
+	font-size:6em;
+	/*border: 5px solid green;*/
+	width: 8%;
+	right: 0%;
+	bottom: 0%;
+}
