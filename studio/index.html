@@ -63,6 +63,8 @@ void main(){
     uniform sampler2D cBuffer;
     uniform float nL;
     uniform float sR;
+    uniform int smoothV;
+    uniform float colored;
 
 #define PI 3.1415926538
 
@@ -74,7 +76,7 @@ vec2 rotate(vec2 v, float a) {
 }
 
 vec3 sfloor( vec3 v, int n){
-    vec3 o = v - vec3(0.5);
+    vec3 o = v;
     for(int i = 0; i<100; i++){
       if(i>=n){break;}
       o = o - sin(2.*PI*o)/(2.*PI);
@@ -83,7 +85,7 @@ vec3 sfloor( vec3 v, int n){
 }
 
 float sfloor( float v, int n){
-    float  o = v - 0.5;
+    float  o = v;
     for(int i = 0; i<100; i++){
       if(i>=n){break;}
       o = o - sin(2.*PI*o)/(2.*PI);
@@ -97,6 +99,34 @@ vec3 hsl2rgb( vec3 c )
 
     return c.z + c.y * (rgb-0.5)*(1.0-abs(2.0*c.z-1.0));
 }
+
+vec3 rgb2hsl2(vec3 c){
+  float cMin=min(min(c.r,c.g),c.b),
+        cMax=max(max(c.r,c.g),c.b),
+        delta=cMax-cMin;
+  vec3 hsl=vec3(0.,0.,(cMax+cMin)/2.);
+  if(delta!=0.0){ //If it has chroma and isn't gray.
+    if(hsl.z<.5){
+      hsl.y=delta/(cMax+cMin); //Saturation.
+    }else{
+      hsl.y=delta/(2.-cMax-cMin); //Saturation.
+    }
+    float deltaR=(((cMax-c.r)/6.)+(delta/2.))/delta,
+          deltaG=(((cMax-c.g)/6.)+(delta/2.))/delta,
+          deltaB=(((cMax-c.b)/6.)+(delta/2.))/delta;
+    //Hue.
+    if(c.r==cMax){
+      hsl.x=deltaB-deltaG;
+    }else if(c.g==cMax){
+      hsl.x=(1./3.)+deltaR-deltaB;
+    }else{ //if(c.b==cMax){
+      hsl.x=(2./3.)+deltaG-deltaR;
+    }
+    hsl.x=fract(hsl.x);
+  }
+  return hsl;
+}
+
 
    void main() {
       vec2 R = res.xy;//need to scale R by canvScale.x/w, canvScale.y/h from camera1;
@@ -131,6 +161,9 @@ vec3 hsl2rgb( vec3 c )
       float n = 0.;
       float f = 0.;
       vec3 fV = vec3(0.);
+
+      vec3 tVal = texture2D(tex, st.xy).xyz;
+      tVal = rgb2hsl2(tVal);
       
       for(int i = -r;i<r+1;i++){
           for(int j = -r;j<r+1;j++){
@@ -143,9 +176,9 @@ vec3 hsl2rgb( vec3 c )
           
       float fVal = (val.x+val.y+val.z)/3.;
 
-      val = vec3(fVal);
+      val = rgb2hsl2(val)*colored + vec3(fVal)*(1.-colored);
 
-      //val = clamp(sfloor(val*m,1),0.0,m-1.)/(m-1.);
+      val = clamp(sfloor(val*(m-0.5)-0.25,1),0.0,m-1.)/(m-1.);
               
       fV += val;
       n += 1.;
@@ -155,11 +188,13 @@ vec3 hsl2rgb( vec3 c )
 
       fV /= n;
 
-      fV = clamp(sfloor(fV*m,3),0.0,m-1.)/(m-1.);
+      fV = clamp(sfloor(fV*(m-0.5)-0.25,smoothV),0.0,m-1.)/(m-1.);
       //fV = floor(fV*m)/(m);
 
+      tVal.z = fV.z;
+      tVal = hsl2rgb(tVal);
 
-      vec3 col = texture2D(cBuffer,vec2(fV.x,0.0)).xyz;
+      vec3 col = tVal*colored + (1.-colored)*texture2D(cBuffer,vec2(fV.x,0.0)).xyz;
       //vec3 col = vec3(fV.x);
 
       gl_FragColor = vec4(col,1.0);
