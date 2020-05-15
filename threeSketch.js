@@ -23,7 +23,7 @@ function main(){
 	var h = 2 * Math.tan( vFOV / 2 ) * camera.position.z;
 	var w = h * aspect;
 
-	const planeG = new THREE.PlaneGeometry(w,h,32);
+	const planeG = new THREE.PlaneGeometry(1,1,32);
 	const planeM = new THREE.ShaderMaterial({
 		uniforms: {
 			iTime: {type: 'f', value: 0.0},
@@ -34,16 +34,19 @@ function main(){
 	});
 
 	const plane = new THREE.Mesh(planeG,planeM);
+	plane.scale.set(w,h,1);
 	scene.add(plane);
-
+	
 	document.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	function onWindowResize(){
 
 	planeM.uniforms.res.value = new THREE.Vector2(window.innerWidth,window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    	camera.aspect = window.innerWidth / window.innerHeight;
+    	camera.updateProjectionMatrix();
+	w = h*camera.apect;
+	plane.scale.set(w,h,1);
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
