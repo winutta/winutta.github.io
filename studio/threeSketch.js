@@ -317,7 +317,7 @@ class Partition {
 
 }
 
-let selObjs = [],colObjs = [],saveObjs = [],clickableObjs = [],toggleFilterObjs = [];
+let selObjs = [],colObjs = [],saveObjs = [],clickableObjs = [],toggleFilterObjs = [],toggleColorObjs = [];
 let freePosition = true;
 let imgLoaded = false;
 
@@ -393,47 +393,94 @@ function main(){
 
 	var hS = 0.1/aspect;
 
+	var minN = 0, maxN = 12;
+	var numbers = [];
+	
+	var lTwidth;
+	createNumbers(minN,maxN);
+
 	var Part1 = new Partition(w,h,opaqueScene,rect1);
 
 	var sliderW = 0.55;
-	var rect11 = Part1.drawRect(sliderW,0.075,1-sliderW-0.05,hS,"green",true,0);
+
+
+	var h11 = hS;
+
+	var rect11 = Part1.drawRect(sliderW,0.075,1-sliderW-0.05,h11,"green",true,0);
 	var circ11 = Part1.addSlider(rect11,"layers");
 	Part1.addBorder(circ11);
 
+	var t11 = 1*hS+ 0.075*0.5+ rect11.radius/Part1.h;
 
-	var rect12 = Part1.drawRect(sliderW,0.075,1-sliderW-0.05,2*hS+ 0.075,"green",true,0);
+	Part1.addText(0.4,0.03,t11,"Layers","layers");
+
+	var layerNumbs =[];
+	addNumbers(2,12,1-sliderW- 0.05 - 0.05,t11,Part1,7,layerNumbs,rect11);
+
+	var h12 = 2*hS+ 0.075;
+	
+	var rect12 = Part1.drawRect(sliderW,0.075,1-sliderW-0.05,h12,"green",true,0);
 	var circ12 = Part1.addSlider(rect12,"blur");
 	Part1.addBorder(circ12);
 
-	Part1.addText(0.4,0.03,1*hS+ 0.075*0.5+ rect12.radius/Part1.h,"Layers","layers");
-	Part1.addText(0.4,0.03,2*hS+ 0.075*1.5+ rect12.radius/Part1.h,"Blur","blur");
+	var t12 = 2*hS+ 0.075*1.5+ rect12.radius/Part1.h;
+
+	var blurNumbs = [];
+	addNumbers(0,8,1-sliderW- 0.05 - 0.05,t12,Part1,4,blurNumbs,rect12);
+
+	
+	Part1.addText(0.4,0.03,t12,"Blur","blur");
+
+	var h1S = 3*hS+ 0.075*2;
+
+	var rect1S = Part1.drawRect(sliderW,0.075,1-sliderW-0.05,h1S,"green",true,0);
+	var circ1S = Part1.addSlider(rect1S,"smooth");
+	Part1.addBorder(circ1S);
+
+	var t1S = 3*hS+ 0.075*2.5+ rect1S.radius/Part1.h;
+
+	var smoothNumbs = [];
+	addNumbers(0,8,1-sliderW- 0.05 - 0.05,t1S,Part1,4,smoothNumbs,rect1S);
+
+	
+	Part1.addText(0.4,0.03,t1S,"Smooth","smooth");
 
 
-	var rect13 = Part1.drawRect(0.8,0.075,0.1,4*hS+ 2*0.075,new THREE.Color("rgb(100,100,200)"),false,1);
+	
+
+
+	
+
+	var h13 = 5*hS+ 3*0.075;
+
+
+	var rect13 = Part1.drawRect(0.8,0.075,0.1,h13,new THREE.Color("rgb(100,100,200)"),false,1);
 	Part1.addBorder(rect13);
 	saveObjs.push(rect13);
 	// Part1.addBevelBar(rect13);
 
 	Part1.addTextinBox(0.35,"Save Canvas to JPG","save", rect13);
 
-	var rect14 = Part1.drawRect(0.8,0.075,0.1,5*hS+ 3*0.075,new THREE.Color("rgb(20,100,200)"),false,1);
+	var h14 = 6*hS+ 4*0.075;
+
+	var rect14 = Part1.drawRect(0.8,0.075,0.1,h14,new THREE.Color("rgb(20,100,200)"),false,1);
 	toggleFilterObjs.push(rect14);
 	Part1.addBorder(rect14);
 	// Part1.addBevelBar(rect13);
 
 	Part1.addTextinBox(0.35,"Toggle Filter","toggle", rect14);
 
+	var h15 = 7*hS+ 5*0.075;
 
-	var minN = 0, maxN = 12;
-	var numbers = [];
-	var layerNumbs =[];
-	var lTwidth;
-	createNumbers(minN,maxN);
+	var rect15 = Part1.drawRect(0.8,0.075,0.1,h15,new THREE.Color("rgb(100,50,100)"),false,1);
+	toggleColorObjs.push(rect15);
+	Part1.addBorder(rect15);
+	// Part1.addBevelBar(rect13);
+
+	Part1.addTextinBox(0.35,"Toggle Color","colored", rect15);
+
+
 	
-	addNumbers(2,12,1-sliderW- 0.05 - 0.05,1*hS+ 0.075*0.5+ rect12.radius/Part1.h,Part1,7,layerNumbs,rect11);
-
-	var blurNumbs = [];
-	addNumbers(0,8,1-sliderW- 0.05 - 0.05,2*hS+ 0.075*1.5+ rect12.radius/Part1.h,Part1,4,blurNumbs,rect12);
 	
 	
 	var Part2 = new Partition(w,h,opaqueScene,rect2);
@@ -881,13 +928,16 @@ function main(){
 			res: {value: new THREE.Vector2(window.innerWidth,window.innerHeight)},
 			cBuffer: {type: "t", value: renderTarget.texture},
 			nL: {type: 'f', value: 7.},
-			sR: {type: 'f', value: 4.}
+			sR: {type: 'f', value: 4.},
+			smoothV: {type: 'i', value: 1},
+			colored: {type: 'f', value: 1},
 		},
 		transparent:true,
 		side: THREE.DoubleSide,
 		vertexShader: document.getElementById("vertShader").textContent,
 		fragmentShader: document.getElementById("fragShader").textContent,
-	})
+	});
+	console.log(typeof(3),"hi");
 	const can = new THREE.Mesh(canG,canM2);
 	can.position.set(0,0,0.505);
 	canv.add(can);
@@ -1310,7 +1360,7 @@ function main(){
 
 
 			if(Math.abs(slide1) != pickHelper.pickedObject.currN){
-				console.log(pickHelper.pickedObject.currN,slide1);
+				// console.log(pickHelper.pickedObject.currN,slide1);
 				pickHelper.pickedObject.numbs[pickHelper.pickedObject.currN].visible = false;
 				pickHelper.pickedObject.numbs[Math.abs(slide1)].visible = true;
 				pickHelper.pickedObject.currN = Math.abs(slide1);
@@ -1323,11 +1373,13 @@ function main(){
 			}
 
 			var selection = pickHelper.pickedObject.selection;
-			console.log(selection);
+			// console.log(selection);
 			if(selection == "layers"){
 			canM2.uniforms.nL.value = slide1 + pickHelper.pickedObject.minN;
 			} else if (selection == "blur"){
 			canM2.uniforms.sR.value = slide1 + pickHelper.pickedObject.minN;
+			} else if(selection == "smooth"){
+				canM2.uniforms.smoothV.value = slide1 + pickHelper.pickedObject.minN;
 			}
 			
 
@@ -1367,6 +1419,10 @@ function main(){
 		 	toggleFilter();
 		 }
 
+		if(toggleColorObjs.includes(pickHelper.pickedObject)){
+			canM2.uniforms.colored.value = 1-canM2.uniforms.colored.value;
+		}
+
 	}
 
 	canvas.addEventListener("click",clickHandler);
@@ -1379,6 +1435,7 @@ function main(){
 	window.addEventListener('mouseout', clearPickPosition);
 	window.addEventListener('mouseleave', clearPickPosition);
 
+	document.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	function onWindowResize(){
@@ -1447,6 +1504,7 @@ function main(){
 	clickableObjs.push(...saveObjs);
 	clickableObjs.push(...slideObjs);
 	clickableObjs.push(...toggleFilterObjs);
+	clickableObjs.push(...toggleColorObjs);
 
 	function render(time){
 
