@@ -36,7 +36,7 @@ function main(){
 	const plane = new THREE.Mesh(planeG,planeM);
 	scene.add(plane);
 
-	window.addEventListener( 'resize', onWindowResize, false );
+	document.addEventListener( 'resize', onWindowResize, false );
 
 	function onWindowResize(){
 
