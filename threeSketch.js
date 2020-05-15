@@ -37,6 +37,7 @@ function main(){
 	scene.add(plane);
 
 	document.addEventListener( 'resize', onWindowResize, false );
+	window.addEventListener( 'resize', onWindowResize, false );
 
 	function onWindowResize(){
 
