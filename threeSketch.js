@@ -45,7 +45,7 @@ function main(){
 	planeM.uniforms.res.value = new THREE.Vector2(window.innerWidth,window.innerHeight);
     	camera.aspect = window.innerWidth / window.innerHeight;
     	camera.updateProjectionMatrix();
-	w = h*camera.apect;
+	w = h*camera.aspect;
 	plane.scale.set(w,h,1);
 
     renderer.setSize( window.innerWidth, window.innerHeight );
