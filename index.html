@@ -13,57 +13,390 @@
 	
 	<script data-ad-client="ca-pub-8305041882060873" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-	<link rel = "stylesheet" type = "text/css" href = "style3.css">
+	<!-- <link rel = "stylesheet" type = "text/css" href = "style3.css"> -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <link href="https://fonts.googleapis.com/css?family=Caveat|Pacifico|Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200&display=swap" rel="stylesheet">
+  <style>
+
+
+    * {
+      -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+
+      /*box-sizing: border-box;*/
+    }
+
+    html{
+      overflow-x:hidden;
+      /*overflow-y:visible;*/
+    }
+
+    html, body {
+      /*position:absolute;*/
+      display:block;
+      margin: 0;
+      padding: 0;
+      /*width:100vw;*/
+      height:100vh;
+      
+      /*overflow:none;*/
+      /*scroll-margin: 50px 0 0 50px;*/
+      /*overflow-y:hidden;*/
+      position: static;
+       /*border: 1px solid #666666;   */
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      padding:0;
+      margin:0;
+      left:0px;
+      top: 0px;
+      /*border: 1px solid red;*/
+      height:100vh;
+      z-index: -1;
+    }
+
+    .container{
+      /*border: 1px orange solid;*/
+      padding:0;
+      margin:0;
+      z-index:1;
+      width:100%;
+      height:100%;
+    }
+
+    .wrapper{
+      /*border: 1px orange solid;*/
+      display:grid;
+      column-gap: 0.5em;
+      row-gap: 0.5em;
+    }
+
+    #header{
+      /*border: 1px blue solid;*/
+      background-color: black;
+      grid-template-columns: minmax(0,auto) minmax(0,0.95fr) minmax(0,auto);
+      /*width:200%;*/
+      width:100vw;
+      height: 15vh;
+    }
+
+    #header >div {
+      color: white;
+      padding:0;
+      margin:0;
+      /*border: 1px red solid;*/
+    }
+
+    .dot {
+      display:-webkit-flex;
+      display:flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      /*border: 1px green solid;  */
+    }
+
+    .cornerImage{
+
+
+      /*border: 1px green solid;  */
+      position:relative;
+      bottom:10%;
+      background: url('images/swirl.jpg');
+      background-size: 100% 100%;
+      height: min(9vh, 9vw);
+      width: min(16.5vh, 16.5vw);
+
+    }
+
+
+    .tText {
+      /*border: 1px green solid;  */
+      display:-webkit-flex;
+      display:flex;
+      justify-content: center;
+      align-items: flex-end;
+      font-weight:100;
+      position:relative;
+      left:50%;
+      transform: translate(-50%,0%);
+      text-decoration: none;
+      
+    }
+
+    #t1 {
+      /*border: 1px red solid; */
+      line-height: 80%;
+      position:relative;
+      bottom:10%;
+      font-size: min(15vh,25vw);
+      font-family: 'Caveat', cursive;
+      color: orange;
+    }
+
+    #t2 {
+      /*border: 1px red solid;*/
+      position:relative;
+      bottom:10%;
+      line-height: 100%;
+      font-size: min(12vh, 20vw);
+      font-family: 'Pacifico', cursive;
+      color: white;
+    }
+
+    .menuText{
+      
+      /*border: 1px green solid;  */
+      position:relative;
+      bottom:10%;
+      line-height: 100%;
+      font-size: 8vh;
+      font-family: 'Pacifico', cursive;
+    }
+
+    .menu{
+      /*border: 1px red solid;*/
+      display:flex;
+      display:-webkit-flex;
+      align-self: flex-end;
+    }
+
+    .menu ul {
+      /*position:relative;*/
+      display: none;
+      position: absolute;
+      padding: 0;
+      margin:0;
+      top: 15vh;
+      width:15vw;
+      right:0%;
+      background-color: black;
+      border-bottom-left-radius: 0.5rem;
+
+    }
+
+    .menu ul a{
+      text-decoration: none;
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      position:relative;
+      left:10%;
+    }
+
+    .menu ul li{
+      /*float: left; */
+      /*position:relative;*/
+      /*left:10%;*/
+      list-style:none;
+      /*position: relative;*/
+    }
+
+    .menu ul li:hover {
+      background-color: #484848;
+      border-bottom-left-radius: 0.5rem;
+    }
+    
+    .menu:hover ul{
+      display: block;
+    }
+    
+
+    .information{
+      /*border: 1px red solid;*/
+      /*font-size:10vh;*/
+     /* position: relative;*/
+      /*top:85%;*/
+      width: 100vw;
+      height:auto;
+      font-family: 'Raleway', sans-serif;
+      font-weight:200;
+    }
+
+    .information > p{
+      margin-top: 2rem;
+      /*margin-bottom:0;*/
+      /*border: 1px green solid;*/
+      padding-left:4rem;
+      padding-right:4rem;
+      font-weight:400;
+
+
+    }
+
+    #tagline {
+      font-size: min(10vh,6vw);
+    }
+
+    #message {
+      font-size: min(5vh,3vw);
+    }
+
+    #contentGrid{
+      /*border: 1px red solid;*/
+      display:grid;
+      margin-left:4rem;
+      margin-right:4rem;
+      padding:none;
+      flex-wrap: wrap;
+
+      /*column-gap: fill;*/
+      column-gap: ;
+      grid-template-columns:repeat(auto-fit, minmax(300px,auto));
+      /*width:200%;*/
+      width:auto;
+      height: auto;
+      justify-items: center;
+      /*justify-content: space-between;*/
+      /*align-content; space-around;*/
+      /*padding-left:-10px;
+      padding-right:-10px;*/
+      /*grid-auto-columns: minmax(300px,auto);*/
+      /*grid-auto-rows: minmax(164px,auto);*/
+      /*justify-content: center;*/
+      /*align-content: center;*/
+    }
+
+    #contentGrid > a {
+      /*object-fit: fill;*/
+      /*margin-right:2.5vw;
+      margin-left:2.5vw;*/
+      /*margin: 2.5vw;*/
+      /*border: 1px green solid;*/
+      font-family: 'Raleway', sans-serif;
+      font-size: min(6vh,4vw) ;
+      font-weight:400;
+      /*width: 300px;*/
+
+      text-decoration: none;
+      color: black;
+      /*justify-self: center;*/
+    }
+
+
+    #contentGrid > a > div{
+    
+      border-radius: 0.5rem;
+      /*background: url('gridd.png');*/
+      background-size: 300px 164px;
+      display: flex; 
+      width: 300px;
+      height:164px;
+    }
+
+    #contentGrid > a > p {
+      margin-bottom:0.5rem;
+      margin-top: 1rem;
+      text-align: center;
+      /*justify-self: center;*/
+    }
+
+/*    #contentGrid > div > p {
+      margin-bottom:0;
+      margin-top: 1rem;
+      text-align: center;
+      
+    }*/
+
+    #gridRunner {
+      background: url('images/gridd.png');
+    }
+
+    #studioRoom {
+      background: url('images/studio.png');
+    }
+
+    #drawer {
+      background: url('images/169drawing.png');
+    }
+
+    #space {
+      background: url('images/space.png');
+    }
+
+    #eclipse {
+      background: url('images/world.png');
+    }
+
+
+
+
+
+
+  </style>
 	<meta charset = "utf-8"/>
 	<script src = "three.min.js"></script>
 	
-	<link href="https://fonts.googleapis.com/css?family=Caveat|Pacifico&display=swap" rel="stylesheet">
+	
 </head>
 <body>
 	<canvas id = "c"></canvas>
-	<div class="header">
-      <h1>
-          <img class="imagestyle1" src="gridd.png" height="100" width="220">
-        <a class = "textLink" href = "https://lablr.org"><span id="big">L</span><span id="b2">ablr</span></a>
-          <div class = "menu">
-            <ul>
-              <li><a href = "#"><span class = "small">Info</span></a>
-                <ul>
-                  <li><a href = "https://lablr.org/about">About</a></li>
-                  <li><a href = "#">FAQ</a></li>
-                  <li><a href = "#">Contact</a></li>
-                  <li><a href = "https://lablr.org/privacypolicy">Privacy Policy</a></li>
-                  <li><a href = "#">Terms and Conditions</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-      </h1>
-    
-  </div>
+  <div class = "container">
 
-  <div id="Introduction">
-      <p><span class="small">Explore the visualizations of LABLR</span></p>
-      <!--<span> hi there </span>-->
-  </div>
+    <div class = wrapper id = "header">
+        <a href = "https://lablr.org/" class = "tText">
+          <span id = "t1">L</span><span id = "t2">ablr</span>
+        </a>
+        <div class = "dot">
+          <div class = "cornerImage">  
+        </div>
+     </div>
 
-  <div class="Viz-table">
-      <div class="Viz-row">
-          <div class = "Viz-col">
-              <a id="blecker" href="https://lablr.org/gridd/" target="_blank"></a>
-              <span id = "ww">WIGGLE WAVE</span>
-          </div>
-          <div class= "Viz-col">
-              <a id="blocker" href="https://lablr.org/skater/" target="_blank"></a>
-              <span id = "ss">SWIVEL SKATE</span>
-          </div>
-          <div class = "Viz-col">
-            <a id="blanker" href="https://lablr.org/stocky/" target="_blank"></a>
-            <span id = "sts"> STOCK SCROLLER</span>
-            <span id = "music"> music by BENSOUND</span>
-          </div>
+      <div class = "menu">
+        <div class = "menuText">
+          menu
+        </div>
+        <ul>
+          <li><a href = "https://lablr.org/about">About</a></li>
+          <li><a href = "#">FAQ</a></li>
+          <li><a href = "#">Contact</a></li>
+          <li><a href = "https://lablr.org/privacypolicy">Privacy Policy</a></li>
+          <li><a href = "#">Terms and Conditions</a></li>
+        </ul> 
       </div>
+    </div> 
+
+
+    <div class = "information">
+        <p id = "tagline">Relax. Reset. Explore.</p>
+        <p id = "message">
+          Try visualizations, experiences, simulations, and more. 
+        </p>
+    </div>
+
+    <div class = "wrapper" id = "contentGrid">
+      <a href = "https://lablr.org/gridd/">
+        <div id = "gridRunner"></div>
+        <p>Grid Runner</p>
+      </a>
+      <a href = "https://lablr.org/studio/">
+        <div id = "studioRoom"></div>
+        <p>Art Lab</p>
+      </a>
+      <a href = "https://lablr.org/drawer/">
+        <div id = "drawer"></div>
+        <p>Drawing Tool</p>
+      </a>
+      <a href = "https://lablr.org/space/">
+        <div id = "space"></div>
+        <p>Space Ball</p>
+      </a>
+      <a href = "https://lablr.org/eclipse/">
+        <div id = "eclipse"></div>
+        <p>Eclipse</p>
+      </a>
+      
+    </div>
+
   </div>
+
+
 </body>
 <script type = "x-shader/x-vertex" id = "vertShader">
 	varying vec2 vUv;
@@ -84,6 +417,7 @@
 <script type = "x-shader/x-shader" id = "fragShader">
 	varying vec2 vUv;
 	uniform float iTime;
+  uniform vec2 M;
 
     uniform vec2 res;                   //The width and height of our screen
     
@@ -92,8 +426,21 @@
 		float speed = 0.0001;
 		float scale = 0.002;
 		vec2 p = (gl_FragCoord.xy/res.xy - vec2(0.5))*2.0;
+    vec2 p2 = gl_FragCoord.xy/res.xy;
+
+    vec2 M2 = M/res;
+    M2.y = 1.-M2.y;
+    
+    //M2.x *= res.x/res.y;
+    //M2 *= 0.5;
+
+
     	p.x *= res.x/res.y;
     	p *= 0.5;
+
+      float l = smoothstep(0.0,1.,length(p2-M2));
+
+      p += (1.-l)*(p2-M2)/(0.2 + l*25.);
 		//p.x += iTime/2.;
 
 		for(int i=1; i<10; i++){
@@ -109,8 +456,12 @@
 		float r=cos(p.x+p.y+1.+rOff)*.5+.5;
 		float g=sin(p.x+p.y+1.+gbOff+gOff)*.5+.5;
 		float b=(sin(p.x+p.y+gbOff)+cos(p.x+p.y+gbOff))*.3+.5;
-		vec3 color = (vec3(r/2.,g,b)+1.0)/2.0;
+    float ro = smoothstep(0.5,0.0,r);
+		//vec3 color = (vec3(r/2.,g,b)+1.0)/2.0;
 		//vec3 color = vec3(p.x,p.y,0.0);
+    //r = clamp(0.,1.,(r-1.)*0.1 + 1.);
+    vec3 color = vec3(r*(122./255.)+ ro,r*(169./255.)+ro,r*(245./255.)+ro);
+  
 		gl_FragColor = vec4(color,1);
 	}
 </script>
