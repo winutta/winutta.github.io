@@ -8,7 +8,7 @@ function main(){
 	const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
 	var width = document.body.scrollWidth;
 	var height = document.body.scrollHeight;
-	console.log(document.body.scrollWidth,document.body.scrollWidth);
+	// console.log(document.body.scrollWidth,document.body.scrollWidth);
 	renderer.setSize(width,height);
 	renderer.setClearColor(0xE88D27,1);// a nice burnt orange color
 	// const width = window.innerWidth;
@@ -86,7 +86,7 @@ function main(){
 	var width = document.body.scrollWidth;
 	var height = document.body.scrollHeight;
 	// width = document.body.clientWidth;
-	console.log(document.body.clientWidth,document.body.scrollWidth);
+	// console.log(document.body.clientWidth,document.body.scrollWidth);
 
 	planeM.uniforms.res.value = new THREE.Vector2(width,height);
     	camera.aspect = width/height;
