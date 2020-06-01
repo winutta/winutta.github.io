@@ -83,7 +83,7 @@ function main(){
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	function onWindowResize(){
-	var width = document.body.scrollWidth;
+	var width = document.body.clientWidth;
 	var height = document.body.scrollHeight;
 	// width = document.body.clientWidth;
 	// console.log(document.body.clientWidth,document.body.scrollWidth);
