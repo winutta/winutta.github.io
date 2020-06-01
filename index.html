@@ -14,7 +14,7 @@
 	<script data-ad-client="ca-pub-8305041882060873" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 	<!-- <link rel = "stylesheet" type = "text/css" href = "style3.css"> -->
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css?family=Caveat|Pacifico|Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200&display=swap" rel="stylesheet">
   <style>
 
@@ -42,7 +42,7 @@
       margin: 0;
       padding: 0;
       /*width:100vw;*/
-      height:100vh;
+      height:100%;
       
       /*overflow:none;*/
       /*scroll-margin: 50px 0 0 50px;*/
@@ -107,6 +107,8 @@
 
 
       /*border: 1px green solid;  */
+      
+      flex-shrink: 0;
       position:relative;
       bottom:10%;
       background: url('images/swirl.jpg');
@@ -133,6 +135,8 @@
 
     #t1 {
       /*border: 1px red solid; */
+      /*-webkit-flex: 0;*/
+      flex-shrink: 0;
       line-height: 80%;
       position:relative;
       bottom:10%;
@@ -143,6 +147,8 @@
 
     #t2 {
       /*border: 1px red solid;*/
+      /*-webkit-flex: 0;*/
+      flex-shrink: 0;
       position:relative;
       bottom:10%;
       line-height: 100%;
@@ -169,6 +175,8 @@
     }
 
     .menu ul {
+      /*-webkit-flex: 0;*/
+      flex-shrink: 0;
       /*position:relative;*/
       display: none;
       position: absolute;

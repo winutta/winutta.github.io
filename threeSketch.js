@@ -6,7 +6,7 @@ let updateTime = true;
 function main(){
 	const canvas = document.getElementById("c");
 	const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
-	var width = document.body.scrollWidth;
+	var width = document.body.clientWidth;
 	var height = document.body.scrollHeight;
 	// console.log(document.body.scrollWidth,document.body.scrollWidth);
 	renderer.setSize(width,height);
@@ -71,7 +71,7 @@ function main(){
 	plane.scale.set(w,h,1);
 	scene.add(plane);
 	document.body.onload = function(){
-		var width = document.body.scrollWidth;
+		var width = document.body.clientWidth;
 		var height = document.body.scrollHeight;
 		renderer.setSize(width,height);
 	};
