@@ -8,6 +8,22 @@ var flyingY = 0;
 let flying = true;
 let horiz, up;
 
+
+var firstMove;
+
+window.addEventListener('touchstart', function (e) {
+    firstMove = true;
+});
+
+window.addEventListener('touchmove', function (e) {
+    if (firstMove) {
+        e.preventDefault();
+
+        firstMove = false;
+    }
+},{passive: false});
+
+
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight,WEBGL);
   
