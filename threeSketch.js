@@ -65,6 +65,8 @@ function main(){
 		planeM.uniforms.M.value = new THREE.Vector2(-10,-10);
 	});
 
+	// document.getElementById("menu").addEventListener()
+
 
 
 	const plane = new THREE.Mesh(planeG,planeM);
