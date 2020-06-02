@@ -98,16 +98,18 @@
     .dot {
       display:-webkit-flex;
       display:flex;
+      -webkit-justify-content:flex-end;
       justify-content: flex-end;
+      -webkit-align-items: flex-end;
       align-items: flex-end;
-      border: 1px green solid;  
+      /*border: 1px green solid;  */
     }
 
     .cornerImage{
 
 
-      border: 1px green solid;  
-      
+      /*border: 1px green solid;  */
+      -webkit-flex: 0 1 auto;
       flex: 0 1 auto;
       position:relative;
       bottom:10%;
@@ -124,10 +126,13 @@
       display:-webkit-flex;
       display:flex;
       justify-content: center;
+      -webkit-justify-content:center;
+      -webkit-align-items: flex-end;
       align-items: flex-end;
       font-weight:100;
       position:relative;
       left:50%;
+      -webkit-transform: translate(-50%,0%);
       transform: translate(-50%,0%);
       text-decoration: none;
       
@@ -136,6 +141,7 @@
     #t1 {
       /*border: 1px red solid; */
       /*-webkit-flex: 0;*/
+      -webkit-flex: 0 1 auto;
       flex: 0 1 auto;
       line-height: 80%;
       position:relative;
@@ -148,6 +154,7 @@
     #t2 {
       /*border: 1px red solid;*/
       /*-webkit-flex: 0;*/
+      -webkit-flex: 0 1 auto;
       flex: 0 1 auto;
       position:relative;
       bottom:10%;
@@ -160,6 +167,7 @@
     .menuText{
       
       /*border: 1px green solid;  */
+      -webkit-flex: 0 1 auto;
       flex: 0 1 auto;
       position:relative;
       bottom:10%;
@@ -172,11 +180,13 @@
       /*border: 1px red solid;*/
       display:flex;
       display:-webkit-flex;
+      -webkit-align-self: flex-end;
       align-self: flex-end;
     }
 
     .menu ul {
       /*-webkit-flex: 0;*/
+      -webkit-flex: 0 1 auto;
       flex: 0 1 auto;
       /*position:relative;*/
       display: none;
@@ -253,7 +263,7 @@
       margin-left:4rem;
       margin-right:4rem;
       padding:none;
-      flex-wrap: wrap;
+      /*flex-wrap: wrap;*/
 
       /*column-gap: fill;*/
       column-gap: ;
@@ -281,7 +291,7 @@
       font-family: 'Raleway', sans-serif;
       font-size: min(6vh,4vw) ;
       font-weight:400;
-      /*width: 300px;*/
+      width: 300px;
 
       text-decoration: none;
       color: black;
@@ -295,6 +305,7 @@
       /*background: url('gridd.png');*/
       background-size: 300px 164px;
       display: flex; 
+      display:-webkit-flex;
       width: 300px;
       height:164px;
     }
