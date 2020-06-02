@@ -78,12 +78,12 @@ function main(){
 	
 	const scene = new THREE.Scene();
 
-	const fov = 75;
+	const fov = 56;
 	const aspect = window.innerWidth/window.innerHeight;
 	const near = 0.1;
 	const far = 2000;
 	const camera = new THREE.PerspectiveCamera(fov,aspect,near,far);
-	camera.position.z = 7;
+	camera.position.z = 13;
 	camera.position.y = 4;
 	camera.lookAt(0,0,0);
 
@@ -177,7 +177,7 @@ earthC.flipY = false;
 	gLoader.load("mountain3k.glb",
 		function(gltf){
 			var model = gltf.scene;
-			console.log(model)
+			// console.log(model)
 			var newMat = new THREE.MeshStandardMaterial({side : THREE.DoubleSide,map: stoneC,
 				// displacementMap:stoneH,displacementScale:0.02,
 			});
@@ -552,14 +552,14 @@ earthC.flipY = false;
 
 		pickHelper.pick(scene,camera,time,collidableMeshs,p1);
 
-		document.getElementById("info").innerHTML = "Mouse X: "+mouse.x.toPrecision(2).toString()+
-		", Mouse Y: "+mouse.y.toPrecision(2).toString() +
-		 "<br/>" + 
-		 "Rot X: " + p1.rotation.x.toPrecision(2).toString()+ 
-		 ", Rot Y: " + p1.rotation.y.toPrecision(2).toString()+
-		 ", Rot Z: " + p1.rotation.z.toPrecision(2).toString()+
-		 "<br/>" + stopper;
-		 ;
+		// document.getElementById("info").innerHTML = "Mouse X: "+mouse.x.toPrecision(2).toString()+
+		// ", Mouse Y: "+mouse.y.toPrecision(2).toString() +
+		//  "<br/>" + 
+		//  "Rot X: " + p1.rotation.x.toPrecision(2).toString()+ 
+		//  ", Rot Y: " + p1.rotation.y.toPrecision(2).toString()+
+		//  ", Rot Z: " + p1.rotation.z.toPrecision(2).toString()+
+		//  "<br/>" + stopper;
+		//  ;
 		if(parSphere){
 			parSphere.rotateY(Math.PI/400);
 
@@ -575,7 +575,7 @@ earthC.flipY = false;
 			zacc = ru/20;
 			zvel += zacc;
 			zvel *= 0.95;
-			console.log(boost);
+			// console.log(boost);
 			
 
 		if(p){
