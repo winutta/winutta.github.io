@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - buffer geometry custom attributes - particles</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<script src = "three.min.js"> </script>
+		<script src = "OrbitControls.js"></script>
+	</head>
+	<body>
+		<div id="container"></div>
+		
+
+		<script type="x-shader/x-vertex" id="vertexshader">
+
+			attribute float size;
+			uniform vec2 sizes;
+			attribute float i;
+			uniform float particles;
+			uniform float iTime;
+			uniform sampler2D dataTexture;
+			#define PI 3.14159265359
+			varying vec3 vColor;
+			uniform sampler2D positionTexture; 
+			uniform sampler2D originalPos;
+
+			void main() {
+
+				vColor = color;
+				vec3 nPosition = position;
+
+				float portion = i;
+				float column = mod(portion,1000.)/999.;
+				float row = floor(portion/1000.)/999.;
+
+				vec3 sampPos = texture2D(positionTexture, vec2(vec2(column,1.-row))).xyz;
+
+				sampPos -= 0.5;
+				sampPos *= vec3(sizes,1.);
+				nPosition = vec3(sampPos.xy,position.z); 
+
+				vec4 mvPosition = modelViewMatrix * vec4( nPosition, 1.0 );
+
+				float nSize = 400. * (1. + sin(10.1*i + iTime/50.));
+				gl_PointSize = nSize* ( 40.0 / -mvPosition.z/30. );
+				//gl_PointSize = 1.;
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform sampler2D pointTexture;
+			varying vec3 vColor;
+
+			void main() {
+
+				gl_FragColor = vec4( vColor, 1.0 );
+
+				gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+
+			}
+
+		</script>
+
+		<script type = "x-shader/x-vertex" id = "vertShaderBuffer">
+
+		    //#extension GL_EXT_shader_texture_lod : enable
+		    attribute vec3 posInit;
+		    attribute float i;
+			varying vec2 vUv;
+		    varying vec3 pos;
+		    uniform float iTime;
+		    uniform vec2 res; 
+		    uniform vec2 size;
+		    uniform float iFrame;
+		    uniform sampler2D tex;
+		    varying vec2 sP;
+		    varying float iVal;
+
+		      void main()
+		      {
+		      	vUv = uv;
+		      	iVal = i;
+		      	sP = (posInit.xy + vec2(size.x/2.,size.y/2.))/vec2(size.x,size.y);
+		      	//pos = posInit;
+		
+		        // vec2 scaledPosition = (position.xy + vec2(size.x/2.,size.y/2.))/vec2(size.x,size.y);
+		        // sP = scaledPosition;
+
+		 		    vec4 modelViewPosition = modelViewMatrix * vec4(position,1.0);
+		        gl_Position = projectionMatrix * modelViewPosition;	      
+		      }
+
+		</script>
+
+		<script type = "x-shader/x-shader" id = "fragShaderBuffer">
+		// #ifdef GL_ES
+		// precision highp float;
+		// #endif
+
+		  varying vec3 pos;
+			varying vec2 vUv;
+		  uniform sampler2D tex;
+		  uniform vec2 res;                   //The width and height of our screen
+		  uniform float iTime;
+		  uniform float iFrame;
+		  varying vec2 sP;
+		  uniform vec2 size;
+		  uniform sampler2D originalPos;
+		  varying float iVal;
+		  uniform vec2 mousePos;
+		  uniform float attract;
+
+		   void main() {
+
+		      vec2 st = gl_FragCoord.xy/res.xy;
+
+		      //float portion = (i/particles)*1000000.;
+		      float portion = iVal;
+		      float column = mod(portion,1000.)/999.;
+		      float row = floor(portion/1000.)/999.;
+
+		      float decrease = 1.;
+		      vec3 col;
+
+		      vec4 fCol;
+
+		      if(iFrame <1.){
+		      	vec2 sample = sP;
+		      	//vec2 sample = texture2D(originalPos,vec2(st.x,1.-st.y)).xy;
+		      	// vec2 sample = texture2D(originalPos,vec2(column,row)).xy;
+
+		      	vec2 offset = vec2(0.0,0.0)*0.0;
+		      	//vec2 dir = normalize(sample-0.5)*0.1 + offset;
+		      	//vec2 dir = normalize(sample-vec2((0.+ size.x/2.)/size.x,0.5))*0.0005 + offset;
+		      	//dir.y *= size.x/size.y;
+		      	//vec2 dir = vec2(min(max((sample-0.5),vec2(-0.1)),0.1))*0.5 + offset;
+		      	//dir += 0.5;
+		      	vec2 dir = vec2(0.);
+
+		      	vec2 mov = dir + 0.5;;
+		      	fCol = vec4(sample,mov);
+		      } else {
+		      	vec4 sampleGet = texture2D(tex,st).xyzw;
+
+		      	vec2 sample = sampleGet.xy;
+		      	vec2 dir = sampleGet.zw;
+		      	vec2 corrMousePos = mousePos * vec2(size.x/size.y,1.);
+		      	vec2 corrSample = sample * vec2(size.x/size.y,1.);
+		      	//vec2 mouseMove = normalize(sample - mousePos)*0.0005*mix(2.,-1.,attract);
+		      	vec2 mouseMove = (normalize(corrSample - corrMousePos)/length(corrSample-corrMousePos))*-0.00005*attract;
+		      	//vec2 mouseMove = (normalize(sample - mousePos)/length(sample-mousePos))*-0.00005*attract;
+		      	// mouseMove.x =  (mouseMove.x)*(size.y/size.x);
+		      	dir += mouseMove;
+		      	dir = (dir-0.5)*0.995 + 0.5;
+		      	dir.x = (dir.x -0.5)/(1.) + 0.5;
+		      	//dir.x /= size.x/size.y;
+		      	// vec2 newPos = sample;
+		      	vec2 finDir = (dir-0.5);
+		      	 finDir.x *= size.y/size.x;
+		      	vec2 newPos = sample + finDir;
+		      	if(newPos.x > 1.){
+		      		newPos.x = 2. - newPos.x;
+		      		// dir.x = (1.-dir.x);
+		      		dir.x = ((1.-dir.x)-0.5)*decrease+ 0.5;
+		      		// dir.x = max(min(((1.-dir.x)-0.5)*decrease + 0.5,0.6),0.4);
+		      	} else if (newPos.x < 0.){
+		      		newPos.x = -newPos.x;
+		      		// dir.x = (1.-dir.x);
+		      		dir.x = ((1.-dir.x)-0.5)*decrease+ 0.5;
+		      		//dir.x = max(min(((1.-dir.x)-0.5)*decrease + 0.5,0.6),0.4);
+		      	}
+
+		      	if(newPos.y >1.){
+		      		newPos.y = 2. - newPos.y;
+		      		//dir.y = (1.-dir.y);
+		      		dir.y = ((1.-dir.y)-0.5)*decrease+ 0.5;
+		      		// dir.y = max(min(((1.-dir.y)-0.5)*decrease+ 0.5,0.6),0.4);
+		      	} else if(newPos.y <0.){
+		      		newPos.y = -newPos.y;
+		      		//dir.y = (1.-dir.y);
+		      		dir.y = ((1.-dir.y)-0.5)*decrease+ 0.5;
+		      		//dir.y = max(min(((1.-dir.y)-0.5)*decrease+ 0.5,0.6),0.4);
+		      	}
+
+		      	dir += vec2(0.,-0.00);
+		      	fCol = vec4(newPos,dir);
+		      }
+
+		      //gl_FragColor = vec4(col,1.0);
+		      gl_FragColor = vec4(fCol);
+		     }
+		</script>
+
+		<script src = sketch.js></script>
+
+</body>
+</html>
