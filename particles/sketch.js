@@ -151,6 +151,8 @@ function init() {
 	geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
 	geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 	geometry.setAttribute( 'i', new THREE.Float32BufferAttribute( indices, 1 ) );
+	// geometry.setDrawRange(0,5975000);
+	geometry.setDrawRange(0,997500);
 
 	uniforms = {
 
@@ -205,7 +207,7 @@ function init() {
 	});
 
 	var bufferGeometry = new THREE.PlaneBufferGeometry(w,h,1000,1000);
-	bufferGeometry.setDrawRange(0,5975000);
+	// bufferGeometry.setDrawRange(0,5975000);
 	bufferGeometry.setAttribute( 'posInit', new THREE.Float32BufferAttribute( positions, 3 ) );
 	bufferGeometry.setAttribute( 'i', new THREE.Float32BufferAttribute( indices, 1 ) );
 	
@@ -278,9 +280,9 @@ function setRepel(e){
 function updateMousePos(e){
 	if(attract){
 		// var mouseX = e.clientX/window.innerWidth;
-		console.log(trueW,w);
+		// console.log(trueW,w);
 		var wPortion = (w/trueW)*window.innerWidth;
-		console.log(wPortion,window.innerHeight);
+		// console.log(wPortion,window.innerHeight);
 		var zero = (window.innerWidth - wPortion)/2;
 		var mouseX = (e.clientX-zero)/wPortion;
 		var mouseY = 1.-e.clientY/window.innerHeight;
