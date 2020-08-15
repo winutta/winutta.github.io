@@ -1,84 +1,128 @@
-body {
+html, body{
 	margin: 0;
-	background-color: #000;
-	color: #fff;
-	font-family: Monospace;
-	font-size: 13px;
-	line-height: 24px;
-	overscroll-behavior: none;
+	padding: 0;
+	height:100%;
+	-webkit-touch-callout: none; /* iOS Safari */
+	  -webkit-user-select: none; /* Safari */
+	   -khtml-user-select: none; /* Konqueror HTML */
+	     -moz-user-select: none; /* Old versions of Firefox */
+	      -ms-user-select: none; /* Internet Explorer/Edge */
+	          user-select: none; /* Non-prefixed version, currently
+	                                supported by Chrome, Edge, Opera and Firefox */
 }
 
-a {
-	color: #ff0;
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-button {
-	cursor: pointer;
-	text-transform: uppercase;
-}
-
-canvas {
+#container{
+	width:100%;
+	height:100%;
 	display: block;
-}
-
-#info {
+	z-index: 0;
 	position: absolute;
-	top: 0px;
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	text-align: center;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	z-index: 1; /* TODO Solve this in HTML */
+	top:0;
+	left:0;
+	/*border-style: solid;
+  	border-width: 5px;*/
+
 }
 
-a, button, input, select {
-	pointer-events: auto;
-}
-
-.dg.ac {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	z-index: 2 !important; /* TODO Solve this in HTML */
-}
-
-#overlay {
+#menuButton{
 	position: absolute;
+	border-radius: 2px;
+	width: 20px;
+	height: 20px;
+	/*top: 0%;
+	left: 0%;*/
+	display: none;
+	background: white;
+	color: white;
+	z-index: 1;
+}
+
+#startMenu{
+	font-family: 'Roboto Condensed', sans-serif;
+	border-radius: 15px;
+	width: 250px;
+	height: 220px;
+	/*width: 25%;*/
+	/*height: 60%;*/
+	opacity: 0.8;
+	background: white;
+	position: absolute;
+	color: white;
 	z-index: 2;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgba(0,0,0,0.7);
 }
 
-	#overlay button {
-		background: #ffffff;
-		border: 0;
-		color: #000000;
-		padding: 16px 20px;
-		text-transform: uppercase;
-		cursor: pointer;
-	}
+.subDiv{
+	/*padding: 10px;*/
+	margin: 10px;
+	background: blue;
+	border-radius: 25px;
+}
 
-#notSupported {
-	width: 50%;
-	margin: auto;
-	background-color: #f00;
-	margin-top: 20px;
-	padding: 10px;
+#Header{
+	/*width: max(32px,50%);*/
+	background: #3498DB ;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	width:170px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	/*vertical-align: middle;*/
+	/*padding-left: 1em;*/
+	font-size: 29px;
+}
+
+#Message{
+	/*line-height: 1.5;*/
+	background: #3498DB ;
+	margin-top: 0px;
+	padding-top: 0px;
+	height: 100px;
+	width: 230px;
+	position: relative;
+	/*left: -10;*/
+	/*padding: 1px 0px 1px 0px;*/
+	font-size: 16px;
+}
+
+.messages{
+
+	padding: 0px 10px 10px 0px ;
+	margin: 0 0 0px -10px;
+}
+#firstMess{
+	padding: 10px 10px 5px 0px ;
+}
+
+
+/*.buttons{
+
+}*/
+
+#buttons{
+	margin: 0;
+	padding: 0;
+}
+#reset{
+	/*margin: 0px 0px 0px 0px;*/
+	/*padding: -10px 0 0 0;*/
+	background: #AF601A;
+	margin: 7.5px 0 0 10px;
+	padding: 0;
+	text-align: center;
+	width: 110px;
+	height: 25px;
+	line-height: 25px;
+	display: inline-block;
+}
+
+#minimize{
+	background: #17A589;
+	margin: 0 0 0 5px;
+	padding: 0;
+	text-align: center;
+	width: 110px;
+	height: 25px;
+	line-height: 25px;
+	display: inline-block;
 }

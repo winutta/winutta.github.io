@@ -9,6 +9,7 @@ var iF = 0;
 var attract = false;
 var trueW = 0;
 var w = 0;
+var menu;
 
 var particles = 1000000;
 
@@ -73,7 +74,11 @@ function init() {
 
 		var p = {x:0,y:0,z:0};
 		//var r = Math.random();
-		var r = i/particles;
+		// if(i>=900000){
+		// 	var r = 900000/particles;
+		// }else {
+			var r = i/particles;
+		// }
 		p.x = Math.cos(r*Math.PI*2)*50;
 		p.y = Math.sin(r*Math.PI*2)*50;
 		p.z = 0;
@@ -209,14 +214,40 @@ function init() {
 	bufferScene.add(bufferObject);
 
 	/////
-	//Creating Resize Event Listener
+	//Creating Event Listeners
 	/////
 
 	window.addEventListener( 'resize', onWindowResize, false );
-	window.addEventListener('mousedown',setAttract, false);
-	window.addEventListener('mouseup',setNeutral,false);
-	window.addEventListener('mousemove',updateMousePos, false)
+	container.addEventListener('mousedown',setAttract, false);
+	container.addEventListener('mouseup',setNeutral,false);
+	container.addEventListener('mousemove',updateMousePos, false)
 	window.addEventListener('contextmenu',setNotDefault, false);
+
+	var resetButton = document.getElementById('reset');
+	resetButton.addEventListener("click",resetSimulation,false);
+
+	var minimizeButton = document.getElementById('minimize');
+	minimizeButton.addEventListener('click',minimizeInfo,false);
+	menu = document.getElementById('startMenu');
+	menuButton = document.getElementById('menuButton');
+	menuButton.addEventListener('click',getInfo, false);
+
+}
+
+function getInfo(e){
+	menuButton.style.display = "none";
+	menu.style.display = "block"
+}
+
+function minimizeInfo(e){
+	menu.style.display = "none";
+	menuButton.style.display = "block";
+}
+
+function resetSimulation(e){
+	// console.log('Clicked reset button');
+	iF = 0;
+	bufferMaterial.uniforms.iFrame.value = iF;
 }
 
 function setNotDefault(e){
@@ -229,6 +260,7 @@ function setNeutral(e){
 }
 
 function setAttract(e){
+	console.log("clicked");
 	attract = true;
 	if(e.button == 0){
 	bufferMaterial.uniforms.attract.value = 1;

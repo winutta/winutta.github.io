@@ -5,12 +5,27 @@
 		<title>three.js webgl - buffer geometry custom attributes - particles</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="main.css">
 		<script src = "three.min.js"> </script>
 		<script src = "OrbitControls.js"></script>
 	</head>
 	<body>
 		<div id="container"></div>
+		<a id = menuButton></a>
+		<div id="startMenu">
+			<div id = "Header" class = "subDiv"> Instructions</div>
+			<div id = "Message" class = "subDiv">
+				<ul>
+					<li id = "firstMess" class = "messages">Left click to attract particles to your cursor</li>
+					<li id = "secondMess" class = "messages">Right click to repel particles from your cursor</li>
+				</ul>
+			</div>
+			<div id = "buttons">
+				<a id = "reset" class = "subDiv" >Reset</a>
+				<a id = "minimize" class = "subDiv" >Minimize</a>
+			</div>
+		</div>
 		
 
 		<script type="x-shader/x-vertex" id="vertexshader">
