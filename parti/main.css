@@ -24,6 +24,31 @@ html, body{
 
 }
 
+#Title{
+	color: #9077c5;
+	/*margin: 0px 0px 0px 10px ;*/
+	/*text-align: center;*/
+}
+
+#gameName{
+	font-size: 50px;
+	position: relative;
+	height:40px;
+	line-height: 40px;
+	/*top: 5px;*/
+	padding: 10px 0px 0px 0px;
+	margin: 0px 4px 0px 10px ;
+	display: inline-block;
+}
+
+#author{
+	font-size: 24px;
+	color: #3498DB;
+	display: inline-block;
+	padding: 0px 0px 0px 0px;
+	/*text-align: right;*/
+}
+
 #menuButton{
 	position: absolute;
 	border-radius: 2px;
@@ -41,7 +66,7 @@ html, body{
 	font-family: 'Roboto Condensed', sans-serif;
 	border-radius: 15px;
 	width: 250px;
-	height: 220px;
+	height: 275px;
 	/*width: 25%;*/
 	/*height: 60%;*/
 	opacity: 0.8;

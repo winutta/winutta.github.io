@@ -1,3 +1,13 @@
+//To allow for ios usage maybe need to use
+
+//document.body.clientWidth;
+//document.body.clientHeight;
+
+//compared to
+
+//window.innerWidth;
+//window.innerHeight;
+
 var renderer, scene, camera, stats;
 
 var particleSystem, uniforms, geometry;
@@ -214,6 +224,12 @@ function init() {
 	var bufferObject = new THREE.Mesh(bufferGeometry,bufferMaterial);
 
 	bufferScene.add(bufferObject);
+
+	/////
+	//Add audio for pushing and pulling
+	/////
+
+	
 
 	/////
 	//Creating Event Listeners
