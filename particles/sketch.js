@@ -200,6 +200,7 @@ function init() {
 	});
 
 	var bufferGeometry = new THREE.PlaneBufferGeometry(w,h,1000,1000);
+	bufferGeometry.setDrawRange(0,5975000);
 	bufferGeometry.setAttribute( 'posInit', new THREE.Float32BufferAttribute( positions, 3 ) );
 	bufferGeometry.setAttribute( 'i', new THREE.Float32BufferAttribute( indices, 1 ) );
 	
