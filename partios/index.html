@@ -64,11 +64,12 @@
 				float column = mod(portion,1000.)/999.;
 				float row = floor(portion/1000.)/999.;
 
-				vec3 sampPos = texture2D(positionTexture, vec2(vec2(column,1.-row))).xyz;
+				vec3 sampPos = texture2D(positionTexture, fract(vec2(column,1.-row))).xyz;
+				// vec3 sampPos = texture2D(positionTexture, fract(vec2(i/particles,i/particles))).xyz;
 
 				sampPos -= 0.5;
 				sampPos *= vec3(sizes,1.);
-				// nPosition = vec3(sampPos.xy,position.z); 
+				nPosition = vec3(sampPos.xy,position.z); 
 
 				vec4 mvPosition = modelViewMatrix * vec4( nPosition, 1.0 );
 
