@@ -68,13 +68,13 @@
 
 				sampPos -= 0.5;
 				sampPos *= vec3(sizes,1.);
-				nPosition = vec3(sampPos.xy,position.z); 
+				// nPosition = vec3(sampPos.xy,position.z); 
 
 				vec4 mvPosition = modelViewMatrix * vec4( nPosition, 1.0 );
 
 				float nSize = 400. * (1. + sin(10.1*i + iTime/50.));
-				gl_PointSize = nSize* ( 40.0 / -mvPosition.z/30. );
-				//gl_PointSize = 1.;
+				// gl_PointSize = nSize* ( 40.0 / -mvPosition.z/30. );
+				gl_PointSize = 20.;
 
 				gl_Position = projectionMatrix * mvPosition;
 
