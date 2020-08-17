@@ -43,7 +43,7 @@ function init() {
 	w = h * aspect;
 	trueW = w;
 	//w = h;
-	console.log(w,h);
+	// console.log(w,h);
 
 	scene = new THREE.Scene();
 
@@ -51,11 +51,18 @@ function init() {
 	//Creating Renderer, Orbit Controller, adding scene canvas to div container
 	/////
 
-	
+	//want to set up conditional for whether webgl 2 is allowed or to use webgl 1, or maybe the cpu version?
 
 	var container = document.getElementById( 'container' );
 	var canvas = document.getElementById("c");
-	var context = canvas.getContext( 'webgl2', { antialias: false } );
+	var context;
+	if(WEBGL.isWebGL2Available()){
+		console.log("using webgl 2");
+		context = canvas.getContext( 'webgl2', { antialias: false } );
+	} else {
+		console.log("using webgl 1");
+		context = canvas.getContext( 'webgl', { antialias: false } );
+	}
 	container.appendChild( canvas );
 	// var canvas = renderer.domElement;
 
@@ -137,7 +144,7 @@ function init() {
 			// type: THREE.HalfFloatType,
 		});
 
-	console.log(textureA.texture);
+	// console.log(textureA.texture);
 	/////
 	//Creating Points Geometry, Shader Material, and Object
 	/////
