@@ -8,7 +8,7 @@
 //window.innerWidth;
 //window.innerHeight;
 
-var renderGPU = true;
+var renderGPU = false;
 
 function glEnum(gl, v) {
   for (var key in gl) {
@@ -86,46 +86,10 @@ window.onload = function() {
     } else {
     	console.log("Computing Positions and Velocities with GPU");
 		renderGPU = true;
+		return
     }
 
- //    if(context.FLOAT){
-	// 	console.log("Computing Positions and Velocities with GPU");
-	// 	renderGPU = true;
-	// } else {
-	// 	console.log("computing Positions and Velocities with CPU");
-	// 	renderGPU = false;
-	// }
-    
-    // Draw the rectangle.
-    gl.bindTexture(gl.TEXTURE_2D, whiteTex);
-    gl.uniform4fv(colorLoc, [0, 10, 20, 1]);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-    
-    gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    
-    
-    gl.clearColor(1, 0, 0, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    
-    gl.uniform4fv(colorLoc, [0, 1/10, 1/20, 1]);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-    
-    var pixel = new Uint8Array(4);
-    gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
-    
-    if (pixel[0] !== 0 ||
-        pixel[1] < 248 ||
-        pixel[2] < 248 ||
-        pixel[3] < 254) {
-    	console.log("computing Positions and Velocities with CPU");
-		renderGPU = false;
-        console.log("FAIL!!!: Was not able to actually render to " + glEnum(gl, format) + " texture");
-    } else {
-      console.log("Computing Positions and Velocities with GPU");
-	  renderGPU = true;
-      console.log("succesfully rendered to " + glEnum(gl, format) + " texture");
-    }    
+ 
   }
   if (testFloat) {
     test(gl.FLOAT);
