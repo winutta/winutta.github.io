@@ -55,7 +55,7 @@ function init() {
 
 	var container = document.getElementById( 'container' );
 	var canvas = document.getElementById("c");
-	var context = canvas.getContext( 'webgl2', { antialias: true } );
+	var context = canvas.getContext( 'webgl2', { antialias: false } );
 	container.appendChild( canvas );
 	// var canvas = renderer.domElement;
 
