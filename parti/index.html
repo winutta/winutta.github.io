@@ -3,25 +3,27 @@
 <html lang="en">
 	<head>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156686069-1"></script>
+		<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156686069-1"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 
 		  gtag('config', 'UA-156686069-1');
-		</script>
+		</script> -->
 		
 		<title>Parti</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="main.css">
+		<script src = "WebGL.js"></script>
 		<script src = "three.min.js"> </script>
 		<script src = "OrbitControls.js"></script>
 	</head>
 	<body>
-		<div id="container"></div>
+		<div id="container"><canvas id = "c"></canvas></div>
+
 		<a id = menuButton></a>
 		<div id="startMenu">
 			<div id = Title>
@@ -44,27 +46,25 @@
 
 		<script type="x-shader/x-vertex" id="vertexshader">
 
-			attribute float size;
 			uniform vec2 sizes;
 			attribute float i;
 			uniform float particles;
 			uniform float iTime;
-			uniform sampler2D dataTexture;
-			#define PI 3.14159265359
 			varying vec3 vColor;
 			uniform sampler2D positionTexture; 
-			uniform sampler2D originalPos;
 
 			void main() {
 
-				vColor = color;
+				
 				vec3 nPosition = position;
+				vColor = color;
 
 				float portion = i;
-				float column = mod(portion,1000.)/999.;
+				float column = mod(portion,999.)/999.;
 				float row = floor(portion/1000.)/999.;
 
-				vec3 sampPos = texture2D(positionTexture, vec2(vec2(column,1.-row))).xyz;
+				vec3 sampPos = texture2D(positionTexture, fract(vec2(column,1.-row))).xyz;
+				// vec3 sampPos = texture2D(positionTexture, fract(vec2(i/particles,i/particles))).xyz;
 
 				sampPos -= 0.5;
 				sampPos *= vec3(sizes,1.);
@@ -74,7 +74,7 @@
 
 				float nSize = 400. * (1. + sin(10.1*i + iTime/50.));
 				gl_PointSize = nSize* ( 40.0 / -mvPosition.z/30. );
-				//gl_PointSize = 1.;
+				// gl_PointSize = 1.;
 
 				gl_Position = projectionMatrix * mvPosition;
 
@@ -99,23 +99,18 @@
 
 		<script type = "x-shader/x-vertex" id = "vertShaderBuffer">
 
+		// precision lowp float;
 		    //#extension GL_EXT_shader_texture_lod : enable
 		    attribute vec3 posInit;
-		    attribute float i;
-			varying vec2 vUv;
-		    varying vec3 pos;
 		    uniform float iTime;
 		    uniform vec2 res; 
 		    uniform vec2 size;
 		    uniform float iFrame;
 		    uniform sampler2D tex;
 		    varying vec2 sP;
-		    varying float iVal;
 
 		      void main()
 		      {
-		      	vUv = uv;
-		      	iVal = i;
 		      	sP = (posInit.xy + vec2(size.x/2.,size.y/2.))/vec2(size.x,size.y);
 
 		 		vec4 modelViewPosition = modelViewMatrix * vec4(position,1.0);
@@ -125,20 +120,15 @@
 		</script>
 
 		<script type = "x-shader/x-shader" id = "fragShaderBuffer">
-		// #ifdef GL_ES
-		// precision highp float;
-		// #endif
 
-		  varying vec3 pos;
-		  varying vec2 vUv;
+		// precision lowp float;
+
 		  uniform sampler2D tex;
 		  uniform vec2 res;                   //The width and height of our screen
 		  uniform float iTime;
 		  uniform float iFrame;
 		  varying vec2 sP;
 		  uniform vec2 size;
-		  uniform sampler2D originalPos;
-		  varying float iVal;
 		  uniform vec2 mousePos;
 		  uniform float attract;
 
@@ -146,31 +136,29 @@
 
 		      vec2 st = gl_FragCoord.xy/res.xy;
 
-		      float portion = iVal;
-		      float column = mod(portion,1000.)/999.;
-		      float row = floor(portion/1000.)/999.;
-
 		      float decrease = 1.;
 		      vec3 col;
 
 		      vec4 fCol;
 
 		      if(iFrame <1.){
-		      	vec2 sample = sP;
+		      	vec2 poses = sP;
 
 		      	vec2 dir = vec2(0.);
 
 		      	vec2 mov = dir + 0.5;;
-		      	fCol = vec4(sample,mov);
+		      	fCol = vec4(poses,mov);
 
 		      } else {
 		      	vec4 sampleGet = texture2D(tex,st).xyzw;
 
-		      	vec2 sample = sampleGet.xy;
+		      	vec2 poses = sampleGet.xy;
 		      	vec2 dir = sampleGet.zw;
 		      	vec2 corrMousePos = mousePos * vec2(size.x/size.y,1.);
-		      	vec2 corrSample = sample * vec2(size.x/size.y,1.);
+		      	vec2 corrSample = poses * vec2(size.x/size.y,1.);
 		      	vec2 mouseMove = (normalize(corrSample - corrMousePos)/length(corrSample-corrMousePos))*-0.00005*attract;
+		      	// float scaler =  1.41421356 - length(corrSample-corrMousePos);
+		      	// vec2 mouseMove = (normalize(corrSample - corrMousePos)*scaler)*-0.0005*attract;
 
 		      	dir += mouseMove;
 		      	dir = (dir-0.5)*0.995 + 0.5;
@@ -178,7 +166,7 @@
 
 		      	vec2 finDir = (dir-0.5);
 		      	finDir.x *= size.y/size.x;
-		      	vec2 newPos = sample + finDir;
+		      	vec2 newPos = poses + finDir;
 
 		      	vec2 Gr = step(1.,newPos);
 		      	vec2 Ls = 1.-step(0.,newPos);
