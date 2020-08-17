@@ -177,7 +177,7 @@ function init() {
 	window.addEventListener('contextmenu',setNotDefault, false);
 
 	container.addEventListener('touchstart',setTouchAttract,false);
-	window.addEventListener('touchmove',stopDefaultScroll,false);
+	// window.addEventListener('touchmove',stopDefaultScroll,false);
 	container.addEventListener('touchmove',updateTouchPos,false);
 	container.addEventListener('touchend',setTouchNeutral,false);
 	
@@ -191,7 +191,7 @@ function init() {
 	minimizeButton.addEventListener('touchstart',minimizeInfo,false);
 
 	menu = document.getElementById('startMenu');
-	
+
 	menuButton = document.getElementById('menuButton');
 	menuButton.addEventListener('click',getInfo, false);
 	menuButton.addEventListener('touchstart',getInfo,false);
@@ -213,6 +213,7 @@ function init() {
 }
 
 function setTouchAttract(e){
+	console.log("touched the canvas");
 	attract = true;
 	if(e.touches.length == 1){
 		firstTouch = e.touches[0].identifier;
@@ -236,6 +237,7 @@ function setTouchNeutral(e){
 }
 
 function updateTouchPos(e){
+	e.preventDefault();
 	for(let i = 0; i<e.touches.length;i++){
 		if(e.touches[i].identifier == firstTouch){
 			updateMousePos(e.touches[0]);
@@ -243,9 +245,9 @@ function updateTouchPos(e){
 	}
 }
 
-function stopDefaultScroll(e){
-	e.preventDefault();
-}
+// function stopDefaultScroll(e){
+//   	// if (e.scale !== 1) { event.preventDefault(); 
+// }
 
 function getInfo(e){
 	menuButton.style.display = "none";
