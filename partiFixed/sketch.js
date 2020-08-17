@@ -51,14 +51,18 @@ function init() {
 	//Creating Renderer, Orbit Controller, adding scene canvas to div container
 	/////
 
-	renderer = new THREE.WebGLRenderer();
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	
 
 	var container = document.getElementById( 'container' );
-	container.appendChild( renderer.domElement );
-	var canvas = renderer.domElement;
+	var canvas = document.getElementById("c");
+	var context = canvas.getContext( 'webgl2', { antialias: true } );
+	container.appendChild( canvas );
+	// var canvas = renderer.domElement;
 
+	renderer = new THREE.WebGLRenderer({canvas,context});
+	renderer.setPixelRatio( window.devicePixelRatio );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setClearColor(0x000000,1);// a nice burnt orange color
 	// const controls = new THREE.OrbitControls(camera2, renderer.domElement);
 	// controls.target.set(0, 0, 0);
 	// controls.update();
@@ -122,15 +126,15 @@ function init() {
 		{
 			magFilter: THREE.NearestFilter, 
 			// minFilter: THREE.NearestFilter,
-			// type: THREE.FloatType,
-			type: THREE.HalfFloatType,
+			type: THREE.FloatType,
+			// type: THREE.HalfFloatType,
 		});
 	textureB = new THREE.WebGLRenderTarget(rtWidth, rtHeight,
 		{
 			magFilter: THREE.NearestFilter, 
 			// minFilter: THREE.NearestFilter,
-			// type: THREE.FloatType,
-			type: THREE.HalfFloatType,
+			type: THREE.FloatType,
+			// type: THREE.HalfFloatType,
 		});
 
 	console.log(textureA.texture);

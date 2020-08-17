@@ -21,7 +21,8 @@
 		<script src = "OrbitControls.js"></script>
 	</head>
 	<body>
-		<div id="container"></div>
+		<div id="container"><canvas id = "c"></canvas></div>
+
 		<a id = menuButton></a>
 		<div id="startMenu">
 			<div id = Title>
@@ -97,6 +98,7 @@
 
 		<script type = "x-shader/x-vertex" id = "vertShaderBuffer">
 
+		// precision lowp float;
 		    //#extension GL_EXT_shader_texture_lod : enable
 		    attribute vec3 posInit;
 		    uniform float iTime;
@@ -118,6 +120,8 @@
 
 		<script type = "x-shader/x-shader" id = "fragShaderBuffer">
 
+		// precision lowp float;
+
 		  uniform sampler2D tex;
 		  uniform vec2 res;                   //The width and height of our screen
 		  uniform float iTime;
@@ -137,21 +141,23 @@
 		      vec4 fCol;
 
 		      if(iFrame <1.){
-		      	vec2 sample = sP;
+		      	vec2 poses = sP;
 
 		      	vec2 dir = vec2(0.);
 
 		      	vec2 mov = dir + 0.5;;
-		      	fCol = vec4(sample,mov);
+		      	fCol = vec4(poses,mov);
 
 		      } else {
 		      	vec4 sampleGet = texture2D(tex,st).xyzw;
 
-		      	vec2 sample = sampleGet.xy;
+		      	vec2 poses = sampleGet.xy;
 		      	vec2 dir = sampleGet.zw;
 		      	vec2 corrMousePos = mousePos * vec2(size.x/size.y,1.);
-		      	vec2 corrSample = sample * vec2(size.x/size.y,1.);
+		      	vec2 corrSample = poses * vec2(size.x/size.y,1.);
 		      	vec2 mouseMove = (normalize(corrSample - corrMousePos)/length(corrSample-corrMousePos))*-0.00005*attract;
+		      	// float scaler =  1.41421356 - length(corrSample-corrMousePos);
+		      	// vec2 mouseMove = (normalize(corrSample - corrMousePos)*scaler)*-0.0005*attract;
 
 		      	dir += mouseMove;
 		      	dir = (dir-0.5)*0.995 + 0.5;
@@ -159,7 +165,7 @@
 
 		      	vec2 finDir = (dir-0.5);
 		      	finDir.x *= size.y/size.x;
-		      	vec2 newPos = sample + finDir;
+		      	vec2 newPos = poses + finDir;
 
 		      	vec2 Gr = step(1.,newPos);
 		      	vec2 Ls = 1.-step(0.,newPos);
