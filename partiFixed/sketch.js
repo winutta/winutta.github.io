@@ -122,15 +122,15 @@ function init() {
 		{
 			magFilter: THREE.NearestFilter, 
 			// minFilter: THREE.NearestFilter,
-			type: THREE.FloatType,
-			// type: THREE.HalfFloatType,
+			// type: THREE.FloatType,
+			type: THREE.HalfFloatType,
 		});
 	textureB = new THREE.WebGLRenderTarget(rtWidth, rtHeight,
 		{
 			magFilter: THREE.NearestFilter, 
 			// minFilter: THREE.NearestFilter,
-			type: THREE.FloatType,
-			// type: THREE.HalfFloatType,
+			// type: THREE.FloatType,
+			type: THREE.HalfFloatType,
 		});
 
 	console.log(textureA.texture);
