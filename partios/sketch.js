@@ -17,9 +17,14 @@ var textureA , textureB;
 var bufferScene;
 var iF = 0;
 var attract = false;
+var attractVal = 0;
 var trueW = 0;
 var w = 0;
+var h = 0;
 var menu;
+var mouseX = 0.5, mouseY = 0.5;
+var velocities, positions;
+var firstTouch;
 
 var particles = 1000000;
 
@@ -39,7 +44,7 @@ function init() {
 	camera2.position.z = 300;
 
 	var vFOV = camera.fov * Math.PI / 180;
-	var h = 2 * Math.tan( vFOV / 2 ) * camera.position.z;
+	h = 2 * Math.tan( vFOV / 2 ) * camera.position.z;
 	w = h * aspect;
 	trueW = w;
 	//w = h;
@@ -69,9 +74,11 @@ function init() {
 
 	var radius = 10;
 
-	var positions = [];
+	positions = [];
+	velocities = [];
 	var colors = [];
 	var indices = [];
+
 
 	var color = new THREE.Color();
 
@@ -109,37 +116,19 @@ function init() {
 
 		colors.push( color.r, color.g, color.b );
 		indices.push(i);
+		velocities.push(0.);
+		velocities.push(0.);
 
 	}
 
-	////
-	//Creating Render Targets
-	////
-
-	const rtWidth = 1000;
-    const rtHeight = 1000;
-	textureA = new THREE.WebGLRenderTarget(rtWidth, rtHeight,
-		{
-			magFilter: THREE.NearestFilter, 
-			// minFilter: THREE.NearestFilter,
-			// type: THREE.FloatType,
-			type: THREE.HalfFloatType,
-		});
-	textureB = new THREE.WebGLRenderTarget(rtWidth, rtHeight,
-		{
-			magFilter: THREE.NearestFilter, 
-			// minFilter: THREE.NearestFilter,
-			// type: THREE.FloatType,
-			type: THREE.HalfFloatType,
-		});
-
+	
 	/////
 	//Creating Points Geometry, Shader Material, and Object
 	/////
 
 	geometry = new THREE.BufferGeometry();
 
-	geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+	geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ).setUsage( THREE.DynamicDrawUsage ) );
 	geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 	geometry.setAttribute( 'i', new THREE.Float32BufferAttribute( indices, 1 ) );
 	geometry.setDrawRange(0,997500);
@@ -149,9 +138,7 @@ function init() {
 		pointTexture: { value: new THREE.TextureLoader().load( "spark1.png" ) },
 		iTime: {value: 0},
 		particles: {value: particles},
-		positionTexture: {value: textureB.texture},
 		sizes: {value: new THREE.Vector2(w,h)},
-
 	};
 
 	shaderMaterial = new THREE.ShaderMaterial( {
@@ -173,36 +160,6 @@ function init() {
 	scene.add( particleSystem );
 
 
-	/////////
-    //Creating Movement Buffer Plane, and Shader 
-    /////////
-
-	bufferScene = new THREE.Scene();
-
-	bufferMaterial = new THREE.ShaderMaterial({
-		uniforms: {
-			iTime: {type: 'f', value: 0.},
-			iFrame: {type: 'f', value: 0},
-			tex : {type: "t", value: textureA.texture},
-			res : {type: 'v2',value:new THREE.Vector2(rtWidth,rtHeight)},
-			size: {type: 'v2',value:new THREE.Vector2(w,h)},
-			// originalPos: {type: 't', value: originalPosTex},
-			mousePos: { type: 'v2', value: new THREE.Vector2(0.5,0.5)},
-			attract: {type: 'f', value: 0},
-		},
-		vertexShader: document.getElementById("vertShaderBuffer").textContent,
-        fragmentShader: document.getElementById("fragShaderBuffer").textContent
-
-	});
-
-	var bufferGeometry = new THREE.PlaneBufferGeometry(w,h,1000,1000);
-	bufferGeometry.setAttribute( 'posInit', new THREE.Float32BufferAttribute( positions, 3 ) );
-	bufferGeometry.setAttribute( 'i', new THREE.Float32BufferAttribute( indices, 1 ) );
-	
-	var bufferObject = new THREE.Mesh(bufferGeometry,bufferMaterial);
-
-	bufferScene.add(bufferObject);
-
 	/////
 	//Add audio for pushing and pulling
 	/////
@@ -219,14 +176,25 @@ function init() {
 	container.addEventListener('mousemove',updateMousePos, false)
 	window.addEventListener('contextmenu',setNotDefault, false);
 
+	container.addEventListener('touchstart',setTouchAttract,false);
+	window.addEventListener('touchmove',stopDefaultScroll,false);
+	container.addEventListener('touchmove',updateTouchPos,false);
+	container.addEventListener('touchend',setTouchNeutral,false);
+	
+
 	var resetButton = document.getElementById('reset');
 	resetButton.addEventListener("click",resetSimulation,false);
+	resetButton.addEventListener('touchstart',resetSimulation,false);
 
 	var minimizeButton = document.getElementById('minimize');
 	minimizeButton.addEventListener('click',minimizeInfo,false);
+	minimizeButton.addEventListener('touchstart',minimizeInfo,false);
+
 	menu = document.getElementById('startMenu');
+	
 	menuButton = document.getElementById('menuButton');
 	menuButton.addEventListener('click',getInfo, false);
+	menuButton.addEventListener('touchstart',getInfo,false);
 
 	
 	// canvas.onclick = function() {
@@ -244,6 +212,41 @@ function init() {
 
 }
 
+function setTouchAttract(e){
+	attract = true;
+	if(e.touches.length == 1){
+		firstTouch = e.touches[0].identifier;
+		attractVal = 1;
+		updateMousePos(e.touches[0]);
+	} else if(e.touches.length >= 2){
+		attractVal = -1;
+	}
+	
+}
+
+function setTouchNeutral(e){
+	if(e.touches.length == 0){
+		attract = false;
+	} else if(e.touches.length == 1){
+		firstTouch = e.touches[0].identifier;
+		attractVal = 1;
+		updateMousePos(e.touches[0]);
+	}
+	
+}
+
+function updateTouchPos(e){
+	for(let i = 0; i<e.touches.length;i++){
+		if(e.touches[i].identifier == firstTouch){
+			updateMousePos(e.touches[0]);
+		}
+	}
+}
+
+function stopDefaultScroll(e){
+	e.preventDefault();
+}
+
 function getInfo(e){
 	menuButton.style.display = "none";
 	menu.style.display = "block"
@@ -255,9 +258,21 @@ function minimizeInfo(e){
 }
 
 function resetSimulation(e){
-	// console.log('Clicked reset button');
-	iF = 0;
-	bufferMaterial.uniforms.iFrame.value = iF;
+
+	var positionVals = geometry.attributes.position.array;
+
+	for(let i = 0;i<particles;i++){
+		var stride = i*3;
+		var velStride = i*2;
+
+		positionVals[stride] = positions[stride];
+		positionVals[stride + 1] = positions[stride + 1];
+
+		velocities[velStride] = 0;
+		velocities[velStride + 1] = 0;
+	}
+
+	geometry.attributes.position.needsUpdate = true;
 }
 
 function setNotDefault(e){
@@ -266,36 +281,26 @@ function setNotDefault(e){
 
 function setNeutral(e){
 	attract = false;
-	bufferMaterial.uniforms.attract.value = 0;
+	attractVal = 0;
 }
 
 function setAttract(e){
-	console.log("clicked");
 	attract = true;
 	if(e.button == 0){
-	bufferMaterial.uniforms.attract.value = 1;
-	} else if(e.button == 2){
-		bufferMaterial.uniforms.attract.value = -1;
+		attractVal = 1;
+	} else if(e.button == 2 || e.isControlPressed()){
+		attractVal = -1;
 	}
 	updateMousePos(e);
-}
-
-function setRepel(e){
-	attract = true;
-	bufferMaterial.uniforms.attract.value = -1;
 }
 
 function updateMousePos(e){
 	if(attract){
 		// var mouseX = e.clientX/window.innerWidth;
-		// console.log(trueW,w);
 		var wPortion = (w/trueW)*window.innerWidth;
-		// console.log(wPortion,window.innerHeight);
 		var zero = (window.innerWidth - wPortion)/2;
-		var mouseX = (e.clientX-zero)/wPortion;
-		var mouseY = 1.-e.clientY/window.innerHeight;
-
-		bufferMaterial.uniforms.mousePos.value = new THREE.Vector2(mouseX,mouseY);
+		mouseX = (e.clientX-zero)/wPortion;
+		mouseY = 1.-e.clientY/window.innerHeight;
 	}
 }
 
@@ -309,7 +314,6 @@ function onWindowResize() {
 }
 
 function animate(time) {
-	//time *= 0.001;
 	requestAnimationFrame( animate );
 
 	render(time);
@@ -319,23 +323,66 @@ function render(time) {
 	
 	shaderMaterial.uniforms.iTime.value = time;
 
-	if(iF % 1 == 0){
-	renderer.setRenderTarget(textureB);
-    renderer.render(bufferScene,camera);
-    renderer.setRenderTarget(null);
+	var positionVals = geometry.attributes.position.array;
 
-    var t = textureA;
-    textureA = textureB;
-    textureB = t;
+	for (let i = 0; i< particles;i++){
+		var stride = i*3.;
+		var velStride = i*2;
 
-    shaderMaterial.uniforms.positionTexture.value = textureB.texture;
-	bufferMaterial.uniforms.tex.value = textureA.texture;
-	
-	
+		var mouseXPos = (mouseX -0.5)*w;
+		var mouseYPos = (mouseY - 0.5)*h;
+
+		var mouseMove = new THREE.Vector2(positionVals[stride] - mouseXPos,positionVals[stride+1] - mouseYPos);
+		mouseMove.divide(new THREE.Vector2((w+h)/2,(w+h)/2));
+		// mouseMove.x *= w/h;
+		var mouseMoveLen = mouseMove.lengthSq();
+		var useMouseMove = mouseMove.divideScalar(mouseMoveLen);
+		useMouseMove.multiply(new THREE.Vector2((w+h)/2,(w+h)/2));
+
+
+		var velX = velocities[velStride];
+		var velY = velocities[velStride + 1];
+
+		var posX = positionVals[stride];
+		var posY = positionVals[stride + 1];
+
+
+		velX += useMouseMove.x*-0.00005*attractVal;
+		velY += useMouseMove.y*-0.00005*attractVal;
+
+		velX *= 0.995;
+		velY *= 0.995;
+
+
+		posX += velX;
+		posY += velY;
+
+
+		if(posX > w/2.){
+			velX  *= -1; 
+			posX = w - posX;
+		} else if(posX < -w/2.){
+			velX  *= -1;
+			posX = -w - posX;
+		}
+
+		if(posY > h/2){
+			velY *= -1;
+			posY = h - posY;
+		} else if(posY < -h/2){
+			velY *= -1;
+			posY = -h - posY;
+		}
+
+		velocities[velStride] = velX;
+		velocities[velStride + 1] = velY;
+
+		positionVals[stride] = posX;
+		positionVals[stride + 1] = posY;
 	}
-	renderer.render( scene, camera2 );
 
-	iF++;
-	bufferMaterial.uniforms.iFrame.value = iF;
+	geometry.attributes.position.needsUpdate = true;
+
+	renderer.render( scene, camera2 );
 
 }
