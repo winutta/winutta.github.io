@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156686069-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-156686069-1');
+		</script>
+		
+		<title>Parti</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<script src = "WebGL.js"></script>
+		<script src = "three.min.js"> </script>
+		<script src = "OrbitControls.js"></script>
+	</head>
+	<body>
+		<div id="container"><canvas id = "c"></canvas></div>
+
+		<a id = menuButton></a>
+		<div id="startMenu">
+			<div id = Title>
+				<span id = "gameName">Parti</span>
+				<span id = "author">by Will Nutter</span>
+			</div>
+			<div id = "Header" class = "subDiv"> Instructions</div>
+			<div id = "Message" class = "subDiv">
+				<ul>
+					<li id = "firstMess" class = "messages">Left click to attract particles to your cursor</li>
+					<li id = "secondMess" class = "messages">Right click to repel particles from your cursor</li>
+				</ul>
+			</div>
+			<div id = "buttons">
+				<a id = "reset" class = "subDiv" >Reset</a>
+				<a id = "minimize" class = "subDiv" >Minimize</a>
+			</div>
+		</div>
+		
+
+		<script type="x-shader/x-vertex" id="vertexshader">
+
+			uniform vec2 sizes;
+			attribute float i;
+			uniform float particles;
+			uniform float iTime;
+			varying vec3 vColor;
+			uniform sampler2D positionTexture; 
+
+			void main() {
+
+				
+				vec3 nPosition = position;
+				vColor = color;
+
+				float portion = i;
+				float column = mod(portion,999.)/999.;
+				float row = floor(portion/1000.)/999.;
+
+				vec3 sampPos = texture2D(positionTexture, fract(vec2(column,1.-row))).xyz;
+				// vec3 sampPos = texture2D(positionTexture, fract(vec2(i/particles,i/particles))).xyz;
+
+				sampPos -= 0.5;
+				sampPos *= vec3(sizes,1.);
+				nPosition = vec3(sampPos.xy,position.z); 
+
+				vec4 mvPosition = modelViewMatrix * vec4( nPosition, 1.0 );
+
+				float nSize = 400. * (1. + sin(10.1*i + iTime/50.));
+				gl_PointSize = nSize* ( 40.0 / -mvPosition.z/30. );
+				// gl_PointSize = 1.;
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform sampler2D pointTexture;
+			varying vec3 vColor;
+
+			void main() {
+
+				gl_FragColor = vec4( vColor, 1.0 );
+
+				gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+
+			}
+
+		</script>
+
+		<script type = "x-shader/x-vertex" id = "vertShaderBuffer">
+
+		// precision lowp float;
+		    //#extension GL_EXT_shader_texture_lod : enable
+		    attribute vec3 posInit;
+		    uniform float iTime;
+		    uniform vec2 res; 
+		    uniform vec2 size;
+		    uniform float iFrame;
+		    uniform sampler2D tex;
+		    varying vec2 sP;
+
+		      void main()
+		      {
+		      	sP = (posInit.xy + vec2(size.x/2.,size.y/2.))/vec2(size.x,size.y);
+
+		 		vec4 modelViewPosition = modelViewMatrix * vec4(position,1.0);
+		        gl_Position = projectionMatrix * modelViewPosition;	      
+		      }
+
+		</script>
+
+		<script type = "x-shader/x-shader" id = "fragShaderBuffer">
+
+		// precision lowp float;
+
+		  uniform sampler2D tex;
+		  uniform vec2 res;                   //The width and height of our screen
+		  uniform float iTime;
+		  uniform float iFrame;
+		  varying vec2 sP;
+		  uniform vec2 size;
+		  uniform vec2 mousePos;
+		  uniform float attract;
+
+		   void main() {
+
+		      vec2 st = gl_FragCoord.xy/res.xy;
+
+		      float decrease = 1.;
+		      vec3 col;
+
+		      vec4 fCol;
+
+		      if(iFrame <1.){
+		      	vec2 poses = sP;
+
+		      	vec2 dir = vec2(0.);
+
+		      	vec2 mov = dir + 0.5;;
+		      	fCol = vec4(poses,mov);
+
+		      } else {
+		      	vec4 sampleGet = texture2D(tex,st).xyzw;
+
+		      	vec2 poses = sampleGet.xy;
+		      	vec2 dir = sampleGet.zw;
+		      	vec2 corrMousePos = mousePos * vec2(size.x/size.y,1.);
+		      	vec2 corrSample = poses * vec2(size.x/size.y,1.);
+		      	vec2 mouseMove = (normalize(corrSample - corrMousePos)/length(corrSample-corrMousePos))*-0.00005*attract;
+		      	// float scaler =  1.41421356 - length(corrSample-corrMousePos);
+		      	// vec2 mouseMove = (normalize(corrSample - corrMousePos)*scaler)*-0.0005*attract;
+
+		      	dir += mouseMove;
+		      	dir = (dir-0.5)*0.995 + 0.5;
+		      	dir.x = (dir.x -0.5)/(1.) + 0.5;
+
+		      	vec2 finDir = (dir-0.5);
+		      	finDir.x *= size.y/size.x;
+		      	vec2 newPos = poses + finDir;
+
+		      	vec2 Gr = step(1.,newPos);
+		      	vec2 Ls = 1.-step(0.,newPos);
+
+		      	newPos = Gr*(2.-newPos) + Ls*(-newPos) + newPos*(1.-Gr)*(1.-Ls);
+		      	dir = mix(((1.-dir)-0.5)*decrease+ 0.5,dir,(1.-Gr)*(1.-Ls));
+
+		      	// float xG = step(1.,newPos.x);
+		      	// float xL = 1.-step(0.,newPos.x);
+		      	// float yG = step(1.,newPos.y);
+		      	// float yL = 1.-step(0.,newPos.y);
+
+		      	// newPos.x = xG*(2.-newPos.x) + xL*(-newPos.x) + newPos.x*(1.-xG)*(1.-xL);
+		      	// newPos.y = yG*(2.-newPos.y) + yL*(-newPos.y) + newPos.y*(1.-yG)*(1.-yL);
+		      	// dir.x = mix(((1.-dir.x)-0.5)*decrease+ 0.5,dir.x,(1.-xG)*(1.-xL));
+		      	// dir.y = mix(((1.-dir.y)-0.5)*decrease+ 0.5,dir.y,(1.-yG)*(1.-yL));
+
+		      	// if(newPos.x > 1.){
+		      	// 	newPos.x = 2. - newPos.x;
+		      	// 	dir.x = ((1.-dir.x)-0.5)*decrease+ 0.5;
+		      	// } else if (newPos.x < 0.){
+		      	// 	newPos.x = -newPos.x;
+		      	// 	dir.x = ((1.-dir.x)-0.5)*decrease+ 0.5;
+		      	// }
+
+		      	// if(newPos.y >1.){
+		      	// 	newPos.y = 2. - newPos.y;
+		      	// 	dir.y = ((1.-dir.y)-0.5)*decrease+ 0.5;
+		      	// } else if(newPos.y <0.){
+		      	// 	newPos.y = -newPos.y;
+		      	// 	dir.y = ((1.-dir.y)-0.5)*decrease+ 0.5;
+		      	// }
+
+		      	dir += vec2(0.,-0.000);
+		      	fCol = vec4(newPos,dir);
+		      }
+
+		      //gl_FragColor = vec4(col,1.0);
+		      gl_FragColor = vec4(fCol);
+		     }
+		</script>
+
+		<script src = sketch.js></script>
+
+</body>
+</html>
