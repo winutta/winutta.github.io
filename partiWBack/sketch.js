@@ -58,10 +58,10 @@ function init() {
 	var context;
 	if(WEBGL.isWebGL2Available()){
 		console.log("using webgl 2");
-		context = canvas.getContext( 'webgl2', { antialias: false } );
+		context = canvas.getContext( 'webgl2', { antialias: true } );
 	} else {
 		console.log("using webgl 1");
-		context = canvas.getContext( 'webgl', { antialias: false } );
+		context = canvas.getContext( 'webgl', { antialias: true } );
 	}
 	container.appendChild( canvas );
 	// var canvas = renderer.domElement;
@@ -75,6 +75,15 @@ function init() {
 	// const controls = new THREE.OrbitControls(camera2, renderer.domElement);
 	// controls.target.set(0, 0, 0);
 	// controls.update();
+
+	///////
+	var circGeom = new THREE.CircleGeometry( 75, 128 );
+	var circMat = new THREE.MeshBasicMaterial({color:"black"});
+	var circ = new THREE.Mesh(circGeom,circMat);
+	circ.position.set(0,0,-2);
+	scene.add(circ);
+
+	///////
 
 	////////
 	//Creating initial Position, Color, and Index data for points
