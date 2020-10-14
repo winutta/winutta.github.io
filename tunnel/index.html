@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<meta charset = "utf-8"/>
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+	<script src = "OrbitControls.js"></script>
+</head>
+<body>
+	<canvas id = "c"></canvas>
+
+	<script type="x-shader/x-vertex" id="vertexshader">
+
+		attribute float i;
+		uniform float iTime;
+		varying vec3 vColor;
+		uniform float xoff;
+
+		void main() {
+
+			
+			vec3 nPosition = position;
+			//nPosition.z = fract(-iTime/75. + nPosition.z);
+			nPosition.z = fract(-xoff/50. + nPosition.z);
+
+			float val = exp(-5.*nPosition.z)*4.;
+			//float val = pow(nPosition.z-1.,6.)*2.;
+
+			float xyLen = length(nPosition.xy);
+			nPosition.xy = (nPosition.xy/xyLen)*val;
+			vColor = color;
+
+			vec4 mvPosition = modelViewMatrix * vec4( nPosition, 1.0 );
+
+			float nSize = 10. * (1. + sin(i + iTime));
+			gl_PointSize = nSize* ( val );
+			//gl_PointSize = 10.*( val );
+			//gl_PointSize = nSize;
+			//gl_PointSize = nSize* ( 1.0 / -mvPosition.z/10. );
+			//gl_PointSize = 5.;
+
+			gl_Position = projectionMatrix * mvPosition;
+
+		}
+
+	</script>
+
+	<script type="x-shader/x-fragment" id="fragmentshader">
+
+		uniform sampler2D pointTexture;
+		varying vec3 vColor;
+
+		void main() {
+
+			gl_FragColor = vec4( vColor, 1.0 );
+			//gl_FragColor = vec4( vec3(0.,0.5,0.), 1.0 );
+
+			gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+
+		}
+
+	</script>
+</body>
+	<script src = "threeSketch.js"></script>
+</html>
