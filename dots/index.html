@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<meta charset = "utf-8"/>
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+	<script src = "OrbitControls.js"></script>
+</head>
+<body>
+	<canvas id = "c"></canvas>
+  
+</body>
+<script type = "x-shader/x-vertex" id = "vertexShader">
+      varying vec2 vUv;
+      uniform sampler2D tex;
+      uniform vec2 res;
+      uniform vec2 wh;
+      varying vec2 vPos;
+      varying float s;
+      attribute float i;
+      uniform float iTime;
+      uniform vec2 pRes;
+      attribute vec2 pOff;
+      uniform float dimen;
+      void main()
+      {
+      	vUv = uv;
+        vec3 nPos = position;
+         
+         nPos.x += wh.x/2.;
+         nPos.x /= wh.x;
+
+         nPos.y += wh.y/2.;
+         nPos.y /= wh.y;
+
+         float scaler = (pRes.y/pRes.x)*(wh.x/wh.y);
+
+         nPos.x *= mix(scaler,1.,dimen);
+         nPos.x -= mix((scaler-1.)/2.,0.,dimen);
+
+         nPos.y *= mix(1./scaler,1.,1.-dimen);
+         nPos.y -= mix((1./scaler - 1.)/2.,0.,1.-dimen);
+         
+         vPos = nPos.xy;
+
+         vec3 rPos = position;
+         rPos.xy += pOff;
+         float offset = length(rPos.xy);
+         float interp = (clamp(sin(iTime/15.-offset/4.),-0.5,0.5)+0.5)*3.14;
+         // rPos.z = rPos.x*sin(interp);
+         // rPos.x *= cos(interp);
+         // 
+         // float newx = rPos.x*cos(interp*2.) - rPos.y*sin(interp*2.);
+         // rPos.y = rPos.x*sin(interp*2.) + rPos.y*cos(interp*2.);
+         // rPos.x = newx;
+
+        
+        vec4 modelViewPosition = modelViewMatrix * vec4(rPos,1.0);
+
+        gl_Position = projectionMatrix * modelViewPosition;
+
+        vec3 vals = texture2D(tex,nPos.xy).xyz;
+        float val = (vals.r + vals.g + vals.b)/3.;
+        s = val;
+
+        float bloat = (1. + sin(i + iTime/8.))/2.;
+         // bloat = 1.;
+        //gl_PointSize = 10.*nPos.y*nPos.x;
+
+        // gl_PointSize = 10.*vals.x;
+        gl_PointSize = 30.*clamp(val,0./10.,1.)*bloat+0.;
+
+        //vec2 p = gl_Position.xy / res.xy;
+        //p.x *= 500.0/333.0;
+        //vec4 i = texture2D(tex,p);
+        //float g = (i.r+i.g+i.b)/3.0;
+        //float dis = smoothstep(0.0,0.3,g);
+        //float cl = clamp(g,0.0,0.2)*5.0;
+        //float dis = pow(cl,7.0);
+        //float dis = clamp(pow(smoothstep(0.0,0.2,g)-0.5,7.0),0.0,1.0);
+        //float dis = 1.0-step(0.3,g);
+        //gl_PointSize = 10.0;
+      }
+
+    </script>
+
+    <script type = "x-shader/x-fragment" id = "fragmentShader">
+
+    varying vec2 vUv;
+    uniform sampler2D tex;
+    uniform vec2 res;  
+    varying float s;
+    varying vec2 vPos;                 //The width and height of our screen
+    void main() {
+          vec2 cxy = 2.0 * gl_PointCoord - 1.0;
+          float r = dot(cxy,cxy);
+          // float pct = 1.0 - step(1.0,r);
+          float pct = smoothstep(1.0,0.0,r);
+
+          // if (pct < 0.5) discard;
+          if(vPos.x < 0. || vPos.x >1.) discard;
+
+          vec2 pixel = gl_FragCoord.xy / res.xy;
+          pixel.x -= 0.15;
+          //pixel.x *= 500.0/333.0;
+          pixel.x *= res.x/res.y;
+          // vec4 inter = texture2D(tex,pixel);
+          vec4 inter = texture2D(tex,vPos);
+          pct *= inter.a;
+          vec3 color = vec3((inter.r+inter.g+inter.b)/3.0);
+          //vec3 color = vec3(inter.rgb+0.2);
+          color = vec3(s+0.2)*inter.xyz;
+          // color = vec3(s);
+          gl_FragColor = vec4(color,pct);
+     }
+
+    </script>
+	<script src = "threeSketch.js"></script>
+</html>
