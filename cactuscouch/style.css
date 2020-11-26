@@ -32,6 +32,7 @@ canvas{
 	position:absolute;
 	margin-left: -150px;
 	margin-right: -150px;
+	font: 15px Arial, sans-serif;
 	left: 50%;
 	top: -webkit-calc(50% + 170px);
 	width: 300px;
