@@ -117,6 +117,7 @@ function main(){
 			}
 		},
 		(xhr)=>{
+			console.log(xhr.loaded,xhr.total);
 			loadingPct.innerHTML = "Loaded " + (xhr.loaded/xhr.total*100).toFixed(2) + "%";
 		});
 
