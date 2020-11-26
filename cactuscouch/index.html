@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<meta charset = "utf-8"/>
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+	<script src = "OrbitControls.js"></script>
+</head>
+<body>
+	<canvas id = "c"></canvas>
+</body>
+	<script type = "x-shader/x-vertex" id = "vertexShader">
+	      varying vec2 vUv;
+	      varying vec3 nPos;
+	      uniform float iTime;
+	      void main()
+	      {
+	      	vUv = uv;
+	 		//apply the transformation to the position! in the space of the threejs scene
+
+	 		//apply the transformation to the modelViewPosition for a GLTF?
+
+	 		vec4 modelPosition = modelMatrix*vec4(position,1.0);
+	 		float high = step(4.*0.686461 ,modelPosition.y);
+	 		float mid = step(2.*0.686461 ,modelPosition.y);
+	 		
+	 		// modelPosition.y += high*(sin(iTime)+1.)/1.;
+	 		modelPosition.x += high*sin(iTime*1.)*1. + mid*sin(iTime+0.8);
+	 		modelPosition.y += sin(modelPosition.x + iTime)*0.2+1. +sin(iTime*2.+0.4372)*0.2;
+	 		nPos = modelPosition.xyz;
+	 		vec4 modelViewPosition = viewMatrix*modelPosition;
+	 		// vec4 modelViewPosition = modelViewMatrix * vec4(nPos,1.0);
+	        gl_Position = projectionMatrix * modelViewPosition;
+      
+	      }
+
+    </script>
+
+    <script type = "x-shader/x-fragment" id = "fragmentShader">
+
+    varying vec2 vUv;
+    varying vec3 nPos;
+    uniform float iTime;
+    uniform sampler2D tex;
+    void main() {
+    	
+        vec3 col = texture2D(tex,vUv).xyz;
+        // col = col*0. + length(nPos.z)*0.05;
+        gl_FragColor = vec4(col,1.0);
+
+     }
+
+    </script>
+	<script src = "threeSketch.js"></script>
+</html>
