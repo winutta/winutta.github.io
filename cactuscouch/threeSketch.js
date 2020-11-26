@@ -23,8 +23,28 @@ function main(){
 	controls.target.set(0, 0, 0);
 	controls.update();
 
+	var loaded = false;
+	const loadingScreen = document.getElementById( 'loading-screen' );
+	const loadingPct = document.getElementById('progress');
+
+	function onTransitionEnd( event ) {
+
+		event.target.remove();
+		
+	}
+		
 	// var sceneTex = new THREE.TextureLoader().load("allbake4k.png");
-	var sceneTex = new THREE.TextureLoader().load("denoiseAllBake.png");
+	var sceneTex = new THREE.TextureLoader().load("denoiseAllBake.png",
+		(tex)=>{
+			if(loaded){
+				console.log("fade out from tex");
+				loadingScreen.classList.add( 'fade-out' );
+				loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+			}else{
+				console.log("tex loaded first");
+				loaded = true;
+			}
+		});
 	sceneTex.flipY = false; //need to make sure not to flipY (this now makes the texture correct!)
 	sceneTex.minFilter = THREE.LinearFilter;
 	// var centerL = new THREE.TextureLoader().load("cactusSide.png");
@@ -86,7 +106,19 @@ function main(){
 			// cactObj.position.set(0.,0.,0.);
 			// cactObj.scale.divideScalar(3.);
 			// scene.add(gltf.scene);
-		})
+
+			if(loaded){
+				console.log("fade out from gltf");
+				loadingScreen.classList.add( 'fade-out' );
+				loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+			}else{
+				console.log("gltf loaded first");
+				loaded = true;
+			}
+		},
+		(xhr)=>{
+			loadingPct.innerHTML = "Loaded " + (xhr.loaded/xhr.total*100).toFixed(2) + "%";
+		});
 
 	var ambLight = new THREE.AmbientLight(0x404040 ,2.);
 	scene.add(ambLight);
