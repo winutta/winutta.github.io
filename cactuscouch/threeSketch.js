@@ -33,8 +33,14 @@ function main(){
 		
 	}
 		
+	var manager = new THREE.LoadingManager();
+	manager.onProgress = (url,itemsLoaded,itemsTotal) => {
+			console.log(url,itemsLoaded,itemsTotal); // use a loading manager instead..... work for another day
+			loadingPct.innerHTML = "Loaded " + (itemsLoaded/itemsTotal*100).toFixed(2) + "%";
+	}
+
 	// var sceneTex = new THREE.TextureLoader().load("allbake4k.png");
-	var sceneTex = new THREE.TextureLoader().load("denoiseAllBake.png",
+	var sceneTex = new THREE.TextureLoader(manager).load("denoiseAllBake.png",
 		(tex)=>{
 			if(loaded){
 				console.log("fade out from tex");
@@ -62,9 +68,12 @@ function main(){
 
 	var mat = new THREE.MeshBasicMaterial({map:sceneTex});
 
-	var colMat = new THREE.MeshBasicMaterial({color: new THREE.Color("rgb(235, 226, 206)")})
+	var colMat = new THREE.MeshBasicMaterial({color: new THREE.Color("rgb(235, 226, 206)")});
 
-	const modelLoader = new THREE.GLTFLoader();
+
+
+
+	const modelLoader = new THREE.GLTFLoader(manager);
 	modelLoader.load("scene.glb",
 		function(gltf){
 			var objectList = gltf.scene.children;
@@ -88,7 +97,7 @@ function main(){
 				else{
 					objectList[i].traverse((obj)=>{
 						obj.material = mat;
-						console.log(obj.scale);
+						// console.log(obj.scale);
 					});
 				}
 			}
@@ -115,10 +124,6 @@ function main(){
 				console.log("gltf loaded first");
 				loaded = true;
 			}
-		},
-		(xhr)=>{
-			console.log(xhr.loaded,xhr.total);
-			loadingPct.innerHTML = "Loaded " + (xhr.loaded/xhr.total*100).toFixed(2) + "%";
 		});
 
 	var ambLight = new THREE.AmbientLight(0x404040 ,2.);
