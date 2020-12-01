@@ -39,8 +39,8 @@ function main(){
 			loadingPct.innerHTML = "Loaded " + (itemsLoaded/itemsTotal*100).toFixed(2) + "%";
 	}
 
-	// var sceneTex = new THREE.TextureLoader().load("allbake4k.png");
-	var sceneTex = new THREE.TextureLoader(manager).load("denoiseAllBake.png",
+	var sceneTex = new THREE.TextureLoader(manager).load("sceneTexture8B.png",
+	// var sceneTex = new THREE.TextureLoader(manager).load("sceneTexture.png",
 		(tex)=>{
 			if(loaded){
 				console.log("fade out from tex");
@@ -66,6 +66,15 @@ function main(){
 		fragmentShader: document.getElementById("fragmentShader").textContent
 	});
 
+	// var smat2 = new THREE.ShaderMaterial({
+	// 	uniforms:{
+	// 		iTime: {value:1.0},
+	// 		tex: {value: sceneTex}
+	// 	},
+	// 	vertexShader: document.getElementById("vertexShader2").textContent,
+	// 	fragmentShader: document.getElementById("fragmentShader").textContent
+	// });
+
 	var mat = new THREE.MeshBasicMaterial({map:sceneTex});
 
 	var colMat = new THREE.MeshBasicMaterial({color: new THREE.Color("rgb(235, 226, 206)")});
@@ -88,9 +97,14 @@ function main(){
 			// });
 
 			for(var i = 0;i<objectList.length;i++){
-				if(i==4){
+				if(i==6){
 					objectList[i].material = smat;
 				}
+				//  else if (i==4){
+				// 	objectList[i].traverse((obj)=>{
+				// 		obj.material = smat2;
+				// 	});
+				// }
 				// else if(i==0){
 				// 	objectList[i].material = colMat;
 				// }
@@ -148,6 +162,7 @@ function main(){
 	function render(time){
 		time *= 0.001;
 		smat.uniforms.iTime.value = time;
+		// smat2.uniforms.iTime.value = time;
 
 		renderer.render(scene,camera);
 
