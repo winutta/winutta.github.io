@@ -79,6 +79,7 @@ function setup() {
   og_val = 3;
   por = 1;
 
+
   startingOffsetforBins = 0;
 
   createData(); //Create Data and Metrics
@@ -141,9 +142,14 @@ function draw() {
   pnumcols = numcols;
   w = width / 2;
 
+
+  ///Optimize this! + maybe plutCumMags
+  //try returning the stuff rather than writing to it a bunch (cans)
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   topStockGraph(cans[0]); //Working Nicely?
 
-  //bottomBinGraph(cans[1], [pposs, pnegs], startingOffsetforBins, Blue, Orange,false);
+  bottomBinGraph(cans[1], [pposs, pnegs], startingOffsetforBins, Blue, Orange,false);
   bottomBinGraph(cans[2], [period_pos_sums, period_neg_sums], startingOffsetforBins, Purple, Green,true);
   bottomBinGraph(cans[3], [0, period_diff_sums], startingOffsetforBins, Purple, Green,false, 1 / 2);
   //print(neg_mags,pos_mags);
@@ -154,17 +160,17 @@ function draw() {
   //print(period_diff_sums);
   //cummulativeSum(cans[6],period_diff_sums); 
   cumGraphSums(cans[6], [cum_pos, cum_neg], startingOffsetforBins, Purple, Green,true);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   image(cans[0], 0, 0);// log return plot
-  //image(cans[1],width/2,height/2);
+  image(cans[1],width/2,height/2);
   image(cans[2], 0, height / 4); //Log Return bars
   image(cans[3], 0, 2 * height / 4); //Log Return Diff bars
   image(cans[4], width/2, height/4); // mag bars
   image(cans[5], width/2, 2*height / 4);// mag diff bars
   image(cans[6],0,3*height/4); // lr cum sum lines
   image(cans[7],width/2,3*height/4);// mag cum sum lines
-
-
 
 }
 
@@ -723,6 +729,7 @@ function topStockGraph(canvas) {
     //////
     //Horizontal Lines
     //////
+    //seems like you dont need 10 points per line (maybe just use line)
     canvas.beginShape();
     for (let j = 0; j < 11; j++) {
       canvas.vertex((j / 10) * canvas.width, canvas.height - (bin / (num_horiz)) * canvas.height);
@@ -745,6 +752,7 @@ function topStockGraph(canvas) {
       //////
       // Plotting Vertical Line
       //////
+      //seems like you dont need 10 points per line (maybe just use line)
       canvas.beginShape();
       for (let j = 0; j < 11; j++) {
 
