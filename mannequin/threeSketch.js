@@ -108,7 +108,7 @@ function main(){
 	var ik = new THREE.IK();
 	var ikChain = new THREE.IKChain();
 
-
+	var torsoBoneLength;
 
 	loader.load(
 		// resource URL
@@ -178,16 +178,46 @@ function main(){
 
 			// var s1 = makeSphere();
 
-			// s1.position.copy(worldPoint.multiplyScalar(1));
-			var s2 = makeSphere();
+			// // s1.position.copy(worldPoint.multiplyScalar(1));
+			// var s2 = makeSphere();
 
-			s2.position.copy(worldP2.multiplyScalar(1));
+			// s2.position.copy(worldP2.multiplyScalar(1));
 
 
 			// console.log(localPoint,worldPoint, worldP2, bone.position, localP2, worldP3);
 
 
+			/////////////////////
 
+
+			var lShoulderBone = model.children[1].skeleton.bones[7];
+			var rShoulderBone = model.children[1].skeleton.bones[31];
+
+			var rHipBone = model.children[1].skeleton.bones[60];
+			var lHipBone = model.children[1].skeleton.bones[55];
+
+
+			var topTorsoR = new THREE.Vector3();
+			var topTorsoL = new THREE.Vector3();
+			rShoulderBone.getWorldPosition(topTorsoR);
+			lShoulderBone.getWorldPosition(topTorsoL);
+			var topTorsoAvg = new THREE.Vector3();
+			topTorsoAvg.copy(topTorsoR).add(topTorsoL).multiplyScalar(0.5);
+
+			var botTorsoR = new THREE.Vector3();
+			var botTorsoL = new THREE.Vector3();
+			rHipBone.getWorldPosition(botTorsoR);
+			lHipBone.getWorldPosition(botTorsoL);
+			var botTorsoAvg = new THREE.Vector3();
+			botTorsoAvg.copy(botTorsoR).add(botTorsoL).multiplyScalar(0.5);
+
+			var torsoUpBone = topTorsoAvg.clone().sub(botTorsoAvg);
+
+			//Should use upTorsoBoneDiff of only the first time to get the base scale of the mesh
+			torsoBoneLength = torsoUpBone.length();
+			console.log(torsoBoneLength);
+			
+			// }
 
 
 			///////////////////////////////////
@@ -278,6 +308,9 @@ function main(){
 		return worldPoint;
 	}
 
+	var firstResize = true;
+	var torsoBoneLength;
+
 	function updateSkinnedMesh(time){
 		if(model){
 
@@ -305,6 +338,13 @@ function main(){
 			var localAvgHip = getLocalPosition(model.children[1].skeleton.bones[0],finalPosition);
 
 			model.children[1].skeleton.bones[0].position.copy(localAvgHip);
+
+
+
+
+
+
+
 
 
 			// set rotations of arms and legs from triangles //
@@ -391,8 +431,57 @@ function main(){
 
 
 
+			//Torso
+
+			var bottomTorso = lHip.clone().sub(rHip);
 
 
+			var avgTopTorso = lShoulder.clone().add(rShoulder).multiplyScalar(0.5);
+			var avgBottomTorso = lHip.clone().add(rHip).multiplyScalar(0.5);
+
+			var avgTorso = avgTopTorso.clone().add(avgBottomTorso).multiplyScalar(0.5);
+
+
+			var upTorso = avgTopTorso.clone().sub(avgBottomTorso);  
+
+			var crossTorso = bottomTorso.clone().cross(upTorso);
+			crossTorso.normalize();
+
+			var rootBone = model.children[1].skeleton.bones[0];
+
+			rootBone.up = upTorso;
+
+			rootBone.lookAt(avgTorso.clone().add(crossTorso));
+			rootBone.rotateX(Math.PI/10);// maybe find a way to make this not necessary
+
+			// not sure if i love this becausemaybe the data is off? 
+			//try to rework this
+			
+
+			var modelScale = (upTorso.length()/torsoBoneLength)/95.;
+			// console.log(modelScale);
+			var scaler = new THREE.Vector3();
+			scaler.setScalar(modelScale);
+			// console.log(model.scale);
+
+			model.scale.copy(scaler);
+
+			// scaler.multiply(model.scale);
+
+			// scaler.set(1,1,1).multiplyScalar();
+
+			// if(firstResize){
+			// 	firstResize = false;
+			// 	model.scale.set(0.016,0.016,0.016);
+			// 	 // model.scale.copy(scaler);
+			// 	 console.log(modelScale,model.scale,upTorsoBoneDiff.length(),upTorso.length());
+			// }
+
+			//
+			//maybe just do it the first time?
+
+
+			// model.updateMatrixWorld();
 		
 
 
