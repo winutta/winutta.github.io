@@ -29,20 +29,80 @@ function main(){
 
 	var vFOV = camera.fov * Math.PI / 180;
 
+	var loaded = false;
+	const loadingScreen = document.getElementById( 'loading-screen' );
+	const loadingPct = document.getElementById('progress');
+	
+	// 1. Want to add Google Media Pipe API data and read it to the console, from video
+
+	const videoElement = document.getElementsByClassName('input-video')[0];
+
 	window.addEventListener( 'resize', onWindowResize, false );
 	function onWindowResize(){
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-	}
-	
-	// 1. Want to add Google Media Pipe API data and read it to the console, from video
+    videoElement.width = window.innerWidth;
+    videoElement.height = window.innerHeight;
+    
 
-	const videoElement = document.getElementsByClassName('input-video')[0];
+	}
+
+
+	var firstPoint = true;
+
+	var pointsMemory = [];
 
 	function onResults(results) {
-		points = results.poseLandmarks;
+
+		// var smoothPoints = [];
+
+		if(results.poseLandmarks){
+
+			if(pointsMemory.length<5){
+				pointsMemory.push(results.poseLandmarks);
+			}
+			else {
+				var removeFirst = pointsMemory.slice(1);
+				 removeFirst.push(results.poseLandmarks);
+				 pointsMemory = removeFirst;
+			}
+
+
+
+
+			var smoothPoints = [...pointsMemory[0]];
+
+
+
+			var memoryLength = pointsMemory.length;
+
+			// console.log(results.poseLandmarks,smoothPoints,memoryLength);
+
+			if(memoryLength>1){
+
+				for(var i = 0;i<smoothPoints.length;i++){
+					for(var j = 1;j<memoryLength;j++){
+						smoothPoints[i].x += pointsMemory[j][i].x;
+						smoothPoints[i].y += pointsMemory[j][i].y;
+						smoothPoints[i].z += pointsMemory[j][i].z;
+					}
+					smoothPoints[i].x /= memoryLength;
+					smoothPoints[i].y /= memoryLength;
+					smoothPoints[i].z /= memoryLength;
+				}
+
+			}
+
+			// console.log(memoryLength,results.poseLandmarks, smoothPoints); // this is undefined until 
+			// // points = results.poseLandmarks;
+			points = smoothPoints;
+			if(firstPoint){
+				firstPoint = false;
+				console.log(points);
+			}
+		}
 	}
 
 	const pose = new Pose({locateFile: (file) => {
@@ -81,6 +141,7 @@ function main(){
 			sphere = new THREE.Mesh(sphereGeometry,red);
 		}
 		sphere.position.set(i/10.,0,0);
+		sphere.visible = false;
 		sphereMeshes.push(sphere);
 		scene.add(sphere);
 	}
@@ -105,6 +166,12 @@ function main(){
 		return new THREE.Vector3(x_angle,y_angle,z_angle);
 	}
 
+	function onTransitionEnd( event ) {
+
+		event.target.remove();
+		
+	}
+
 	var ik = new THREE.IK();
 	var ikChain = new THREE.IKChain();
 
@@ -125,7 +192,7 @@ function main(){
 			const helper = new THREE.SkeletonHelper(model);
 			// model.children[1].skeleton.bones[10].position.x = -10.1;
 			// model.children[1].material = manMat; //For some reason the mesh doesnt like sharing
-			scene.add(helper);
+			// scene.add(helper);
 			scene.add( model );
 			model.position.set(0,-1,0);
 			model.rotateX(Math.PI/20);
@@ -138,6 +205,8 @@ function main(){
 			// model.rotation.set(0,0,0);
 			model.updateMatrix();
 			model.updateMatrixWorld();
+
+
 
 
 
@@ -238,10 +307,16 @@ function main(){
 			// scene.add(ik.getRootBone());
 
 
+			loaded = true;
+			console.log("fade out from tex");
+			loadingScreen.classList.add( 'fade-out' );
+			loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+
+
 		},
 		// called while loading is progressing
 		function ( xhr ) {
-
+			loadingPct.innerHTML = ( xhr.loaded / xhr.total * 100 ) + '% loaded';
 			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
 		},
@@ -275,6 +350,7 @@ function main(){
 			}
 
 			elem.position.set((pVals.x-0.5)*w,h*((1.-pVals.y)-0.5),(1.-z)-0.5);
+
 		}
 
 	}
@@ -310,6 +386,8 @@ function main(){
 
 	var firstResize = true;
 	var torsoBoneLength;
+
+	// var smoothPoints = [];
 
 	function updateSkinnedMesh(time){
 		if(model){
@@ -700,7 +778,7 @@ function main(){
 
 		if(points){
 			if(points[0]){
-				updateSpheres();
+				// updateSpheres();
 				updateSkinnedMesh(time*0.01);
 			}
 		}
@@ -717,4 +795,5 @@ function main(){
 
 }
 
-main();
+window.onload = main;
+// main();
