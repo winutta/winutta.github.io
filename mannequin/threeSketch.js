@@ -46,7 +46,7 @@ function main(){
 	    // width = window.innerWidth; 
 	    // height = window.innerHeight;
 
-	    console.log(window.innerWidth,window.innerHeight,document.body.clientWidth,document.body.clientHeight)
+	    // console.log(window.innerWidth,window.innerHeight,document.body.clientWidth,document.body.clientHeight)
 
 	    //seems like window innerWidth and innerHeight are giving strange values;
 
@@ -56,7 +56,7 @@ function main(){
 	    cameraGMP.g.height = document.body.clientHeight;
 	    cameraGMP.g.width = document.body.clientWidth;
 
-    console.log(videoElement.innerWidth);
+    // console.log(videoElement.innerWidth);
 // 
 	    // videoElement.width = window.innerWidth;  //This grows the camera to fit the screen
 	    // videoElement.height = window.innerHeight;
@@ -160,7 +160,7 @@ function main(){
 			sphere = new THREE.Mesh(sphereGeometry,red);
 		}
 		sphere.position.set(i/10.,0,0);
-		// sphere.visible = false;
+		sphere.visible = false;
 		sphereMeshes.push(sphere);
 		scene.add(sphere);
 	}
@@ -812,7 +812,7 @@ function main(){
 
 		if(points){
 			if(points[0]){
-				updateSpheres();
+				// updateSpheres();
 				updateSkinnedMesh(time*0.01);
 			}
 		}
