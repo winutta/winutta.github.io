@@ -9,8 +9,9 @@ function main(){
 	const renderer = new THREE.WebGLRenderer({canvas,antialias:true, alpha: true});
 
 	var width = window.innerWidth, height = window.innerHeight;
+	console.log(width,height);
 	renderer.setSize(window.innerWidth,window.innerHeight);
-	renderer.setClearColor(0xE88D27,0);// a nice burnt orange color
+	renderer.setClearColor(0xFFFFFF,0);// a nice burnt orange color
 	
 	const scene = new THREE.Scene();
 
@@ -31,7 +32,7 @@ function main(){
 
 	var loaded = false;
 	const loadingScreen = document.getElementById( 'loading-screen' );
-	const loadingPct = document.getElementById('progress');
+	// const loadingPct = document.getElementById('progress');
 	
 	// 1. Want to add Google Media Pipe API data and read it to the console, from video
 
@@ -39,12 +40,28 @@ function main(){
 
 	window.addEventListener( 'resize', onWindowResize, false );
 	function onWindowResize(){
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+	    camera.aspect = window.innerWidth / window.innerHeight;
+	    camera.updateProjectionMatrix();
+	    renderer.setSize( window.innerWidth, window.innerHeight );
+	    // width = window.innerWidth; 
+	    // height = window.innerHeight;
 
-    videoElement.width = window.innerWidth;
-    videoElement.height = window.innerHeight;
+	    console.log(window.innerWidth,window.innerHeight,document.body.clientWidth,document.body.clientHeight)
+
+	    //seems like window innerWidth and innerHeight are giving strange values;
+
+	    // console.log("camera", cameraGMP, width, height);
+	    // cameraGMP.g.height = window.innerHeight;
+	    // cameraGMP.g.width = window.innerWidth;
+	    cameraGMP.g.height = document.body.clientHeight;
+	    cameraGMP.g.width = document.body.clientWidth;
+
+    console.log(videoElement.innerWidth);
+// 
+	    // videoElement.width = window.innerWidth;  //This grows the camera to fit the screen
+	    // videoElement.height = window.innerHeight;
+    // videoElement.width = document.body.clientWidth;
+    // videoElement.height = document.body.clientHeight;
     
 
 	}
@@ -123,6 +140,8 @@ function main(){
 	  width: width,
 	  height: height
 	});
+
+	console.log("camera", cameraGMP);
 	cameraGMP.start();
 
 	// 2. Want to load the 3D Model and create sliders for the bones positions.
@@ -141,7 +160,7 @@ function main(){
 			sphere = new THREE.Mesh(sphereGeometry,red);
 		}
 		sphere.position.set(i/10.,0,0);
-		sphere.visible = false;
+		// sphere.visible = false;
 		sphereMeshes.push(sphere);
 		scene.add(sphere);
 	}
@@ -183,11 +202,17 @@ function main(){
 		// called when the resource is loaded
 		function ( gltf ) {
 			console.log("loading mann");
-			console.log(gltf.scene.children[2]);
+			// console.log(gltf.scene.children[2]);
+			console.log(gltf.scene.children[2].children[1].material);
 
 
 
 			model = gltf.scene.children[2];
+			// console.log(model.children[1]);
+			gltf.scene.children[2].children[1].material.map.encoding = 3000;
+			gltf.scene.children[2].children[1].material.roughness = 2;
+			// gltf.scene.children[2].children[1].material.metalness = 0.7;
+			// model.children[1].material.color.setHex(0x0000c8);
 			// console.log(model.children[1].skeleton);
 			const helper = new THREE.SkeletonHelper(model);
 			// model.children[1].skeleton.bones[10].position.x = -10.1;
@@ -316,7 +341,7 @@ function main(){
 		},
 		// called while loading is progressing
 		function ( xhr ) {
-			loadingPct.innerHTML = ( xhr.loaded / xhr.total * 100 ) + '% loaded';
+			// loadingPct.innerHTML = ( xhr.loaded / xhr.total * 100 ) + '% loaded';
 			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
 		},
@@ -329,9 +354,18 @@ function main(){
 	);
 
 	const color = 0xFFFFFF;
-	const intensity = 3;
+	const intensity = 1.5;
 	const light = new THREE.AmbientLight(color, intensity);
 	scene.add(light);
+
+
+	const light2 = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+	// scene.add( light2 );
+
+
+	const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.1 );
+	directionalLight.position.set(0,0,-2);
+	scene.add( directionalLight );
 
 	var sphereFirst = true;
 
@@ -778,7 +812,7 @@ function main(){
 
 		if(points){
 			if(points[0]){
-				// updateSpheres();
+				updateSpheres();
 				updateSkinnedMesh(time*0.01);
 			}
 		}

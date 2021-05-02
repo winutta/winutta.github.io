@@ -2,6 +2,7 @@
 <html>
 <head>
 	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<meta charset = "utf-8"/>
 	<script src = "three.min.js"></script>
 	<script src = "GLTFLoader.js"></script>
@@ -18,9 +19,11 @@
 <body>
 	<div id = "loading-screen">
 		<div id = "loader"></div>
-		<div id = "progress">Loaded 0%</div>
+		<div id = "progress">Loading</div>
 	</div>
+	<div id = "black-background"></div>
 	<video class = "input-video"></video>
+	
 	<canvas id = "c"></canvas> 
 </body>
 	<script src = "threeSketch.js"></script>
