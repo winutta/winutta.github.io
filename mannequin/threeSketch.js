@@ -38,33 +38,7 @@ function main(){
 
 	const videoElement = document.getElementsByClassName('input-video')[0];
 
-	window.addEventListener( 'resize', onWindowResize, false );
-	function onWindowResize(){
-	    camera.aspect = window.innerWidth / window.innerHeight;
-	    camera.updateProjectionMatrix();
-	    renderer.setSize( window.innerWidth, window.innerHeight );
-	    // width = window.innerWidth; 
-	    // height = window.innerHeight;
 
-	    // console.log(window.innerWidth,window.innerHeight,document.body.clientWidth,document.body.clientHeight)
-
-	    //seems like window innerWidth and innerHeight are giving strange values;
-
-	    // console.log("camera", cameraGMP, width, height);
-	    // cameraGMP.g.height = window.innerHeight;
-	    // cameraGMP.g.width = window.innerWidth;
-	    cameraGMP.g.height = document.body.clientHeight;
-	    cameraGMP.g.width = document.body.clientWidth;
-
-    // console.log(videoElement.innerWidth);
-// 
-	    // videoElement.width = window.innerWidth;  //This grows the camera to fit the screen
-	    // videoElement.height = window.innerHeight;
-    // videoElement.width = document.body.clientWidth;
-    // videoElement.height = document.body.clientHeight;
-    
-
-	}
 
 
 	var firstPoint = true;
@@ -133,7 +107,7 @@ function main(){
 	});
 	pose.onResults(onResults);
 
-	const cameraGMP = new Camera(videoElement, {
+	var cameraGMP = new Camera(videoElement, {
 	  onFrame: async () => {
 	    await pose.send({image: videoElement});
 	  },
@@ -143,6 +117,54 @@ function main(){
 
 	console.log("camera", cameraGMP);
 	cameraGMP.start();
+
+
+	window.addEventListener( 'resize', onWindowResize, false );
+	function onWindowResize(){
+	    camera.aspect = window.innerWidth / window.innerHeight;
+	    camera.updateProjectionMatrix();
+	    renderer.setSize( window.innerWidth, window.innerHeight );
+	    width = window.innerWidth;
+	    height = window.innerHeight;
+
+
+	    // // videoElement.width = window.innerWidth;  //This grows the camera to fit the screen
+	    // // videoElement.height = window.innerHeight;
+
+	    // cameraGMP = new Camera(videoElement, {
+	    //   onFrame: async () => {
+	    //     await pose.send({image: videoElement});
+	    //   },
+	    //   width: width,
+	    //   height: height
+	    // });
+
+	    // console.log("camera", cameraGMP);
+	    // cameraGMP.start();
+
+
+	    // width = window.innerWidth; 
+	    // height = window.innerHeight;
+
+	    // console.log(window.innerWidth,window.innerHeight,document.body.clientWidth,document.body.clientHeight)
+
+	    //seems like window innerWidth and innerHeight are giving strange values;
+
+	    // console.log("camera", cameraGMP, width, height);
+	    // cameraGMP.g.height = window.innerHeight;
+	    // cameraGMP.g.width = window.innerWidth;
+	    // cameraGMP.g.height = document.body.clientHeight;
+	    // cameraGMP.g.width = document.body.clientWidth;
+
+    // console.log(videoElement.innerWidth);
+// 
+	    // videoElement.width = window.innerWidth;  //This grows the camera to fit the screen
+	    // videoElement.height = window.innerHeight;
+    // videoElement.width = document.body.clientWidth;
+    // videoElement.height = document.body.clientHeight;
+    
+
+	}
 
 	// 2. Want to load the 3D Model and create sliders for the bones positions.
 
@@ -354,7 +376,7 @@ function main(){
 	);
 
 	const color = 0xFFFFFF;
-	const intensity = 1.5;
+	const intensity = 2;
 	const light = new THREE.AmbientLight(color, intensity);
 	scene.add(light);
 
@@ -406,6 +428,7 @@ function main(){
 		var x = point.x;
 		var y = point.y;
 		var z = point.z+0.5;
+		// var z = point.z+1.5;
 
 		var h =  2 * Math.tan( vFOV / 2 ) * (2 - ((1.-z) - 0.5));
 		var w = h * aspect;
@@ -610,6 +633,7 @@ function main(){
 				var x = point.x;
 				var y = point.y;
 				var z = point.z+0.5;
+				// var z = point.z+1.5;
 
 				var h =  2 * Math.tan( vFOV / 2 ) * (2 - ((1.-z) - 0.5));
 				var w = h * aspect;
