@@ -98,12 +98,23 @@ function main(){
 	  return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
 	}});
 	pose.setOptions({
+	  selfieMode: true,
 	  upperBodyOnly: false,
 	  smoothLandmarks: true,
 	  minDetectionConfidence: 0.5,
 	  minTrackingConfidence: 0.5
 	});
 	pose.onResults(onResults);
+
+	const getMethods = (obj) => {
+	  let properties = new Set()
+	  let currentObj = obj
+	  do {
+	    Object.getOwnPropertyNames(currentObj).map(item => properties.add(item))
+	  } while ((currentObj = Object.getPrototypeOf(currentObj)))
+	  return [...properties.keys()].filter(item => typeof obj[item] === 'function')
+	}
+	console.log(getMethods(pose));
 
 	var cameraGMP = new Camera(videoElement, {
 	  onFrame: async () => {
