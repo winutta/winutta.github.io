@@ -129,7 +129,7 @@ function main(){
 	}
 
 	const pose = new Pose({locateFile: (file) => {
-	  return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+	  return `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.3.1620246326/${file}`;
 	}});
 	pose.setOptions({
 	  selfieMode: true,
