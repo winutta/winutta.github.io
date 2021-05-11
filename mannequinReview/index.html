@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<meta charset = "utf-8"/>
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+	<script src = "OrbitControls.js"></script>
+	<!-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.min.js"></script> -->
+	<script src = "math.js"></script>
+	<script src = "camera_utils.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.3/control_utils.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3/drawing_utils.js" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.3.1620246326/pose.js" crossorigin="anonymous"></script> -->
+	<script src = "pose.js"></script>
+
+</head>
+<body>
+	<div id = "loading-screen">
+		<div id = "loader"></div>
+		<div id = "progress">Loading</div>
+	</div>
+	<img class = "outline" src = "bodyOutline2.png">
+	<div id = "black-background"></div>
+	<!-- <div class = "video-container"> -->
+		<video class = "input-video"></video>
+	<!-- </div> -->
+	<canvas id = "c"></canvas> 
+</body>
+	<script src = "threeSketch.js"></script>
+</html>
