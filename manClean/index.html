@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<meta charset = "utf-8"/>
+	<script src = "three.min.js"></script>
+	<script src = "GLTFLoader.js"></script>
+	<!-- <script src = "OrbitControls.js"></script> -->
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.min.js"></script>
+	<script src = "camera_utils.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.3.1620246326/pose.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div>
+		<div id = "loading-screen">
+			<div id = "loader"></div>
+			<div id = "progress">Loading</div>
+		</div>
+		<div id = "black-background"></div>
+		<video class = "input-video"></video>
+	</div>
+	<div class = "outline"></div>
+	<canvas id = "c"></canvas> 
+</body>
+	<script src = "threeSketch.js"></script>
+</html>
