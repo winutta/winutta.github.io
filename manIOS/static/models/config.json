@@ -1,0 +1,21 @@
+[
+    {
+        "id": "0",
+        "extension": "fbx",
+        "path": "./models/Light_Jacket",
+        "model": "Light_Jacket.fbx",
+        "normalTexture": "normal.png",
+        "thumbnails": [
+            "thumbnail_01.jpg",
+            "thumbnail_02.jpg",
+            "thumbnail_03.jpg",
+            "thumbnail_04.jpg"
+        ],
+        "colorTextures": [
+            "color_01.png",
+            "color_02.png",
+            "color_03.png",
+            "color_04.png"
+        ]
+    }
+]

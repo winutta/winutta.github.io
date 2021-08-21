@@ -1,0 +1,74 @@
+.loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 1;
+ 	transition: 1s opacity;
+}
+
+.loading.fadeout {
+    opacity: 0;
+}
+
+.loading .progress {
+	position:absolute;
+	margin-left: -150px;
+	margin-right: -150px;
+	font: 15px Arial, sans-serif;
+	left: 50%;
+	top: calc(50% + 170px);
+	width: 300px;
+	text-align: center;
+	color:white;
+}
+
+.loading .icon {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    margin: -150px 0 0 -150px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    animation: spin 2s linear infinite;
+}
+.loading .icon:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    animation: spin 3s linear infinite;
+}
+.loading .icon:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+   
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
