@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Pose Tracking and 3D model animation visualizer using mediapipe and threejs.",
   "main": "index.js",
-  "home": "https://jadams777.github.io/poseNonObf/",
+  "home": "https://winutta.io/manIOS/",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
     "dev": "webpack serve --open --config ./bundler/webpack.dev.js",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "@mediapipe/camera_utils": "0.3.1620247984",
-    "@mediapipe/pose": "0.4.1627343400",
+    "@mediapipe/pose": "0.4.1629494275",
     "core-js": "^3.8.3",
     "stats.js": "^0.17.0",
     "three": "^0.129.0"
