@@ -25,21 +25,27 @@ function main(){
 	// 	console.log(menuList);
 	// }
 
-	window.addEventListener("click",(e)=>{
-		console.log(e.target);
-		console.log(menuList);
-		if(e.target == menuClick){
+	// window.addEventListener("click",(e)=>{
+	// 	console.log(e.target);
+	// 	console.log(menuList);
+	// 	if(e.target == menuClick){
+	// 		// console.log("menu");
+	// 		menuList.classList.add("clickedMenu");
+	// 	} else {
+	// 		menuList.classList.remove("clickedMenu");
+	// 	}
+	// })
+
+	window.addEventListener("touchstart", (e) => {
+		// console.log(e.target);
+		// console.log(menuList);
+		if (e.targetTouches.item(0) == menuClick) {
 			// console.log("menu");
 			menuList.classList.add("clickedMenu");
 		} else {
 			menuList.classList.remove("clickedMenu");
 		}
 	})
-
-	menuClick.addEventListener("focusout",()=>{
-
-		menuList.classList.remove("clickedMenu");
-	});
 
 	// const width = window.innerWidth;
 	const scene = new THREE.Scene();
