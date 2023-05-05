@@ -1,0 +1,367 @@
+
+    * {
+      -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+
+      /*box-sizing: border-box;*/
+    }
+
+    html{
+      overflow-x:hidden;
+      /*overflow-y:visible;*/
+    }
+
+    html, body {
+      /*position:absolute;*/
+      display:block;
+      margin: 0;
+      padding: 0;
+      /*width:100vw;*/
+      height:100%;
+      
+      /*overflow:none;*/
+      /*scroll-margin: 50px 0 0 50px;*/
+      /*overflow-y:hidden;*/
+      position: static;
+       /*border: 1px solid #666666;   */
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      padding:0;
+      margin:0;
+      left:0px;
+      top: 0px;
+      /*border: 1px solid red;*/
+      height:100vh;
+      z-index: -100;
+    }
+
+    .container{
+      /*border: 1px orange solid;*/
+      padding:0;
+      margin:0;
+      z-index:1;
+      width:100%;
+      height:100%;
+    }
+
+    #header{
+      /* border: 1px blue solid; */
+      background-color: black;
+      /* grid-template-columns: 2fr 1fr 1fr; */
+      /*width:200%;*/
+      width:100vw;
+      height: 15vh;
+    }
+
+    #header >div {
+      color: white;
+      padding:0;
+      margin:0;
+      /* border: 1px red solid; */
+    }
+
+
+    #link {}
+
+    .tText {
+      /* border: 1px green solid;  */
+    width: 50vw;
+    height: 15vh;
+      /* font-weight:100; */
+      position:relative;
+      /*left:50%;*/
+      /*-webkit-transform: translate(-50%,0%);*/
+      /*transform: translate(-50%,0%);*/
+      
+      
+    }
+
+    #t1 {
+      /* border: 1px red solid; */
+      /*-webkit-flex: 0;*/
+      /* -webkit-flex: 0 1 auto;
+      flex: 0 1 auto; */
+      /* width: 100%; */
+      position:relative;
+      bottom:10%;
+      left:0%;
+      /* line-height: 100%; */
+
+      /*min(10vh,6vw)*/
+      font-size: min(5vh, 3vw);
+      /*font-family: 'Pacifico', cursive;*/
+      font-family: 'Raleway', sans-serif;
+      /* font-weight: 400; */
+      color: white;
+    }
+
+    #t2 {
+      /* border: 1px red solid; */
+      /*-webkit-flex: 0;*/
+      /* -webkit-flex: 0 1 auto;
+      flex: 0 1 auto; */
+      /* width: 100%; */
+      position:absolute;
+      bottom:10%;
+      left:10%;
+      /* line-height: 100%; */
+
+      /*min(10vh,6vw)*/
+      font-size: min(10vh, 6vw);
+      /*font-family: 'Pacifico', cursive;*/
+      font-family: 'Raleway', sans-serif;
+      /* font-weight: 400; */
+      color: white;
+    }
+
+
+
+    .menu{
+        /* border: 1px red solid; */
+        /* width: 10vw; */
+        width: 50vw;
+        height: 15vh;
+        position: absolute;
+        right:0%;
+        top:0%;
+        padding: 0;
+        margin: 0;
+
+        /* display:flex;
+        display:-webkit-flex;
+        -webkit-align-self: flex-end;
+        align-self: flex-end; */
+    }
+
+
+    .menuText {
+
+        /* border: 1px green solid;  */
+        /* -webkit-flex: 0 1 auto; */
+        /* flex: 0 1 auto; */
+        /* height: auto; */
+        position:absolute;
+        bottom:10%;
+        right: 10%;
+        /* font-weight: 400; */
+        /* top: 100px; */
+        /* line-height: 100%; */
+        font-size: min(10vh, 6vw);
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .menu ul {
+      /*-webkit-flex: 0;*/
+      /* -webkit-flex: 0 1 auto;
+      flex: 0 1 auto; */
+      /*position:relative;*/
+      display: none;
+      position: absolute;
+      padding: 0;
+      margin:0;
+      top: 15vh;
+      width:min(50vw,50vh);
+      right:0%;
+      background-color: black;
+      border-bottom-left-radius: 0.5rem;
+
+    }
+
+    .menu ul a{
+      text-decoration: none;
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      position:relative;
+      left:10%;
+    }
+
+    .menu ul li{
+      /*float: left; */
+      /*position:relative;*/
+      /*left:10%;*/
+      list-style:none;
+      /*position: relative;*/
+    }
+
+    .menu ul li:hover, .menu ul li:active {
+      background-color: #484848;
+      border-bottom-left-radius: 0.5rem;
+    }
+    
+    .menu:hover ul, .menu:active ul{
+      display: block;
+    }
+    
+
+    .information{
+      /*border: 1px red solid;*/
+      /*font-size:10vh;*/
+     /* position: relative;*/
+      /*top:85%;*/
+      width: 100vw;
+      height:auto;
+      font-family: 'Raleway', sans-serif;
+      font-weight:200;
+    }
+
+    .information > p{
+      overflow: auto;
+      margin-top: 2rem;
+      /*margin-bottom:0;*/
+      /*border: 1px green solid;*/
+      padding-left:5vw;
+      padding-right:5vw;
+      font-weight:400;
+      /*background:white;*/
+      
+      background-size: cover;
+      /*box-shadow:  0px 0px 10px 10px white,0px 0px 10px 10px white inset;*/
+    }
+
+
+/*    .information > p:before{
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      filter:blur(8px);
+      background:white;
+      background-size: contain;
+      width:100%;
+      height:10%;
+      z-index: -1;
+    }*/
+
+    #tagline {
+      font-size: min(10vh,6vw);
+    }
+
+    #message {
+      font-size: min(6vh,4vw);
+    }
+
+    #contentGrid{
+      /*border: 1px red solid;*/
+      display:grid;
+      margin-left:5vw;
+      margin-right:5vw;
+      padding:none;
+      /*flex-wrap: wrap;*/
+
+      /*column-gap: fill;*/
+      /*column-gap: ;*/
+      grid-template-columns:repeat(auto-fit, minmax(min(300px, 40vw),auto));
+      /*width:200%;*/
+      width:auto;
+      height: auto;
+      justify-items: center;
+      /*justify-content: space-between;*/
+      /*align-content; space-around;*/
+      /*padding-left:-10px;
+      padding-right:-10px;*/
+      /*grid-auto-columns: minmax(300px,auto);*/
+      /*grid-auto-rows: minmax(164px,auto);*/
+      /*justify-content: center;*/
+      /*align-content: center;*/
+    }
+
+    #contentGrid > a {
+      /*object-fit: fill;*/
+      /*margin-right:2.5vw;
+      margin-left:2.5vw;*/
+      /*margin: 2.5vw;*/
+      /*border: 1px green solid;*/
+      font-family: 'Raleway', sans-serif;
+      font-size: min(6vh,5vw) ;
+      font-weight:400;
+      /*width: 300px;*/
+      width: min(300px, 40vw);
+
+      text-decoration: none;
+      color: black;
+      /*justify-self: center;*/
+
+      /*box-shadow: 0px 0px 100px 10px;*/
+    }
+
+
+    #contentGrid > a > div{
+      box-shadow: 0px 0px min(10vh,10vw) min(2vw,2vh) rgba(0, 0, 0, 0.8);
+      /*may need to include webkit and moz for box shadow*/
+      border-radius: 0.5rem;
+      /*background: url('gridd.png');*/
+      background-size: min(300px, 40vw) min(164px, 21.9vw);
+      display: flex; 
+      display:-webkit-flex;
+     /* width: 300px;
+      height:164px;*/
+      width: min(300px, 40vw);
+      height: min(164px,21.9vw);
+    }
+
+    #contentGrid > a > p {
+      margin-bottom:0.5rem;
+      margin-top: 1rem;
+      text-align: center;
+      /*justify-self: center;*/
+    }
+
+/*    #contentGrid > div > p {
+      margin-bottom:0;
+      margin-top: 1rem;
+      text-align: center;
+      
+    }*/
+
+    .disclaimer{
+        font-size: min(3vh, 2vw);
+    }
+
+    #gridRunner {
+      background: url('images/gridd.png');
+    }
+
+    #studioRoom {
+      background: url('images/studio.png');
+    }
+
+    #drawer {
+      background: url('images/169drawing.png');
+    }
+
+    /*#space {
+      background: url('images/space.png');
+    }*/
+
+    #cactusCouch {
+    	background: url('images/cactusCouch.png')
+    }
+
+    #eclipse {
+      background: url('images/world.png');
+    }
+
+    #parti {
+      background: url('images/parti.jpg');
+    }
+
+    #tunnel {
+      background: url("images/tunnel.jpg");
+    }
+
+    #dots {
+      background: url("images/dots.png");
+    }
+
+    #mocap {
+      background: url("images/mocap.png");
+    }
+

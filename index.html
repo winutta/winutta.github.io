@@ -13,391 +13,10 @@
 	
 	<script data-ad-client="ca-pub-8305041882060873" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-	<!-- <link rel = "stylesheet" type = "text/css" href = "style3.css"> -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Caveat|Pacifico|Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200&family=Open+Sans:wght@300&family=Roboto+Slab&display=swap" rel="stylesheet">
-  <style>
-
-
-    * {
-      -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-         -khtml-user-select: none; /* Konqueror HTML */
-           -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; /* Non-prefixed version, currently
-                                      supported by Chrome and Opera */
-
-      /*box-sizing: border-box;*/
-    }
-
-    html{
-      overflow-x:hidden;
-      /*overflow-y:visible;*/
-    }
-
-    html, body {
-      /*position:absolute;*/
-      display:block;
-      margin: 0;
-      padding: 0;
-      /*width:100vw;*/
-      height:100%;
-      
-      /*overflow:none;*/
-      /*scroll-margin: 50px 0 0 50px;*/
-      /*overflow-y:hidden;*/
-      position: static;
-       /*border: 1px solid #666666;   */
-    }
-
-    canvas {
-      display: block;
-      position: absolute;
-      padding:0;
-      margin:0;
-      left:0px;
-      top: 0px;
-      /*border: 1px solid red;*/
-      height:100vh;
-      z-index: -100;
-    }
-
-    .container{
-      /*border: 1px orange solid;*/
-      padding:0;
-      margin:0;
-      z-index:1;
-      width:100%;
-      height:100%;
-    }
-
-    .wrapper{
-      /*border: 1px orange solid;*/
-      display:grid;
-      column-gap: 0.5em;
-      row-gap: 0.5em;
-    }
-
-    #header{
-      /*border: 1px blue solid;*/
-      background-color: black;
-      grid-template-columns: auto 0.95fr auto;
-      /*width:200%;*/
-      width:100vw;
-      height: 15vh;
-    }
-
-    #header >div {
-      color: white;
-      padding:0;
-      margin:0;
-      /*border: 1px red solid;*/
-    }
-
-    .dot {
-      display:-webkit-flex;
-      display:flex;
-      -webkit-justify-content:flex-end;
-      justify-content: flex-end;
-      -webkit-align-items: flex-end;
-      align-items: flex-end;
-      /*border: 1px green solid;  */
-    }
-
-    .cornerImage{
-
-
-      /*border: 1px green solid;  */
-      -webkit-flex: 0 1 auto;
-      flex: 0 1 auto;
-      position:relative;
-      bottom:10%;
-      background: url('images/swirl.jpg');
-      background-size: 100% 100%;
-      height: min(9vh, 9vw);
-      width: min(16.5vh, 16.5vw);
-
-    }
-
-
-    .tText {
-      /*border: 1px green solid;  */
-      display:-webkit-flex;
-      display:flex;
-      justify-content: center;
-      -webkit-justify-content:center;
-      -webkit-align-items: flex-end;
-      align-items: flex-end;
-      font-weight:100;
-      position:relative;
-      /*left:50%;*/
-      /*-webkit-transform: translate(-50%,0%);*/
-      /*transform: translate(-50%,0%);*/
-      text-decoration: none;
-      
-    }
-
-    #t1 {
-      /*border: 1px red solid; */
-      /*-webkit-flex: 0;*/
-      -webkit-flex: 0 1 auto;
-      flex: 0 1 auto;
-      line-height: 80%;
-      position:relative;
-      bottom:10%;
-      font-size: min(15vh,25vw);
-      /*font-family: 'Caveat', cursive;*/
-      /*font-family: Arial;*/
-      font-family: 'Open Sans', sans-serif; 
-      color: white;
-    }
-
-    #t2 {
-      /*border: 1px red solid;*/
-      /*-webkit-flex: 0;*/
-      -webkit-flex: 0 1 auto;
-      flex: 0 1 auto;
-      position:relative;
-      bottom:10%;
-      line-height: 100%;
-
-      /*min(10vh,6vw)*/
-      font-size: min(10vh, 6vw);
-      /*font-family: 'Pacifico', cursive;*/
-      font-family: 'Raleway', sans-serif;
-      font-weight: 400;
-      color: white;
-    }
-
-    .menuText{
-      
-      /*border: 1px green solid;  */
-      -webkit-flex: 0 1 auto;
-      flex: 0 1 auto;
-      position:relative;
-      bottom:10%;
-      line-height: 100%;
-      font-size: 8vh;
-      font-family: 'Raleway', sans-serif;
-    }
-
-    .menu{
-      /*border: 1px red solid;*/
-      display:flex;
-      display:-webkit-flex;
-      -webkit-align-self: flex-end;
-      align-self: flex-end;
-    }
-
-    .menu ul {
-      /*-webkit-flex: 0;*/
-      -webkit-flex: 0 1 auto;
-      flex: 0 1 auto;
-      /*position:relative;*/
-      display: none;
-      position: absolute;
-      padding: 0;
-      margin:0;
-      top: 15vh;
-      width:15vw;
-      right:0%;
-      background-color: black;
-      border-bottom-left-radius: 0.5rem;
-
-    }
-
-    .menu ul a{
-      text-decoration: none;
-      color: white;
-      font-family: 'Raleway', sans-serif;
-      position:relative;
-      left:10%;
-    }
-
-    .menu ul li{
-      /*float: left; */
-      /*position:relative;*/
-      /*left:10%;*/
-      list-style:none;
-      /*position: relative;*/
-    }
-
-    .menu ul li:hover {
-      background-color: #484848;
-      border-bottom-left-radius: 0.5rem;
-    }
-    
-    .menu:hover ul{
-      display: block;
-    }
-    
-
-    .information{
-      /*border: 1px red solid;*/
-      /*font-size:10vh;*/
-     /* position: relative;*/
-      /*top:85%;*/
-      width: 100vw;
-      height:auto;
-      font-family: 'Raleway', sans-serif;
-      font-weight:200;
-    }
-
-    .information > p{
-      overflow: auto;
-      margin-top: 2rem;
-      /*margin-bottom:0;*/
-      /*border: 1px green solid;*/
-      padding-left:5vw;
-      padding-right:5vw;
-      font-weight:400;
-      /*background:white;*/
-      
-      background-size: cover;
-      /*box-shadow:  0px 0px 10px 10px white,0px 0px 10px 10px white inset;*/
-    }
-
-
-/*    .information > p:before{
-      content: "";
-      position: fixed;
-      left: 0;
-      right: 0;
-      filter:blur(8px);
-      background:white;
-      background-size: contain;
-      width:100%;
-      height:10%;
-      z-index: -1;
-    }*/
-
-    #tagline {
-      font-size: min(10vh,6vw);
-    }
-
-    #message {
-      font-size: min(6vh,4vw);
-    }
-
-    #contentGrid{
-      /*border: 1px red solid;*/
-      display:grid;
-      margin-left:5vw;
-      margin-right:5vw;
-      padding:none;
-      /*flex-wrap: wrap;*/
-
-      /*column-gap: fill;*/
-      /*column-gap: ;*/
-      grid-template-columns:repeat(auto-fit, minmax(min(300px, 40vw),auto));
-      /*width:200%;*/
-      width:auto;
-      height: auto;
-      justify-items: center;
-      /*justify-content: space-between;*/
-      /*align-content; space-around;*/
-      /*padding-left:-10px;
-      padding-right:-10px;*/
-      /*grid-auto-columns: minmax(300px,auto);*/
-      /*grid-auto-rows: minmax(164px,auto);*/
-      /*justify-content: center;*/
-      /*align-content: center;*/
-    }
-
-    #contentGrid > a {
-      /*object-fit: fill;*/
-      /*margin-right:2.5vw;
-      margin-left:2.5vw;*/
-      /*margin: 2.5vw;*/
-      /*border: 1px green solid;*/
-      font-family: 'Raleway', sans-serif;
-      font-size: min(6vh,5vw) ;
-      font-weight:400;
-      /*width: 300px;*/
-      width: min(300px, 40vw);
-
-      text-decoration: none;
-      color: black;
-      /*justify-self: center;*/
-
-      /*box-shadow: 0px 0px 100px 10px;*/
-    }
-
-
-    #contentGrid > a > div{
-      box-shadow: 0px 0px min(10vh,10vw) min(2vw,2vh) rgba(0, 0, 0, 0.8);
-      /*may need to include webkit and moz for box shadow*/
-      border-radius: 0.5rem;
-      /*background: url('gridd.png');*/
-      background-size: min(300px, 40vw) min(164px, 21.9vw);
-      display: flex; 
-      display:-webkit-flex;
-     /* width: 300px;
-      height:164px;*/
-      width: min(300px, 40vw);
-      height: min(164px,21.9vw);
-    }
-
-    #contentGrid > a > p {
-      margin-bottom:0.5rem;
-      margin-top: 1rem;
-      text-align: center;
-      /*justify-self: center;*/
-    }
-
-/*    #contentGrid > div > p {
-      margin-bottom:0;
-      margin-top: 1rem;
-      text-align: center;
-      
-    }*/
-
-    #gridRunner {
-      background: url('images/gridd.png');
-    }
-
-    #studioRoom {
-      background: url('images/studio.png');
-    }
-
-    #drawer {
-      background: url('images/169drawing.png');
-    }
-
-    /*#space {
-      background: url('images/space.png');
-    }*/
-
-    #cactusCouch {
-    	background: url('images/cactusCouch.png')
-    }
-
-    #eclipse {
-      background: url('images/world.png');
-    }
-
-    #parti {
-      background: url('images/parti.jpg');
-    }
-
-    #tunnel {
-      background: url("images/tunnel.jpg");
-    }
-
-    #dots {
-      background: url("images/dots.png");
-    }
-
-    #mocap {
-      background: url("images/mocap.png");
-    }
-
-
-
-
-
-  </style>
+  <link type="text/css" rel="stylesheet" href="main.css">
 	<meta charset = "utf-8"/>
 	<script src = "three.min.js"></script>
 	
@@ -408,23 +27,23 @@
   <div class = "container">
 
     <div class = wrapper id = "header">
-        <a href = "https://winutta.github.io/" class = "tText">
-          <span id = "t1"></span><span id = "t2">Will Nutter</span>
-        </a>
-        <div class = "dot">
-          <div class = "cornerImage">  
+        <div href = "https://winutta.github.io/" class = "tText">
+          <a href = "https://winutta.github.io/" id = "link">
+            <!-- <span id="t1">Creative Dev</span> -->
+            <span id = "t2">Will Nutter</span>
+          </a>
+          <!-- <span id = "t2">Will Nutter</span> -->
         </div>
-     </div>
 
-      <div class = "menu" id = "menu">
-        <div class = "menuText">
-          menu
+        <div class = "menu" id = "menu">
+          <div class = "menuText">
+            menu
+          </div>
+          <ul>
+            <li><a href = "https://www.instagram.com/lablrvisuals/?hl=en" target="_blank">Instagram</a></li>
+            <li><a href = "https://paypal.me/lablrvisuals"  target="_blank">Sponsor My Art</a></il>
+          </ul> 
         </div>
-        <ul>
-          <li><a href = "https://www.instagram.com/lablrvisuals/?hl=en" target="_blank">Instagram</a></li>
-          <li><a href = "https://paypal.me/lablrvisuals"  target="_blank">Sponsor My Art</a></il>
-        </ul> 
-      </div>
     </div> 
 
 
@@ -443,14 +62,17 @@
 		<a href = "https://winutta.github.io/parti/">
 		  <div id = "parti"></div>
 		  <p>Parti: a Particle Simulator</p>
+      <p class="disclaimer">(No Mobile Device Support)</p>
 		</a>
     <a href = "https://winutta.github.io/manObf/">
       <div id = "mocap"></div>
       <p>Motion Capture Booth</p>
+      <p class="disclaimer">(Lim. Mobile Device Support)</p>
     </a>
 		<a href = "https://winutta.github.io/dots/">
 		  <div id = "dots"></div>
-		  <p>Pointillism Demo</p>
+		  <p>Pointillism Demo </p>
+      <p class="disclaimer">(No Mobile Device Support)</p>
 		</a>
 		<a href = "https://winutta.github.io/tunnel/">
 		  <div id = "tunnel"></div>
@@ -460,19 +82,14 @@
 		  <div id = "drawer"></div>
 		  <p>Drawing Tool</p>
 		</a>
-      	<a href = "https://winutta.github.io/gridd/">
-      	  <div id = "gridRunner"></div>
-      	  <p>3D Noise Visualizer</p>
-      	</a>
-      	<a href = "https://winutta.github.io/studio/">
-      	  <div id = "studioRoom"></div>
-      	  <p>Virtual Art Lab</p>
-      	</a>
-
-      	<a href = "https://winutta.github.io/eclipse/">
-      	  <div id = "eclipse"></div>
-      	  <p>Eclipse Simulator</p>
-      	</a>    
+    <a href = "https://winutta.github.io/gridd/">
+      <div id = "gridRunner"></div>
+      <p>3D Noise Visualizer</p>
+    </a>
+    <a href = "https://winutta.github.io/eclipse/">
+      <div id = "eclipse"></div>
+      <p>Eclipse Simulator</p>
+    </a>    
     </div>
 
   </div>
