@@ -195,6 +195,13 @@
       background-color: #484848;
       border-bottom-left-radius: 0.5rem;
     }
+
+
+
+    .clickedMenu {
+      /* background-color: #484848; */
+      display: block !important;
+    }
     
     .menu:hover ul, .menu:active ul{
       display: block;

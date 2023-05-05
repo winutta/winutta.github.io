@@ -11,6 +11,36 @@ function main(){
 	// console.log(document.body.scrollWidth,document.body.scrollWidth);
 	renderer.setSize(width,height);
 	renderer.setClearColor(0xE88D27,1);// a nice burnt orange color
+
+
+	const menuClick = document.getElementById("menuClick");
+	const menuList = document.getElementById("menuList");
+
+	// menuClick.onclick = function(event){
+	// 	// event.stopPropagation();
+	// 	console.log("click");
+
+	// 	// if (!event.target
+	// 	// menuList.classList.add("clickedMenu");
+	// 	console.log(menuList);
+	// }
+
+	window.addEventListener("click",(e)=>{
+		console.log(e.target);
+		console.log(menuList);
+		if(e.target == menuClick){
+			// console.log("menu");
+			menuList.classList.add("clickedMenu");
+		} else {
+			menuList.classList.remove("clickedMenu");
+		}
+	})
+
+	menuClick.addEventListener("focusout",()=>{
+
+		menuList.classList.remove("clickedMenu");
+	});
+
 	// const width = window.innerWidth;
 	const scene = new THREE.Scene();
 
