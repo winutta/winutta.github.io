@@ -332,6 +332,10 @@
         font-size: min(3vh, 2vw);
     }
 
+    #shoesDemo {
+      background: url("images/shoe.png");
+    }
+
     #gridRunner {
       background: url('images/gridd.png');
     }
