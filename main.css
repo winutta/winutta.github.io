@@ -418,3 +418,12 @@ p {
       background: url("images/mocap.png");
     }
 
+
+    /* Hide mobile link by default (desktop first) */
+    .mobile-link { display: none; }
+
+    /* When screen is small (iPhone/Mobile), show mobile link, hide desktop */
+    @media only screen and (max-width: 767px) {
+        .mobile-link { display: inline; }
+        .desktop-link { display: none; }
+    }
