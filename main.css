@@ -242,7 +242,7 @@
       padding-left:5vw;
       padding-right:5vw;
       font-weight:400;
-      font-size: min(3vh,1.5vw);
+      font-size: min(3vh,3vw);
       /*background:white;*/
       /* font-size:  */
       
@@ -261,7 +261,7 @@ p {
     }
 
     #message {
-      font-size: min(6vh,3vw);
+      font-size: min(6vh,4.5vw);
     }
 
     #contentGrid{
@@ -334,12 +334,13 @@ p {
 
     #contentGrid > a > p.disclaimer {
       margin-top: 0.0rem;
-      font-size: min(3vh, 2vw);
+      margin-bottom:1rem;
+      font-size: min(3vh, 3vw);
     }
 
     #contentGrid > a > p.disclaimer2 {
       margin-top: 0.0rem;
-      font-size: min(1.5vh, 1vw);
+      font-size: min(1.5vh, 1.5vw);
     }
 
     /* #contentGrid > a > p.note {
