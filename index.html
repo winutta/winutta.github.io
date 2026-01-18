@@ -48,59 +48,89 @@
 
 
     <div class = "information">
-        <p id = "tagline">Project Portfolio</p>
+        <!-- <p id = "tagline">Work Portfolio</p> -->
         <p id = "message">
-          Featured Skills:<br> <br> Javascript, Three.js, p5.js, GLSL Shaders, Vector and Physics Math, Motion Capture Animation, 3D Model and Materials Pipeline, and more...
+          <b>Real-time 3D Engineer</b><br> producing interactive 3D experiences under real-world constraints
+        </p>
+        <p>Featured Skills:<br> Javascript and Three.js/WebGL ,  GLSL/HLSL Shaders , 3D Modeling and Materials Pipeline (Blender/Three.js), Applied Math, C# with MonoGame , and more...</p>
+        <p id = "message">
+          Production Projects
         </p>
     </div>
-
     <div class = "wrapper" id = "contentGrid">
+      <a href = "https://store.steampowered.com/app/1895130/Darzas_Dominion/">
+        <div id = "darzas"></div>
+        <p>MMO Graphics</p>
+        <p class="disclaimer">Game Systems and Bug Fixes : Darza’s Dominion </p>
+      </a>
+      <a href = "https://subvrsive.com/project/the-coca-cola-company-marvel-the-heroes-on-package-experience">
+        <div id = "cocacola"></div>
+        <p>AR Marketing</p>
+        <p class="disclaimer">3D Web Assets : Marvel x Coca-Cola</p>
+      </a>
     <a href = "https://renderapp3-private-upload.vercel.app/">
 		  <div id = "caterham"></div>
-		  <p>Caterham Car Configurator</p>
-		</a>
-    <a href = "https://winutta.github.io/cactuscouch/">
-		  <div id = "cactusCouch"></div>
-		  <p>3D Demo Scene</p>
-		</a>
-		<a href = "https://winutta.github.io/parti/">
-		  <div id = "parti"></div>
-		  <p>Parti: a Particle Simulator</p>
-      <!-- <p class="disclaimer">(No Mobile Device Support)</p> -->
+		  <p>Car Configurator</p>
+      <p class="disclaimer">Custom Shaders / TAA : Renderapp</p>
 		</a>
     <a href = "https://winutta.github.io/manObf/">
       <div id = "mocap"></div>
-      <p>Motion Capture Booth</p>
-      <p class="disclaimer">(Desktop + Android Device Support)</p>
+      <p>MoCap Animation</p>
+      <p class="disclaimer">Character Animations : </p>
+      <p class="disclaimer2">for Desktop + Android</p>
     </a>
-    <a href="https://winutta.github.io/shoes_demo/">
-      <div id="shoesDemo"></div>
-      <p>Shoe Demo</p>
-    </a>
-		<a href = "https://winutta.github.io/dots/">
-		  <div id = "dots"></div>
-		  <p>Pointillism Demo </p>
-      <!-- <p class="disclaimer">(No Mobile Device Support)</p> -->
-		</a>
-		<a href = "https://winutta.github.io/tunnel/">
-		  <div id = "tunnel"></div>
-		  <p>Particle Tunnel</p>
-		</a>
-		<a href = "https://winutta.github.io/drawer/">
-		  <div id = "drawer"></div>
-		  <p>Drawing Tool</p>
-		</a>
-    <a href = "https://winutta.github.io/gridd/">
-      <div id = "gridRunner"></div>
-      <p>3D Noise Visualizer</p>
-    </a>
-    <a href = "https://winutta.github.io/eclipse/">
-      <div id = "eclipse"></div>
-      <p>Eclipse Simulator</p>
-    </a>    
     </div>
 
+    <div class = "information">
+      <p id = "message">
+        Demos
+      </p>
+    </div>
+
+
+    <div class = "wrapper" id = "contentGrid">
+      <a href = "https://winutta.github.io/cactuscouch/">
+        <div id = "cactusCouch"></div>
+        <p>3D Demo Scene</p>
+        <p class="disclaimer">A Vertex Shader Scene</p>
+      </a>
+      <a href = "https://winutta.github.io/parti/">
+        <div id = "parti"></div>
+        <p>Parti</p>
+        <p class="disclaimer">Simulating Many Points</p>
+      </a>
+      <a href="https://winutta.github.io/shoes_demo/">
+        <div id="shoesDemo"></div>
+        <p>Nike Showroom</p>
+        <p class="disclaimer">Camera Animation</p>
+      </a>
+      <a href = "https://winutta.github.io/dots/">
+        <div id = "dots"></div>
+        <p>Pointillism Art</p>
+        <!-- <p class="disclaimer">(No Mobile Device Support)</p> -->
+      </a>
+      <a href = "https://winutta.github.io/tunnel/">
+        <div id = "tunnel"></div>
+        <p>Particle Tunnel</p>
+      </a>
+      <a href = "https://winutta.github.io/drawer/">
+        <div id = "drawer"></div>
+        <p>Drawing Tool</p>
+      </a>
+      <a href = "https://winutta.github.io/gridd/">
+        <div id = "gridRunner"></div>
+        <p>3D Noise Visualizer</p>
+      </a>
+      <a href = "https://winutta.github.io/eclipse/">
+        <div id = "eclipse"></div>
+        <p>Eclipse Simulator</p>
+      </a>    
+    
+  
   </div>
+  </div>
+
+  
 
 
 </body>
@@ -129,7 +159,7 @@
     
 
    void main() {   
-		float speed = 0.0001;
+		float speed = 0.000001;
 		float scale = 0.002;
 		vec2 p = (gl_FragCoord.xy/res.xy - vec2(0.5))*2.0;
     vec2 p2 = gl_FragCoord.xy/res.xy;
@@ -146,12 +176,14 @@
 
       float l = smoothstep(0.0,1.,length(p2-M2));
 
-      p += (1.-l)*(p2-M2)/(0.2 + l*25.);
+      //p += (1.-l)*(p2-M2)/(0.2 + l*25.);
 		//p.x += iTime/2.;
 
+    float timeUse = iTime + 54./speed;
+
 		for(int i=1; i<10; i++){
-		    p.x+=0.3/float(i)*sin(float(i)*3.*p.y+iTime*speed*1.)+iTime*speed*0.2;
-		    p.y+=0.3/float(i)*cos(float(i)*3.*p.x+iTime*speed*1.);
+		    p.x+=0.3/float(i)*sin(float(i)*3.*p.y+timeUse*speed*1.)+iTime*speed*0.2;
+		    p.y+=0.3/float(i)*cos(float(i)*3.*p.x+timeUse*speed*1.);
 		}
 		//p.xy += iTime*10.;
 		    
