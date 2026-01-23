@@ -427,3 +427,7 @@ p {
         .mobile-link { display: inline; }
         .desktop-link { display: none; }
     }
+
+    .textShadow{
+      text-shadow: 2px 2px 2px #96b0c8;
+    }
